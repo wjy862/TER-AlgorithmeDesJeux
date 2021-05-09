@@ -20,12 +20,10 @@ struct list_Ty
 };
 
 int nbr_Vertices;
-int additionalVertices = 0;
-int *ptr;
 struct list_Ty *list;
 struct list_Ty *l;
 
-struct array_Ty *CreateMatrix(int *f)
+struct array_Ty *CreateMatrix()
 {
 
     struct array_Ty *Matrix;
@@ -34,54 +32,67 @@ struct array_Ty *CreateMatrix(int *f)
 
     for (int i = 0; i < nbr_Vertices; i++)
     {
-       
+
         Matrix[i].sommet = i;
         Matrix[i].list = NULL;
         list = malloc(sizeof(struct list_Ty));
 
-
         for (int j = 0; j < nbr_Vertices; j++)
         {
-             int n = rand() % 2;
-            if (!Matrix[i].list)
-                Matrix[i].list = list;
+            if (j > i)
+            {
+                int n = rand() % 2;
+                if (!Matrix[i].list)
+                    Matrix[i].list = list;
+                else
+                {
+                    list->next = malloc(sizeof(struct list_Ty));
+                    list = list->next;
+                }
+
+                list->sommet = j;
+                if (list->sommet == i)
+                    list->valeur = 0;
+                else
+                {
+                    list->valeur = n;
+                }
+                list->next = NULL;
+            }
             else
             {
-                list->next = malloc(sizeof(struct list_Ty));
-                list = list->next;
+                if (!Matrix[i].list)
+                    Matrix[i].list = list;
+                else
+                {
+                    list->next = malloc(sizeof(struct list_Ty));
+                    list = list->next;
+                }
+                list->sommet = j;
+                if (list->sommet == i)
+                    list->valeur = 0;
+                else
+                {
+                    list->valeur = 0;
+                }
+                list->next = NULL;
             }
-            list->sommet = j;
-            list->valeur = n;
-            list->next = NULL;
         }
     }
     return Matrix;
 }
 
-void PrintVectorSpecifique(array_Ty *matrix, int indice)
-{
-    l = matrix[indice].list;
-    printf("|i|-> %d -> \t", matrix[indice].sommet);
-    while (l != NULL)
-    {
-        printf(" %d , %0.2f", l->sommet, l->valeur);
-        l = l->next;
-    }
-    printf("\n");
-}
-
 void PrintMatrix(array_Ty *matrix, int size)
 {
-
     int i = 0;
-    while (matrix[i].sommet < size-1)
+    while (matrix[i].sommet < size)
     {
         l = matrix[i].list;
-        printf("\n-sommet_:%d-\n", i);
-        int a=0;
-        while (a < size-1)
+        printf("\nsommet :%d\n", i);
+        int a = 0;
+        while (a < size)
         {
-            printf("|vo-:%d->val-:%d|\t", l->sommet, l->valeur);
+            printf("%d->%d\t", l->sommet, l->valeur);
             l = l->next;
             a++;
         }
@@ -90,23 +101,37 @@ void PrintMatrix(array_Ty *matrix, int size)
     }
 }
 
-void PrintVector(float *vct, int size)
+int RechercherValeurdeMatrix(array_Ty *matrix, int sommet, int position_file)
+{   int val=0;
+    l = matrix[position_file].list;
+    for(int i=0;i<=sommet;i++)printf("heyyy!");l=l->next;
+    
+    val=l->valeur;
+    return val;
+}
+
+void Completer_Matrice(array_Ty *matrix, int size)
 {
     for (int i = 0; i < size; i++)
     {
-        printf("%f - ", vct[i]);
+        l=matrix[i].list;
+        for (int j = l->sommet; j < size; j++)
+        {
+            //printf("\ni:|%d->j:%d \n", i, l->sommet);
+            printf("\ni:|%d->j:%d == %d\n", i, l->sommet, RechercherValeurdeMatrix(matrix, j, i));
+            l=l->next;
+        }
     }
-    printf("\n");
+  
 }
 
-
-int main()
+void main()
 {
-    nbr_Vertices = rand();
-    printf("nb_sommets:%d",nbr_Vertices);
-    int *f = malloc(nbr_Vertices * sizeof(int));
-    array_Ty *Matrix = CreateMatrix(f);
+    nbr_Vertices = 5;
+    printf("nb_sommets:%d", nbr_Vertices);
+    array_Ty *Matrix = CreateMatrix();
+    PrintMatrix(Matrix, nbr_Vertices);
 
-    PrintMatrix(Matrix,nbr_Vertices);
-    return 0;
+    printf("--------completer Matrice----");
+    Completer_Matrice(Matrix, nbr_Vertices);
 }
