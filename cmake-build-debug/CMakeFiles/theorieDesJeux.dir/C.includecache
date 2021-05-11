@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/CLionProjects/theorieDesJeux/main.c
+sommet.h
+/home/ubuntu/CLionProjects/theorieDesJeux/sommet.h
+
+/home/ubuntu/CLionProjects/theorieDesJeux/sommet.h
+stdio.h
+/home/ubuntu/CLionProjects/theorieDesJeux/stdio.h
+stdlib.h
+/home/ubuntu/CLionProjects/theorieDesJeux/stdlib.h
+math.h
+/home/ubuntu/CLionProjects/theorieDesJeux/math.h
+time.h
+-
+
