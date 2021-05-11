@@ -12,9 +12,8 @@ int matrice[I][J]={
 
 int main() {
     Arbitre pArbitre=setArbitre(matrice);
-    //getCouleur(pArbitre->listeSommet[0]);
     Clorier(pArbitre);
-    printf("Test de l'initialisation du setArbitre\n");
+    printf("Debut test de l'initialisation du setArbitre\n");
     printf("%ld\n", sizeof(pArbitre));//8
     for (int k = 0; k < I; k++) {
         for (int m = 0; m < J; m++) {
@@ -29,6 +28,6 @@ int main() {
             printf("*(pArbitre->listeSommet[%d]->vecteurStochastique %d): %lf\n", i, y,*(pArbitre->listeSommet[i]->vecteurStochastique + y));
         }
     }
-    printf("fin Test de l'initialisation du setArbitre\n");
+    printf("Fin du test de l'initialisation du setArbitre\n");
     return 0;
 }
