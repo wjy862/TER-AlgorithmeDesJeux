@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/ubuntu/CLionProjects/theorieDesJeux/main.c
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/main.c
 sommet.h
-/home/ubuntu/CLionProjects/theorieDesJeux/sommet.h
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/sommet.h
 
-/home/ubuntu/CLionProjects/theorieDesJeux/sommet.h
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/sommet.h
 stdio.h
-/home/ubuntu/CLionProjects/theorieDesJeux/stdio.h
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/stdio.h
 stdlib.h
-/home/ubuntu/CLionProjects/theorieDesJeux/stdlib.h
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/stdlib.h
 math.h
-/home/ubuntu/CLionProjects/theorieDesJeux/math.h
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/math.h
 time.h
 -
 

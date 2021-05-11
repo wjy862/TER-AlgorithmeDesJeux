@@ -1,4 +1,10 @@
-/home/ubuntu/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6693.114/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/ubuntu/CLionProjects/theorieDesJeux
+/home/ubuntu/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6693.114/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux
+-- The C compiler identification is GNU 9.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/ubuntu/CLionProjects/theorieDesJeux/cmake-build-debug
+-- Build files have been written to: /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/cmake-build-debug

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/ubuntu/CLionProjects/theorieDesJeux/main.c" "/home/ubuntu/CLionProjects/theorieDesJeux/cmake-build-debug/CMakeFiles/theorieDesJeux.dir/main.c.o"
+  "/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/main.c" "/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/cmake-build-debug/CMakeFiles/theorieDesJeux.dir/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
