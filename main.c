@@ -29,7 +29,7 @@ int main() {
     Arbitre pArbitre=setArbitre(tailleSommet,tailleArret,matrice);
 
     /*Colorier le graphe selon la vecteur stochastique des sommets*/
-    Clorier(pArbitre);
+    Colorier(pArbitre);
 
     /*calculer des conflit de chaque sommet*/
     calculerArretEtConflit(pArbitre);

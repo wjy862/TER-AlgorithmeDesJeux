@@ -168,7 +168,7 @@ int getCouleur(Sommet pSommet){
     }
     exit(-1);;
 }
-void Clorier(Arbitre pArbitre){
+void Colorier(Arbitre pArbitre){
     printf("\nbeginning of colorier\n");
     for(int a = 0; a < pArbitre->tailleSommet; a++){
         getCouleur(pArbitre->listeSommet[a]);
@@ -183,8 +183,7 @@ int isConflit(Sommet unSommet,Sommet autreSommet){
 void calculerArretEtConflit(Arbitre pArbitre){
     printf("\nbeginning of calculerArretEtConflit\n");
     for(int b= 0; b<pArbitre->tailleSommet; b++){
-        int countArrets=0;
-        int countConflits=0;
+        int countArrets=0,countConflits=0;
         for(int c= 0; c< pArbitre->tailleArret; c++){
             if(*(pArbitre->matrice+b*pArbitre->tailleArret+c)==1) {
                 countArrets++;
