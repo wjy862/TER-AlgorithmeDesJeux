@@ -133,12 +133,12 @@ void PrintMatrix(array_Ty *matrix, int size)
 
 int RechercherValeurdeMatrix(array_Ty *matrix, int sommet, int position_file)
 {
-    l = malloc(sizeof(struct list_Ty));
+    //l = malloc(sizeof(struct list_Ty));
     int val = 0;
     l = matrix[position_file].list;
     for (int i = 0; i < sommet; i++)
     {
-        l->next = malloc(sizeof(struct list_Ty));            
+        //l->next = malloc(sizeof(struct list_Ty));            
         l = l->next;
         val = l->valeur;
     }
@@ -201,8 +201,8 @@ int validationceroxcolonne(array_Ty *matrix2, int file, int nbr_vertices)
 
 void FairCopiedeMatrix(array_Ty *matrix1, array_Ty *matrix2, int nbr_vertices)
 {   
-    l1 = malloc(sizeof(struct list_Ty));
-    l2 = malloc(sizeof(struct list_Ty));
+    //l1 = malloc(sizeof(struct list_Ty));
+    //l2 = malloc(sizeof(struct list_Ty));
     printf("\n Matrice du graphe \n");
     for (int i = 0; i < nbr_vertices; i++)
     {
@@ -213,23 +213,23 @@ void FairCopiedeMatrix(array_Ty *matrix1, array_Ty *matrix2, int nbr_vertices)
             if (i < j)
             {
                 l2->valeur = l1->valeur;
-                l1->next = malloc(sizeof(struct list_Ty));
-                l2->next = malloc(sizeof(struct list_Ty));
+                //l1->next = malloc(sizeof(struct list_Ty));
+                //l2->next = malloc(sizeof(struct list_Ty));
                 l1 = l1->next;
                 l2 = l2->next;
             }
             else if (i > j)
             {
                 l2->valeur = RechercherValeurdeMatrix(matrix1, i, j);
-                l1->next = malloc(sizeof(struct list_Ty));
-                l2->next = malloc(sizeof(struct list_Ty));
+                //l1->next = malloc(sizeof(struct list_Ty));
+                //l2->next = malloc(sizeof(struct list_Ty));
                 l1 = l1->next;
                 l2 = l2->next;
             }
             else
             {
-                l1->next = malloc(sizeof(struct list_Ty));
-                l2->next = malloc(sizeof(struct list_Ty));
+                //l1->next = malloc(sizeof(struct list_Ty));
+                //l2->next = malloc(sizeof(struct list_Ty));
                 l1 = l1->next;
                 l2 = l2->next;
             }
@@ -237,7 +237,7 @@ void FairCopiedeMatrix(array_Ty *matrix1, array_Ty *matrix2, int nbr_vertices)
     }
 }
 
-struct list_Ty *Recherche_sommetsnonconnexes(array_Ty *matrix2, int nbr_vertices)
+/* struct list_Ty *Recherche_sommetsnonconnexes(array_Ty *matrix2, int nbr_vertices)
 {   
     struct list_Ty *sommets_nonconnexes;
     sommets_nonconnexes = malloc(nbr_Vertices * sizeof(*sommets_nonconnexes));
@@ -252,11 +252,11 @@ struct list_Ty *Recherche_sommetsnonconnexes(array_Ty *matrix2, int nbr_vertices
         sommets_nonconnexes = sommets_nonconnexes->next;
     }
     return sommets_nonconnexes;
-}
+} */
 
 void main()
 {
-    nbr_Vertices = 3;
+    nbr_Vertices = 7;
     printf("nb_sommets:%d\n", nbr_Vertices);
     array_Ty *Matrix1 = CreateMatrix();
     array_Ty *Matrix2 = CreateMatrix_vide();
