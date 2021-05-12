@@ -11,6 +11,7 @@
 struct Sommet{
     int index;
     double vecteurStochastique[COULEUR];
+    double benefice;
     double maxBenefice;
     double minBenefice;
     int cliqueMax;
@@ -57,9 +58,13 @@ printVecteurStochastique(int i,int y,double vecteurStochastique[COULEUR]){
            *(vecteurStochastique + y));
 }
 void printSommet(Sommet pSommet){
-    printf("pSommet->index: %d\n", pSommet->index);//5
-    printf("pSommet->couleur: %d\n", pSommet->couleur);//-1
-    printf("pSommet->nbrConflits: %d\n", pSommet->nbrConflits);//-1
+    printf("pSommet->index: %d\n", pSommet->index);
+    printf("pSommet->couleur: %d\n", pSommet->couleur);
+    printf("pSommet->nbrConflits: %d\n", pSommet->nbrConflits);
+    printf("pSommet->benefice: %d\n", pSommet->benefice);
+    printf("pSommet->maxBenefice: %d\n", pSommet->maxBenefice);
+    printf("pSommet->minBenefice: %d\n", pSommet->minBenefice);
+    printf("pSommet->cliqueMax: %d\n", pSommet->cliqueMax);
     for (int k = 0; k < COULEUR; k++) {
         pSommet->vecteurStochastique[k]=0.2;
         printf("*vecteurStochastique[%d]: %lf\n", k,*(pSommet->vecteurStochastique+k));
@@ -105,6 +110,10 @@ void setSommet(int index,Sommet listeSommet[]){
     pSommet->index=index;
     pSommet->couleur=-1;
     pSommet->nbrConflits=-1;
+    pSommet->benefice=-1;
+    pSommet->maxBenefice=0;
+    pSommet->minBenefice=0;
+    pSommet->cliqueMax=-1;
     for (int k = 0; k < COULEUR; k++) {
         pSommet->vecteurStochastique[k]=0.2;
     }

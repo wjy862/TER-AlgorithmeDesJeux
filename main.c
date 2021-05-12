@@ -1,7 +1,7 @@
-#include "sommet.h"
 #include "graphe.h"
+#include "sommet.h"
+#include "benefice.h"
 
-Arbitre *pArbitre;
 int tailleSommet=5;
 int tailleArret=5;
 int matrice[I][J]={
@@ -11,6 +11,7 @@ int matrice[I][J]={
         {0,0,1,0,1},
         {0,1,0,1,0}
 };
+int cliqueMaximale=3;
 
 
 int main() {
@@ -28,6 +29,8 @@ int main() {
     Clorier(pArbitre);
     /*calculer des conflit de chaque sommet*/
     calculerConflit(pArbitre);
+    /*calculer des bénéfice de chaque sommet*/
+    calculerBenefice(pArbitre);
     printArbitre(pArbitre);
     return 0;
 }
