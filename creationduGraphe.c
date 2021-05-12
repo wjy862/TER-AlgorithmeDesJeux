@@ -133,7 +133,7 @@ void PrintMatrix(array_Ty *matrix, int size)
 
 int RechercherValeurdeMatrix(array_Ty *matrix, int sommet, int position_file)
 {
-    //l = malloc(sizeof(struct list_Ty));
+    l = malloc(sizeof(struct list_Ty));
     int val = 0;
     l = matrix[position_file].list;
     for (int i = 0; i < sommet; i++)
@@ -173,7 +173,6 @@ int validationceroxfile(array_Ty *matrix2, int sommet, int nbr_vertices)
         {
             valnew = 1;
         }
-        l2->next = malloc(sizeof(struct list_Ty));
         l2 = l2->next;
     }
     return valnew;
@@ -190,7 +189,7 @@ int validationceroxcolonne(array_Ty *matrix2, int file, int nbr_vertices)
 
         for (int j = 0; i < file; i++)
         {
-            l2->next = malloc(sizeof(struct list_Ty));
+            //l2->next = malloc(sizeof(struct list_Ty));
             l2 = l2->next;
         }
         if (l2->valeur == 1)
@@ -251,8 +250,8 @@ struct list_Ty *Prendre_sommetsnonconnexes(array_Ty *matrix2, int nbr_vertices)
             sommets_nonconnexes->valeur = 0;
             printf("sommetnulle: %d\t", sommets_nonconnexes->sommet);
             printf("file: %d , colonne: %d \n", validationceroxfile(matrix2, i, nbr_Vertices), validationceroxcolonne(matrix2, i, nbr_Vertices));
-        }
-        sommets_nonconnexes->next = malloc(sizeof(struct list_Ty));
+        }else{printf("\nplein");}
+        
         sommets_nonconnexes = sommets_nonconnexes->next;
     }
     return sommets_nonconnexes;
@@ -260,14 +259,14 @@ struct list_Ty *Prendre_sommetsnonconnexes(array_Ty *matrix2, int nbr_vertices)
 
 void main()
 {
-    nbr_Vertices = 7;
+    nbr_Vertices = 3;
     printf("nb_sommets:%d\n", nbr_Vertices);
     array_Ty *Matrix1 = CreateMatrix();
     array_Ty *Matrix2 = CreateMatrix_vide();
     FairCopiedeMatrix(Matrix1, Matrix2, nbr_Vertices);
     PrintMatrix(Matrix2, nbr_Vertices);
-    //list_Ty *lsommets = Prendre_sommetsnonconnexes(Matrix2, nbr_Vertices);
+    list_Ty *lsosmmets = Prendre_sommetsnonconnexes(Matrix2, nbr_Vertices);
 
-    printf("file 1: %d \n", validationceroxfile(Matrix2, 0, nbr_Vertices));
-    printf("colonne 1: %d \n", validationceroxcolonne(Matrix2, 0, nbr_Vertices));
+    
+    
 }
