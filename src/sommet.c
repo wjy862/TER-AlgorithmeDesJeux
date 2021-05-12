@@ -7,43 +7,28 @@ int alea(double p)
     return tmp<=p;//si tmp<= p renvoie 1 sinon 0
 }
 
-Arbitre genererUnGraphe(int m,int d)
+void genererUnGraphe(int **matrice,int m,int d)
 {
-
-    Arbitre ar;
-    ar.listeSommet = malloc(m* sizeof(Sommet));
-    ar.matrice = malloc(m* sizeof(int*));
     int tmp = 0;
-
-    for(int i = 0;i<m;i++)
-    {
-        ar.matrice[i] = malloc(m* sizeof(int));
-        for(int j =0;j<m;j++)
-        {
-            ar.matrice[i][j] =0;
-        }
-    }
-
     for(int i =0; i< m ;i++)//genere graphe
     {
         for(int j=i; j<m;j++)
         {
             if(i == j)
             {
-                ar.matrice[i][j] = 0;                
+                matrice[i][j] = 0;                
             }
             else
             {
                 tmp= alea((double)((double)d/(double)(m-(i+1))));
-                ar.matrice[i][j] = tmp;//m = 50 et i = 0 alors proba = d/49 ;(50 - (0+1))                 
-                ar.matrice[j][i] = ar.matrice[i][j]; //si i+1 = m division par 0 mais si i = m-1 alors i = j donc ca "n'arrive pas"
+                matrice[i][j] = tmp;//m = 50 et i = 0 alors proba = d/49 ;(50 - (0+1))                 
+                matrice[j][i] = matrice[i][j]; //si i+1 = m division par 0 mais si i = m-1 alors i = j donc ca "n'arrive pas"
 
             }
         }
     }
-    return ar;
 }
-int trouverUnSousGraphe(Arbitre ar,int cpt,int m,int x,int* visiter,int max,int* final)
+int trouverUnSousGraphe(int** matrice,int cpt,int m,int x,int* visiter,int max,int* final)
 {
     //visiter[x] =1;
     int* tmp = malloc(m*sizeof(int));//creer tmp; prends les ajouts de ce sommet
@@ -54,13 +39,13 @@ int trouverUnSousGraphe(Arbitre ar,int cpt,int m,int x,int* visiter,int max,int*
     for(int i = 0;i<m;i++)
     {
 
-        if(ar.matrice[x][i] && visiter[i] == 0)//si voisin pas visité
+        if(matrice[x][i] && visiter[i] == 0)//si voisin pas visité
         {
             visiter[i] = 1;//il est visité
             tmp[i] = 1;//il est visité par ce sommet
             cpt++;
             //printf("je vais visiter: %d\n",i+1);
-            max = trouverUnSousGraphe(ar,cpt,m,i,visiter,max,final);//on parcours le voisin
+            max = trouverUnSousGraphe(matrice,cpt,m,i,visiter,max,final);//on parcours le voisin
         }
     }
     //printf("\n");
@@ -86,51 +71,52 @@ int trouverUnSousGraphe(Arbitre ar,int cpt,int m,int x,int* visiter,int max,int*
     return max;
 }
 
-Arbitre genererUnGrapheConnexe(Arbitre ar,int m,int* visiter,int* final)
+Arbitre genererUnGrapheConnexe(int** matrice,int m,int* visiter,int* final,int* cpt)
 {
     int vrai_max =0;
     int nul;
-    int cpt;
     int* tmp = malloc(m*sizeof(int)); 
             //printf("jouj\n");
     for(int i=0;i<m;i++)
     {
         //if(vrai_max == m) break;//graphe connexe
-        printf("i = %d\n",i);
+
         //if((m-i)>=vrai_max)//pas assez de sommet pour battre le max?(j'en suis pas sur du tout)
         //{
-            nul = trouverUnSousGraphe(ar,1,m,i,visiter,0,final);
+            nul = trouverUnSousGraphe(matrice,1,m,i,visiter,0,final);
         //}
         if(nul>vrai_max)
         {
             vrai_max = nul;
-            cpt = 0;
+            *cpt = 0;
             for(int j = 0;j<m;j++)
             {
                 tmp[j] = final[j];
-                if(final[j]) cpt++;
+                if(final[j]) *cpt = *cpt +1;
             }
         }
     }
-    printf("cpt = %d\n",cpt);
     Arbitre ret;
-    ret.listeSommet = malloc(cpt*sizeof(Sommet));
-    ret.matrice = malloc(cpt*sizeof(int*));
+    ret.listeSommet = malloc(*cpt*sizeof(Sommet));
+    ret.matrice = malloc(*cpt*sizeof(int*));
     {
-        for(int i =0;i<cpt;i++)
+        for(int i =0;i<*cpt;i++)
         {
-            ret.matrice[i] = malloc(cpt*sizeof(int));
+            ret.matrice[i] = malloc(m*sizeof(int));
+            for(int j =0;j<m;j++)
+            {
+                ret.matrice[i][j]=0;
+            }
         }
     }
     int compteur = 0;
     for(int i =0;i<m;i++)
     {
-        printf("%d\t",tmp[i]);
         if(tmp[i])
         {
             for(int j=0;j<m;j++)
             {
-                ret.matrice[compteur][j] = ar.matrice[i][j];
+                ret.matrice[compteur][j] = matrice[i][j];
             }
             compteur++;
         }
@@ -144,12 +130,35 @@ Arbitre genererUnGrapheConnexe(Arbitre ar,int m,int* visiter,int* final)
 int main()
 {
     int sommet = 25;
-    Arbitre test = genererUnGraphe(sommet,1);
+    int cpt = 0;
+    int ** adjacence = malloc(sommet* sizeof(int*));
+    for(int i = 0;i<sommet;i++)
+    {
+        adjacence[i] = malloc(sommet* sizeof(int));
+        for(int j =0;j<sommet;j++)
+        {
+            adjacence[i][j] =0;
+        }
+    }
+    genererUnGraphe(adjacence,sommet,1);
     int* visiter = malloc(sommet*sizeof(int));
-    //visiter[0] =1;
 
     int* final = malloc(sommet*sizeof(int));
-    Arbitre res = genererUnGrapheConnexe(test,sommet,visiter,final);
+
+    for(int i = 0;i<sommet;i++)
+    {
+        visiter[i] = 0;
+        final[i] = 0;
+    }
+    Arbitre res = genererUnGrapheConnexe(adjacence,sommet,visiter,final,&cpt);
+    for(int i=0;i<13;i++)
+    {
+        for(int j=0;j<sommet;j++)
+        {
+            printf("%d ",res.matrice[i][j]);
+        }
+        printf("\n");
+    }
     /*for(int i=0;i<sommet;i++)
     {
         for(int j=0;j<sommet;j++)
@@ -159,15 +168,24 @@ int main()
         printf("\n");
     }
     printf("\n");*/
-    //int size = (int)(sizeof(res.matrice)/sizeof(int));
-    //printf("size = %d\n",size);
-    for(int i=0;i<25;i++)
+
+
+
+
+
+    for(int i = 0;i<sommet;i++)
     {
-        for(int j=0;j<sommet;j++)
-        {
-            printf("%d ",res.matrice[i][j]);
-        }
-        printf("\n");
+        free(adjacence[i]);
     }
+
+    for(int i = 0;i<cpt;i++)
+    {
+        free(res.matrice[i]);
+    }
+    free(adjacence);
+    free(res.listeSommet);
+    free(res.matrice);
+    free(visiter);
+    free(final);
     return 0;
 }
