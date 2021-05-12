@@ -120,15 +120,14 @@ void PrintMatrix(array_Ty *matrix, int size)
     while (matrix[i].sommet < size)
     {
         l = matrix[i].list;
-        printf("\nsommet :%d\n", i);
         int a = 0;
         while (a < size)
         {
-            printf("%d->%d\t", l->sommet, l->valeur);
+            printf("%d\t", l->valeur);
             l = l->next;
             a++;
         }
-        printf("\n\n");
+        printf("\n");
         i++;
     }
 }
@@ -139,10 +138,10 @@ int RechercherValeurdeMatrix(array_Ty *matrix, int sommet, int position_file)
     l = matrix[position_file].list;
     for (int i = 0; i < sommet; i++)
     {
-         l = l->next;
-         val = l->valeur;
+        l = l->next;
+        val = l->valeur;
     }
-   
+
     return val;
 }
 
@@ -162,7 +161,7 @@ void Print_Moitie_Matrix(array_Ty *matrix, int size)
 
 void FairCopiedeMatrix(array_Ty *matrix1, array_Ty *matrix2, int nbr_vertices)
 {
-    printf("\n----------FairCopiedeMatrix6---------\n");
+    printf("\n Matrice du graphe \n");
     for (int i = 0; i < nbr_vertices; i++)
     {
         l1 = matrix1[i].list;
@@ -193,16 +192,11 @@ void FairCopiedeMatrix(array_Ty *matrix1, array_Ty *matrix2, int nbr_vertices)
 
 void main()
 {
-    nbr_Vertices = 4;
-    printf("nb_sommets:%d", nbr_Vertices);
+    nbr_Vertices = rand();
+    printf("nb_sommets:%d\n", nbr_Vertices);
     array_Ty *Matrix1 = CreateMatrix();
     array_Ty *Matrix2 = CreateMatrix_vide();
-    PrintMatrix(Matrix1, nbr_Vertices);
-    //PrintMatrix(Matrix2, nbr_Vertices);
-    printf("--------completer Matrice----");
-    //-Print_Moitie_Matrix(Matrix, nbr_Vertices);
     FairCopiedeMatrix(Matrix1, Matrix2, nbr_Vertices);
-    //-printf("\n\n\ni:|%d->j:%d == %d\n", 3, 1, RechercherValeurdeMatrix(Matrix, 3, 1));
-
-    PrintMatrix(Matrix2,nbr_Vertices);
+    PrintMatrix(Matrix2, nbr_Vertices);
+   
 }
