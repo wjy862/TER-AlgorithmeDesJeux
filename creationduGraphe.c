@@ -4,19 +4,19 @@
 typedef struct array_Ty array_Ty;
 struct array_Ty
 {
-    int sommet;
+    unsigned int sommet;
     struct list_Ty *list;
 };
 
 typedef struct list_Ty list_Ty;
 struct list_Ty
 {
-    int valeur;
-    int sommet;
+    unsigned int valeur;
+    unsigned int sommet;
     struct list_Ty *next;
 };
 
-int nbr_Vertices;
+unsigned int nbr_Vertices;
 struct list_Ty *list, *l, *l1, *l2, *sommets_nonconnexes;
 
 struct array_Ty *CreateMatrix_vide()
@@ -250,8 +250,7 @@ struct list_Ty *Prendre_sommetsnonconnexes(array_Ty *matrix2, int nbr_vertices)
             sommets_nonconnexes->valeur = 0;
             printf("sommetnulle: %d\t", sommets_nonconnexes->sommet);
             printf("file: %d , colonne: %d \n", validationceroxfile(matrix2, i, nbr_Vertices), validationceroxcolonne(matrix2, i, nbr_Vertices));
-        }else{printf("\nplein");}
-        
+        }
         sommets_nonconnexes = sommets_nonconnexes->next;
     }
     return sommets_nonconnexes;
@@ -266,7 +265,4 @@ void main()
     FairCopiedeMatrix(Matrix1, Matrix2, nbr_Vertices);
     PrintMatrix(Matrix2, nbr_Vertices);
     list_Ty *lsosmmets = Prendre_sommetsnonconnexes(Matrix2, nbr_Vertices);
-
-    
-    
 }
