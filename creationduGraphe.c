@@ -16,8 +16,8 @@ struct list_Ty
     struct list_Ty *next;
 };
 
-unsigned int nbr_Vertices;
-struct list_Ty *list, *l, *l1, *l2, *sommets_nonconnexes;
+unsigned int nbr_Vertices, taille_a_reduire_desommetsconnexes;
+struct list_Ty *list, *l, *l1, *l2, *lsommets_nonconnexes;
 
 struct array_Ty *CreateMatrix_vide()
 {
@@ -67,7 +67,7 @@ struct array_Ty *CreateMatrix()
         {
             if (j > i)
             {
-                int n = rand() % 2;
+                int n = 0; //rand() % 2;
                 if (!Matrix[i].list)
                     Matrix[i].list = list;
                 else
@@ -120,7 +120,7 @@ void PrintMatrix(array_Ty *matrix, int size)
         {
             printf("%d\t", l->valeur);
 
-            list->next = malloc(sizeof(struct list_Ty));
+            l->next = malloc(sizeof(struct list_Ty));
 
             l = l->next;
             a++;
@@ -221,33 +221,68 @@ void FairCopiedeMatrix(array_Ty *matrix1, array_Ty *matrix2, int nbr_vertices)
     }
 }
 
-struct list_Ty *Prendre_sommetsnonconnexes(array_Ty *matrix2, int nbr_vertices)
+struct array_Ty *Prendre_sommetsnonconnexes(array_Ty *matrix2, int nbr_vertices)
 {
-    sommets_nonconnexes = malloc(sizeof(struct list_Ty));
+    struct array_Ty *Matrix;
+
+    Matrix = malloc(1 * sizeof(*Matrix));
+
+    Matrix[0].sommet = 0;
+    Matrix[0].list = NULL;
+    list = malloc(sizeof(struct list_Ty));
 
     for (int i = 0; i < nbr_Vertices; i++)
     {
+        if (!Matrix[0].list)
+            Matrix[0].list = list;
+        else
+        {
+            list->next = malloc(sizeof(struct list_Ty));
+            list = list->next;
+        }
+
         if (validationceroxfile(matrix2, i, nbr_Vertices) == 0 && validationceroxcolonne(matrix2, i, nbr_Vertices) == 0)
         {
-            sommets_nonconnexes->sommet = i;
-            sommets_nonconnexes->valeur = 0;
-            
-            printf("Nulles: file: %d , colonne: %d \n", validationceroxfile(matrix2, sommets_nonconnexes->sommet, nbr_Vertices), validationceroxcolonne(matrix2, sommets_nonconnexes->sommet, nbr_Vertices));
-            sommets_nonconnexes->next = malloc(sizeof(struct list_Ty));
-            sommets_nonconnexes = sommets_nonconnexes->next;
+            list->sommet = i;
+            list->valeur = 1;
+            printf("Nulles: file: %d , colonne: %d \n", validationceroxfile(matrix2, list->sommet, nbr_Vertices), validationceroxcolonne(matrix2, list->sommet, nbr_Vertices));
+            list->next = NULL;
         }
     }
-    return sommets_nonconnexes;
+
+    return Matrix;
 }
+
+ unsigned int Nombre_Iterations_sommets_non_connexes(array_Ty *Matrix_sommets_non_connexes)
+{ 
+    l = malloc(sizeof(struct list_Ty));
+    l = matrix[0].list;
+    int counter = 0;
+        int a = 0;
+        while (a < size)
+        {
+            printf("%d\t", l->valeur);
+
+            list->next = malloc(sizeof(struct list_Ty));
+
+            l = l->next;
+            a++;
+        }
+        printf("\n");
+        counter++;
+    
+}  
 
 void main()
 {
-    nbr_Vertices = 20;
+    nbr_Vertices = 4;
     printf("nb_sommets:%d\n", nbr_Vertices);
     array_Ty *Matrix1 = CreateMatrix();
     array_Ty *Matrix2 = CreateMatrix_vide();
     FairCopiedeMatrix(Matrix1, Matrix2, nbr_Vertices);
-    //PrintMatrix(Matrix2, nbr_Vertices);
-    list_Ty *lsosmmets = Prendre_sommetsnonconnexes(Matrix2, nbr_Vertices);
+    PrintMatrix(Matrix2, nbr_Vertices);
+    array_Ty *Matrixsommetsnonconnexes = Prendre_sommetsnonconnexes(Matrix2, nbr_Vertices);
+    //taille_a_reduire_desommetsconnexes =
+    //printf("nombre: %d", Nombre_Iterations_sommets_non_connexes(Matrixsommetsnonconnexes));
     printf("\n--execution fini--");
 }
