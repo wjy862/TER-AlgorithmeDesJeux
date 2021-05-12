@@ -6,9 +6,17 @@
 
 #IncludeRegexTransform: 
 
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/graphe.h
+stdio.h
+-
+stdlib.h
+-
+
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/main.c
 sommet.h
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/sommet.h
+graphe.h
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/graphe.h
 
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/sommet.h
 stdio.h

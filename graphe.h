@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#define NBR_VERTICES 6
 typedef struct array_Ty array_Ty;
 struct array_Ty
 {
@@ -189,14 +189,14 @@ void FairCopiedeMatrix(array_Ty *matrix1, array_Ty *matrix2, int nbr_vertices)
         }
     }
 }
-
+/*
 void main()
 {
-    nbr_Vertices = rand();
+    nbr_Vertices = 4;
     printf("nb_sommets:%d\n", nbr_Vertices);
     array_Ty *Matrix1 = CreateMatrix();
     array_Ty *Matrix2 = CreateMatrix_vide();
     FairCopiedeMatrix(Matrix1, Matrix2, nbr_Vertices);
     PrintMatrix(Matrix2, nbr_Vertices);
    
-}
+}*/

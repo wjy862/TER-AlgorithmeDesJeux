@@ -4,7 +4,7 @@
 #include <time.h>
 
 
-#define I 6
+#define I 5
 #define J 5
 #define COULEUR 5
 
@@ -15,15 +15,16 @@ struct Sommet{
     double minBenefice;
     int cliqueMax;
     int couleur;
+    int nbrConflits;
 };
 typedef struct Sommet *Sommet;
 
 typedef struct Arbitre{
+    int tailleSommet;
+    int tailleArret;
     int (*matrice)[J];
     Sommet listeSommet[J];
 }*Arbitre;
-
-
 
 
 double unif() {
@@ -32,22 +33,61 @@ double unif() {
     srand((unsigned) time(NULL) + seed * seed);
     return (double)random()/((double)RAND_MAX);
 }
-int getCouleur(Sommet pSommet){
-   /* for (int i = 0; i < 1; ++i) {
-        for (int y = 0; y < COULEUR; ++y) {
-            printf("&pSommet->vecteurStochastique %d): %d\n",  y,
-                   (pSommet->vecteurStochastique + y));
-            printf("*pSommet->vecteurStochastique %d): %lf\n",  y,
-                   *(pSommet->vecteurStochastique + y));
+void printMatice(int tailleSommet,int tailleArret,int (*matrice)[J]){
+    printf("tailleSommet: %d\n", tailleSommet);//5
+    printf("tailleArret: %d\n", tailleArret);//5
+    for (int k = 0; k < I; k++) {
+        for (int m = 0; m < J; m++) {
+            printf("%d ", *(*(matrice+k)+m));//5
         }
-    }*/
+        printf("\n");
+    }
+    /*printf("%d\n", sizeof(*(pArbitre->matrice)));
+    printf("%d\n", **(pArbitre->matrice));//5
+    printf("%d\n", **(pArbitre->matrice+1));//0
+    printf("%d\n", *(*(pArbitre->matrice)+1));//5
+    printf("%d\n", *(*(pArbitre->matrice)+2));//0
+    printf("%d\n", &matrice[3][0]);//-445398948
+    printf("%d\n", matrice[3][0]);//1*/
+}
+printVecteurStochastique(int i,int y,double vecteurStochastique[COULEUR]){
+    printf("&(pArbitre->listeSommet[%d]->vecteurStochastique %d): %d\n", i, y,
+           (vecteurStochastique + y));
+    printf("*(pArbitre->listeSommet[%d]->vecteurStochastique %d): %lf\n", i, y,
+           *(vecteurStochastique + y));
+}
+void printSommet(Sommet pSommet){
+    printf("pSommet->index: %d\n", pSommet->index);//5
+    printf("pSommet->couleur: %d\n", pSommet->couleur);//-1
+    printf("pSommet->nbrConflits: %d\n", pSommet->nbrConflits);//-1
+    for (int k = 0; k < COULEUR; k++) {
+        pSommet->vecteurStochastique[k]=0.2;
+        printf("*vecteurStochastique[%d]: %lf\n", k,*(pSommet->vecteurStochastique+k));
+    }
+}
+void printArbitre(Arbitre pArbitre){
+    printf("\nBeginning of printArbitre\n");
+    printf("Sizeof(pArbitre)%ld\n", sizeof(pArbitre));//8
+    printf("&(pArbitre %d): %d\n", 0,pArbitre);
+    printf("&(pArbitre->listeSommet[%d] %d): %d\n", 0, 0,(pArbitre->listeSommet[0]));
+    printMatice(pArbitre->tailleSommet,pArbitre->tailleArret,pArbitre->matrice);
+    for (int i = 0; i < J; i++) {
+        printSommet(pArbitre->listeSommet[i]);
+    }
+    printf("end of printArbitre\n");
+}
+
+
+int getCouleur(Sommet pSommet){
+    /*la probalibité pour une stratégie*/
     double *p= pSommet->vecteurStochastique;
+    /*la probalilité cumulée*/
     double cumuleeP=0.0;
     double thisP=unif();
-    printf("thisP: %lf\n", thisP);
+    printf("Génerer un p suite de la loi uniforme, thisP: %lf\n", thisP);
     for (int k = 0; k < COULEUR; k++) {
         cumuleeP+=*(p+k);
-        printf("P%d: %lf\n",k, cumuleeP);
+        //printf("P%d: %lf\n",k, cumuleeP);
         if(thisP<cumuleeP) {
             //printf("k: %d\n", k);
             pSommet->couleur=k;
@@ -56,82 +96,77 @@ int getCouleur(Sommet pSommet){
     }
     exit(-1);;
 }
-int getCouleur1(Arbitre pArbitre){
-    for (int i = 0; i < 1; ++i) {
-        for (int y = 0; y < COULEUR; y++) {
-            printf("&(pArbitre->listeSommet[%d]->vecteurStochastique %d): %d\n", i, y,
-                   (pArbitre->listeSommet[i]->vecteurStochastique + y));
-            printf("*(pArbitre->listeSommet[%d]->vecteurStochastique %d): %lf\n", i, y,
-                   *(pArbitre->listeSommet[i]->vecteurStochastique + y));
-        }
-    }
-    double *vs=pArbitre->listeSommet[0]->vecteurStochastique;
-    double P0=*vs;
-    double P1=*(vs)+1;
-    printf("P0: %lf\n", P0);//0.2
-    printf("P1: %lf\n", P1);//0.4
-    double p=unif();
-    if(p<0.2) return 0;
-
-}
 
 void setSommet(int index,Sommet listeSommet[]){
     Sommet pSommet;
     pSommet=malloc(sizeof(struct Sommet));
     if (!pSommet) exit(1);
-    printf("beginning of vertex initialisation\n");
+    printf("beginning of vertex%d initialisation\n",index);
     pSommet->index=index;
     pSommet->couleur=-1;
-    printf("pSommet->index: %d\n", pSommet->index);//5
-
-    //pSommet->vecteurStochastique=malloc(COULEUR*sizeof(double));
+    pSommet->nbrConflits=-1;
     for (int k = 0; k < COULEUR; k++) {
         pSommet->vecteurStochastique[k]=0.2;
-        printf("*vecteurStochastique[%d]: %lf\n", k,*(pSommet->vecteurStochastique+k));
     }
     listeSommet[index]=pSommet;
-    printf(" &pSommet->vecteurStochastique[0]: %d\n", (pSommet->vecteurStochastique));
-    printf(" *pSommet->vecteurStochastique[0]: %lf\n", *(pSommet->vecteurStochastique));
+    printSommet(pSommet);
     printf("vertex initialisation succeed\n\n");
 }
-Arbitre setArbitre(int matrice[I][J]){
+Arbitre setArbitre(int tailleSommet,int tailleArret,int matrice[I][J]){
+    printf("beginning of Arbitre initialisation\n");
     Arbitre pArbitre;
-    //pArbitre=malloc(sizeof(struct Arbitre)+J*sizeof(struct Sommet));
     pArbitre=malloc(sizeof(int)+COULEUR*sizeof(Sommet));
     if (!pArbitre) exit(1);
+    pArbitre->tailleSommet=tailleSommet;
+    pArbitre->tailleArret=tailleArret;
     pArbitre->matrice=matrice;
-    /*printf("%d\n", sizeof(*(pArbitre->matrice)));
-    printf("%d\n", **(pArbitre->matrice));//5
-    printf("%d\n", **(pArbitre->matrice+1));//0
-    printf("%d\n", *(*(pArbitre->matrice)+1));//5
-    printf("%d\n", *(*(pArbitre->matrice)+2));//0
-    printf("%d\n", &matrice[3][0]);//-445398948
-    printf("%d\n", matrice[3][0]);//1*/
+    //printMatice(pArbitre->matrice);
     for (int i = 0; i < J; i++) {
-        //pArbitre->listeSommet[i]=setSommet(i);
         setSommet(i,pArbitre->listeSommet);
     }
-   printf("&(pArbitre %d): %d\n", 0,pArbitre);
-    printf("&(pArbitre->listeSommet[%d] %d): %d\n", 0, 0,(pArbitre->listeSommet[0]));
-    for (int i = 0; i < J; i++) {
-        for (int y = 0; y < COULEUR; y++) {
-            printf("&(pArbitre->listeSommet[%d]->vecteurStochastique %d): %d\n", i, y,
-                   (pArbitre->listeSommet[i]->vecteurStochastique + y));
-            printf("*(pArbitre->listeSommet[%d]->vecteurStochastique %d): %lf\n", i, y,
-                   *(pArbitre->listeSommet[i]->vecteurStochastique + y));
-        }
-    }
+    printf("Arbitre initialisation succeed\n\n");
     return pArbitre;
 }
 
 
 void Clorier(Arbitre pArbitre){
-    for(int a = 0; a < J; ++a){
-       //pArbitre->listeSommet[a]->couleur=getCouleur(pArbitre->listeSommet[a]);
+    for(int a = 0; a < J; a++){
         getCouleur(pArbitre->listeSommet[a]);
     }
-    //getCouleur(pArbitre->listeSommet[4]);
 }
+
+void calculerConflit(){
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -185,20 +220,8 @@ void testPointerArray1(){
     }
 }
 
-
-
-
-
-
 void testPointer1(int matrice[I][J]){
     int (**p);
     p=matrice;
     myputs(p);
-}
-
-
-
-
-void print(){
-    printf("Hello, World!\n");
 }
