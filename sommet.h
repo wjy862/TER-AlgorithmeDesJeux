@@ -134,9 +134,18 @@ void Clorier(Arbitre pArbitre){
         getCouleur(pArbitre->listeSommet[a]);
     }
 }
-
-void calculerConflit(){
-
+int isConflit(Sommet unSommet,Sommet autreSommet){
+    if(unSommet->couleur==autreSommet->couleur) return 1;
+    return 0;
+}
+void calculerConflit(Arbitre pArbitre){
+    for(int b= 0; b< I; b++){
+        int count=0;
+        for(int c= 0; c< J; c++){
+            if(pArbitre->matrice[b][c]==1) count+=isConflit(pArbitre->listeSommet[b],pArbitre->listeSommet[c]);
+        }
+        pArbitre->listeSommet[b]->nbrConflits=count;
+    }
 }
 
 
