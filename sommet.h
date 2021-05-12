@@ -61,9 +61,9 @@ void printSommet(Sommet pSommet){
     printf("pSommet->index: %d\n", pSommet->index);
     printf("pSommet->couleur: %d\n", pSommet->couleur);
     printf("pSommet->nbrConflits: %d\n", pSommet->nbrConflits);
-    printf("pSommet->benefice: %d\n", pSommet->benefice);
-    printf("pSommet->maxBenefice: %d\n", pSommet->maxBenefice);
-    printf("pSommet->minBenefice: %d\n", pSommet->minBenefice);
+    printf("pSommet->benefice: %lf\n", pSommet->benefice);
+    printf("pSommet->maxBenefice: %lf\n", pSommet->maxBenefice);
+    printf("pSommet->minBenefice: %lf\n", pSommet->minBenefice);
     printf("pSommet->cliqueMax: %d\n", pSommet->cliqueMax);
     for (int k = 0; k < COULEUR; k++) {
         pSommet->vecteurStochastique[k]=0.2;
@@ -110,9 +110,9 @@ void setSommet(int index,Sommet listeSommet[]){
     pSommet->index=index;
     pSommet->couleur=-1;
     pSommet->nbrConflits=-1;
-    pSommet->benefice=-1;
-    pSommet->maxBenefice=0;
-    pSommet->minBenefice=0;
+    pSommet->benefice=0.0;
+    pSommet->maxBenefice=0.0;
+    pSommet->minBenefice=0.0;
     pSommet->cliqueMax=-1;
     for (int k = 0; k < COULEUR; k++) {
         pSommet->vecteurStochastique[k]=0.2;
