@@ -13,10 +13,9 @@ int matrice[TSOMMET][TARRET]={
 };
 int cliqueMaximale=3;
 
-
 int main() {
     /*Génerer un graphe*/
-    nbr_Vertices = 4;
+    nbr_Vertices = 7;
     printf("nb_sommets:%d\n", nbr_Vertices);
     array_Ty *Matrix1 = CreateMatrix();
     array_Ty *Matrix2 = CreateMatrix_vide();
