@@ -47,7 +47,7 @@ int getCouleur(Sommet pSommet){
     printf("thisP: %lf\n", thisP);
     for (int k = 0; k < COULEUR; k++) {
         cumuleeP+=*(p+k);
-        //printf("P%d: %lf\n",k, cumuleeP);
+        printf("P%d: %lf\n",k, cumuleeP);
         if(thisP<cumuleeP) {
             //printf("k: %d\n", k);
             pSommet->couleur=k;
