@@ -15,12 +15,12 @@ int cliqueMaximale=3;
 
 int main() {
     /*Génerer un graphe*/
-    nbr_Vertices = 7;
+   /* nbr_Vertices = 7;
     printf("nb_sommets:%d\n", nbr_Vertices);
     array_Ty *Matrix1 = CreateMatrix();
     array_Ty *Matrix2 = CreateMatrix_vide();
     FairCopiedeMatrix(Matrix1, Matrix2, nbr_Vertices);
-    PrintMatrix(Matrix2, nbr_Vertices);
+    PrintMatrix(Matrix2, nbr_Vertices);*/
 
     /*Trouver un nombre de coloration propre par heursitique*/
     couleur=heuristiqueColoration(tailleArret,matrice);
@@ -32,7 +32,7 @@ int main() {
     Clorier(pArbitre);
 
     /*calculer des conflit de chaque sommet*/
-    calculerConflit(pArbitre);
+    calculerArretEtConflit(pArbitre);
 
     /*calculer des bénéfice de chaque sommet*/
     calculerBenefice(pArbitre);
