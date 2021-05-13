@@ -28,7 +28,7 @@ void calculerNbrCouleurTotal(){
 double beneficeLocale(Sommet pSommet){
     double nbrconflits=(double)pSommet->nbrConflits;
     double nbrArrets=(double)pSommet->nbrArrets;
-    double cliqueMaximale=(double)pSommet->cliqueMaximale;
+    double cliqueMaximale=(double)pSommet->cliqueMax;
     double benefice=(1.0-(nbrconflits/nbrArrets))*(1-(abs(nbrCouleur-cliqueMaximale)/cliqueMaximale)* pow(0,(int)nbrCouleur/(int)(2*cliqueMaximale)));
     printf("nbrconflits: %lf\n",nbrconflits);
     printf("nbrArrets: %lf\n",nbrArrets);

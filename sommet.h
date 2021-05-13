@@ -12,7 +12,7 @@ struct Sommet{
     double benefice;
     double maxBenefice;
     double minBenefice;
-    int cliqueMaximale;
+    int cliqueMax;
     int nbrArrets;
     int nbrConflits;
     double *vecteurStochastique;
@@ -71,7 +71,7 @@ void printMinBenefice(Sommet pSommet){
     printf("this minBenefice: %lf\n", pSommet->minBenefice);
 }
 void printCliqueMax(Sommet pSommet){
-    printf("this cliqueMax: %d\n", pSommet->cliqueMaximale);
+    printf("this cliqueMax: %d\n", pSommet->cliqueMax);
 }
 void printNbrArrets(Sommet pSommet){
     printf("this nbrArrets: %d\n", pSommet->nbrArrets);
@@ -123,7 +123,7 @@ void setSommet(int index,Sommet listeSommet[]){
     pSommet->benefice=0.0;
     pSommet->maxBenefice=0.0;
     pSommet->minBenefice=0.0;
-    pSommet->cliqueMaximale=-1;
+    pSommet->cliqueMax=-1;
     pSommet->nbrArrets=-1;
     pSommet->vecteurStochastique= malloc(couleurHeuristique* sizeof(double));
     for (int k = 0; k < couleurHeuristique; k++) {
@@ -207,12 +207,12 @@ void calculerArretEtConflit(){
     printf("End of calculerArretEtConflit\n\n");
 }
 //calculer la taille Clique Maximale
-int getCliqueMax(){
+int calculerCliqueMaximale(){
     return 3;
 }
-void calculerCliqueMaximale(){
+void calculercliqueMax(){
     for (int i = 0; i < tailleArret; ++i) {
-        pArbitre->listeSommet[i]->cliqueMaximale=getCliqueMax();
+        pArbitre->listeSommet[i]->cliqueMax=calculerCliqueMaximale();
     }
 }
 
