@@ -2,16 +2,7 @@
 #include "sommet.h"
 #include "benefice.h"
 
-int tailleSommet=5;
-int tailleArret=5;
-int matrice[TSOMMET][TARRET]={
-        {0,1,1,0,0},
-        {1,0,1,0,1},
-        {1,1,0,1,0},
-        {0,0,1,0,1},
-        {0,1,0,1,0}
-};
-int cliqueMaximale=3;
+
 
 int main() {
     /*Génerer un graphe*/
@@ -23,16 +14,19 @@ int main() {
     PrintMatrix(Matrix2, nbr_Vertices);*/
 
     /*Trouver un nombre de coloration propre par heursitique*/
-    couleur=heuristiqueColoration(tailleArret,matrice);
+    couleurHeuristique=heuristiqueColoration(tailleArret,matrice);
 
     /*Initialisation de l'arbitre*/
-    Arbitre pArbitre=setArbitre(tailleSommet,tailleArret,matrice);
+    pArbitre=setArbitre(tailleSommet,tailleArret,matrice);
 
     /*Colorier le graphe selon la vecteur stochastique des sommets*/
-    Colorier(pArbitre);
+    colorier(pArbitre);
 
     /*calculer des conflit de chaque sommet*/
     calculerArretEtConflit(pArbitre);
+
+    /*calculer la taille de clique maximale de chaque sommet*/
+    calculerCliqueMaximale();
 
     /*calculer des bénéfice de chaque sommet*/
     calculerBenefice(pArbitre);
