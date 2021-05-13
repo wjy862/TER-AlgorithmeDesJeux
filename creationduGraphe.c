@@ -265,12 +265,12 @@ unsigned int Nombre_effacer_sommets(array_Ty *Matrix_sommets_non_connexes, int n
 
 void main()
 {
-    nbr_Vertices = rand();
+    nbr_Vertices = 4;
     printf("nb_sommets:%d\n", nbr_Vertices);
     array_Ty *Matrix1 = CreateMatrix();
     array_Ty *Matrix2 = CreateMatrix_vide();
     FairCopiedeMatrix(Matrix1, Matrix2, nbr_Vertices);
-    //PrintMatrix(Matrix2, nbr_Vertices);
+    PrintMatrix(Matrix2, nbr_Vertices);
     array_Ty *Matrixsommetsnonconnexes = Prendre_sommetsnonconnexes(Matrix2, nbr_Vertices);
     taille_a_reduire_desommets_nonconnexes = Nombre_effacer_sommets(Matrixsommetsnonconnexes, nbr_Vertices);
     printf("\n--execution fini--");
