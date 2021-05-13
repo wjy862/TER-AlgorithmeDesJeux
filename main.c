@@ -1,7 +1,7 @@
 #include "graphe.h"
 #include "sommet.h"
 #include "benefice.h"
-
+#include "apprendissage.h"
 
 
 int main() {

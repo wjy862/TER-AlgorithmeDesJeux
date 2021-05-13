@@ -76,6 +76,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/apprendissage.h">
+			<Option target="theorieDesJeux"/>
+		</Unit>
 		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/benefice.h">
 			<Option target="theorieDesJeux"/>
 		</Unit>
