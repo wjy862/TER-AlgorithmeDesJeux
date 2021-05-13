@@ -95,7 +95,7 @@ void printSommet(Sommet pSommet){
     printNbrConflits(pSommet);
     printVecteurStochastique(pSommet);
 }
-void printArbitre(Arbitre pArbitre){
+void printArbitre(){
     printf("\nBeginning of printArbitre\n");
     printf("Size of Arbitre: %ld\n", sizeof(pArbitre));//8
     printf("Adresse of Arbitre : %d\n",pArbitre);
@@ -175,7 +175,7 @@ int getCouleur(Sommet pSommet){
     }
     exit(-1);;
 }
-void colorier(Arbitre pArbitre){
+void colorier(){
     printf("\nBeginning of colorier\n");
     for(int a = 0; a < pArbitre->tailleSommet; a++){
         getCouleur(pArbitre->listeSommet[a]);
@@ -187,7 +187,7 @@ int isConflit(Sommet unSommet,Sommet autreSommet){
     if(unSommet->couleur==autreSommet->couleur) return 1;
     return 0;
 }
-void calculerArretEtConflit(Arbitre pArbitre){
+void calculerArretEtConflit(){
     printf("\nBeginning of calculerArretEtConflit\n");
     for(int b= 0; b<pArbitre->tailleSommet; b++){
         int countArrets=0,countConflits=0;

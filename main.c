@@ -6,12 +6,7 @@
 
 int main() {
     /*Génerer un graphe*/
-   /* nbr_Vertices = 7;
-    printf("nb_sommets:%d\n", nbr_Vertices);
-    array_Ty *Matrix1 = CreateMatrix();
-    array_Ty *Matrix2 = CreateMatrix_vide();
-    FairCopiedeMatrix(Matrix1, Matrix2, nbr_Vertices);
-    PrintMatrix(Matrix2, nbr_Vertices);*/
+
 
     /*Trouver un nombre de coloration propre par heursitique*/
     couleurHeuristique=heuristiqueColoration(tailleArret,matrice);
@@ -20,19 +15,19 @@ int main() {
     pArbitre=setArbitre(tailleSommet,tailleArret,matrice);
 
     /*Colorier le graphe selon la vecteur stochastique des sommets*/
-    colorier(pArbitre);
+    colorier();
 
     /*calculer des conflit de chaque sommet*/
-    calculerArretEtConflit(pArbitre);
+    calculerArretEtConflit();
 
     /*calculer la taille de clique maximale de chaque sommet*/
     calculerCliqueMaximale();
 
     /*calculer des bénéfice de chaque sommet*/
-    calculerBenefice(pArbitre);
+    calculerBenefice();
 
     /*Imprimer tout la stucture Arbitre*/
-    printArbitre(pArbitre);
+    printArbitre();
 
     /*free les mémoires*/
     for (int i = 0; i < tailleArret; ++i) {

@@ -8,7 +8,7 @@
 double nbrCouleur;//Nombre total des couleurs dans la graphe
 double nbStrategies;
 
-void calculerNbrCouleurTotal(Arbitre pArbitre){
+void calculerNbrCouleurTotal(){
     int *listCouleurs=malloc(couleurHeuristique*sizeof(int));//chaque index présente une couleur
     int count=0;
     for (int k = 0; k < couleurHeuristique; k++) {
@@ -48,22 +48,22 @@ double beneficeGlobale(){
     return benefice;
 }
 
-double fonctionBenefice(Sommet pSommet,Arbitre pArbitre){
+double fonctionBenefice(Sommet pSommet){
     return alpha*beneficeLocale(pSommet)+belta*beneficeGlobale();
 }
-void updateBenefice(Sommet pSommet,Arbitre pArbitre){
+void updateBenefice(Sommet pSommet){
     printIndex(pSommet);
-    pSommet->benefice=fonctionBenefice(pSommet,pArbitre);
+    pSommet->benefice=fonctionBenefice(pSommet);
     if(pSommet->benefice<pSommet->minBenefice) pSommet->minBenefice=pSommet->benefice;
     if(pSommet->benefice>pSommet->maxBenefice) pSommet->maxBenefice=pSommet->benefice;
     printf("\n");
 }
-void calculerBenefice(Arbitre pArbitre){
+void calculerBenefice(){
     printf("\nBeginning of calculerBenefice\n");
     nbStrategies=(double)couleurHeuristique;
-    calculerNbrCouleurTotal(pArbitre);
+    calculerNbrCouleurTotal();
     for (int i = 0; i < pArbitre->tailleSommet; ++i) {
-        updateBenefice(pArbitre->listeSommet[i],pArbitre);
+        updateBenefice(pArbitre->listeSommet[i]);
     }
     printf("End of calculerBenefice\n\n");
 }
