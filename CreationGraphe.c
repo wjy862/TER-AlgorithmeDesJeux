@@ -43,7 +43,7 @@ struct array_Ty *CreateMatrix_forcee(int size)
                 list = list->next;
             }
 
-            if ( i == j || i == 2 || j == 2 || i == 1 || j == 1 )
+            if (i == j || i == 2 || j == 2)
             {
                 list->sommet = j;
                 list->valeur = 0;
@@ -196,9 +196,11 @@ int validationceroxfile(array_Ty *matrix2, int sommet, int nbr_vertices)
         {
             valnew = 1;
             break;
-
-        }else{
-        l2 = l2->next;}
+        }
+        else
+        {
+            l2 = l2->next;
+        }
     }
     return valnew;
 }
@@ -267,7 +269,7 @@ struct array_Ty *Prendre_sommetsnonconnexes(array_Ty *matrix2, int nbr_vertices)
     Matrix[0].sommet = 0;
     Matrix[0].list = NULL;
     list = malloc(sizeof(struct list_Ty));
-    Matrix[0].list=list;
+    Matrix[0].list = list;
     list->sommet = 0;
     list->valeur = 0;
     list->next = NULL;
@@ -295,14 +297,12 @@ unsigned int Nombre_effacer_sommets(array_Ty *Matrix_sommets_non_connexes, int n
     l = malloc(sizeof(struct list_Ty));
     l = Matrix_sommets_non_connexes[0].list;
     int counter = 0;
-    printf("val_matrix: %d\n", l->valeur);
     while (l->next != NULL && counter < nbr_Vertices)
     {
 
         l = l->next;
         counter++;
     }
-    printf("counter: %d\n", counter);
     return counter;
 }
 
@@ -314,6 +314,7 @@ struct array_Ty *GenerationMatriceconnexe(array_Ty *matrix2, array_Ty *matrix_no
     //inicializacion de matrix_non_connexe
     l = malloc(sizeof(struct list_Ty)); //creando lista
     l = matrix_non_connexe[0].list;     // asignando lista a matrix_non_connexe
+    l2 = malloc(sizeof(struct list_Ty));
 
     //inicializacion de matrix normal
     list = malloc(sizeof(struct list_Ty)); //creando lista
@@ -322,61 +323,93 @@ struct array_Ty *GenerationMatriceconnexe(array_Ty *matrix2, array_Ty *matrix_no
     l1 = malloc(sizeof(struct list_Ty));
     //cc= todo
     //co= solo connexes
-    unsigned int cc = 0, co = 0;
-    while (cc < nbr_vertices_anciennes && l->next != NULL)
-    {
-        printf("cima de matrix-> %d", l->valeur);
 
+    //l  = no connexe -- x sommet
+    //l2 = no connexe -- x file
+    //list = matriz inicial
+    //l1 = nueva matrice
+
+    unsigned int cc = 0, co = 0;
+    while (cc < nbr_vertices_anciennes)
+    {
+        printf("-------------cc: %d\n", cc);
+        list = matrix2[cc].list;
+        //printf("cima de matrix-> %d\n", l->valeur);
+        //printf("cima de matrix-> %d\n", cc);
         if (l->valeur != cc) //aqui trabajar , l->valeur es cima de matrix_non_connexe , cc es la cima de la nueva matriz
         {
-            printf("sommet connexe %d\n", cc); //entrar a colonne 1
-            l1 = Matrix_connexe[co].list;      // asignar lista de matrix connexe
-            list = matrix2[cc].list;           //inicializar matrix2 en una lista
+            //printf("\nsommet connexe %d\n", cc); //entrar a colonne 1
+            l1 = Matrix_connexe[co].list; // asignar lista de matrix connexe
+                                          //inicializar matrix2 en una lista
+            l2 = matrix_non_connexe[0].list;
             for (int j = 0; j < nbr_vertices_anciennes; j++)
-            { //recorrer filas
-                if (l->valeur == j)
+            {
+
+                //recorrer filas
+                if (l2->valeur == j)
                 {
-                    list = list->next;
-                    l = l->next;
-                    printf("val non connexe: %d\n", j);
+                    if (l2->next == NULL)
+                    {
+                        //list->next = malloc(sizeof(struct list_Ty));
+                        list = list->next;
+                        //printf("moviendo list ,val non connexe: %d\n", j);
+                    }
+                    else
+                    {
+                        //list->next = malloc(sizeof(struct list_Ty));
+                        list = list->next;
+                        //l->next = malloc(sizeof(struct list_Ty));
+                        l2 = l2->next;
+                       // printf("moviendo l2 y list, val non connexe: %d\n", j);
+                    }
                 }
                 else
-                {
-                    printf("val connexe: %d\n", j);
+                {//aqui interesa
+                    printf("val connexe: %d---------------------------\n", j);
+                    printf("sommet a mettre:->%d\n",co);
+                    printf("valor ->%d\n",list->valeur);
                     l1->sommet = co;
-                    l1->valeur = l->valeur;
+                    l1->valeur = list->valeur;
+                    //list->next = malloc(sizeof(struct list_Ty));
                     list = list->next;
                     co++;
                 }
             }
-            cc++;
         }
         else
         {
-
-            printf("sommet non connexe %d\n", cc);
-            cc++;
-            //list=list->next;
+            if (cc > 0 && l->valeur == 0)
+            {
+                list->next = malloc(sizeof(struct list_Ty));
+                list = list->next;
+            }
+            else
+            {
+                //printf("next \n");
+                l = l->next;
+                list->next = malloc(sizeof(struct list_Ty));
+                list = list->next;
+            }
         }
+        co = 0;
+        cc++;
     }
 
     return Matrix_connexe;
 }
 void main()
 {
-    nbr_Vertices = 5;
+    nbr_Vertices = 4;
     printf("nb_sommets_audebut:%d\n", nbr_Vertices);
     array_Ty *Matrix1 = CreateMatrix();
     array_Ty *Matrix2 = CreateMatrix_vide(nbr_Vertices);
     array_Ty *MatrixFinalConnexe;
     array_Ty *Matrix_forcee = CreateMatrix_forcee(nbr_Vertices);
-    FairCopiedeMatrix(Matrix_forcee, Matrix2, nbr_Vertices); // Atento: Cambiar por la Matrix1 apres
+    FairCopiedeMatrix(Matrix_forcee, Matrix2, nbr_Vertices);
     PrintMatrix(Matrix2, nbr_Vertices);
-    printf("---logique--\n");
-    array_Ty *Matrixsommetsnonconnexes = Prendre_sommetsnonconnexes(Matrix2, nbr_Vertices);    //lista de sommets no connexes matrice[0]
-    nbr_sommets_non_connexes = Nombre_effacer_sommets(Matrixsommetsnonconnexes, nbr_Vertices); // conteo de la matrice[0] con sus sommets
-    nbr_Vertices_nouvelle = nbr_Vertices - nbr_sommets_non_connexes;                           // creation de variable pour obtenir une nouveau nombre des vertices
-    printf("val nbr_sommets_non_connexes: %d", nbr_sommets_non_connexes);
+    array_Ty *Matrixsommetsnonconnexes = Prendre_sommetsnonconnexes(Matrix2, nbr_Vertices);
+    nbr_sommets_non_connexes = Nombre_effacer_sommets(Matrixsommetsnonconnexes, nbr_Vertices);
+    nbr_Vertices_nouvelle = nbr_Vertices - nbr_sommets_non_connexes;
     if (nbr_Vertices_nouvelle > 0 && nbr_Vertices_nouvelle < nbr_Vertices)
     {
         MatrixFinalConnexe = GenerationMatriceconnexe(Matrix2, Matrixsommetsnonconnexes, nbr_Vertices, nbr_Vertices_nouvelle);
@@ -385,4 +418,5 @@ void main()
     {
         printf("Matrix ancienne reste");
     }
+    PrintMatrix(MatrixFinalConnexe, nbr_Vertices_nouvelle);
 }
