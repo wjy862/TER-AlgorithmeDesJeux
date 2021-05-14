@@ -29,6 +29,8 @@ typedef struct Arbitre *Arbitre;
 
 Arbitre pArbitre;
 int couleurHeuristique;
+double nbrCouleur;//Nombre total des couleurs dans la graphe
+double nbStrategies;//(double) couleurHeuristique pour calculer
 int tailleSommet=5;
 int tailleArret=5;
 int matrice[TSOMMET][TARRET]={
@@ -106,9 +108,31 @@ void printArbitre(){
     }
     printf("End of printArbitre\n\n");
 }
+
+double calculerNbrCouleurTotal(){
+    int *listCouleurs=malloc(couleurHeuristique*sizeof(int));//chaque index présente une couleur
+    int count=0;
+    for (int k = 0; k < couleurHeuristique; k++) {
+        listCouleurs[k]=0;//initialiser
+    }
+    for (int i = 0; i < tailleSommet; i++) {
+        listCouleurs[pArbitre->listeSommet[i]->couleur]++;//Si un sommet est coloriée par couleur 0 -> listCouleurs[0]++
+    }
+    for (int j = 0; j < couleurHeuristique; j++) {
+        if(listCouleurs[j]!=0) count++;//counter ce qui n'est pas 0 dans la list Couleurs
+    }
+    free(listCouleurs);
+    nbrCouleur=(double)count;
+    printf("Nombre total des couleurs dans la graphe: %lf\n",nbrCouleur);
+    return nbrCouleur;
+}
 //heuristiqueColoration
-int heuristiqueColoration(int tailleArret,int *(matrice)[tailleArret]){
-    return 3;
+int heuristiqueColoration(){
+    int couleurmax=0;
+
+
+    couleurHeuristique=3;
+    return couleurHeuristique;//(int)calculerNbrCouleurTotal()
 }
 
 //initialisation
@@ -136,7 +160,7 @@ void setSommet(int index,Sommet listeSommet[]){
 Arbitre setArbitre(int tailleSommet,int tailleArret,int (*matrice)[tailleArret]){
     printf("Beginning of Arbitre initialisation\n");
     Arbitre pArbitre;
-    pArbitre=malloc(sizeof(int)+couleurHeuristique*sizeof(Sommet));
+    pArbitre=malloc(2*sizeof(int)+sizeof(int*)+sizeof(Sommet*));
     if (!pArbitre) exit(1);
     pArbitre->tailleSommet=tailleSommet;
     pArbitre->tailleArret=tailleArret;
@@ -208,6 +232,7 @@ void calculerArretEtConflit(){
 }
 //calculer la taille Clique Maximale
 int calculerCliqueMaximale(){
+
     return 3;
 }
 void calculercliqueMax(){

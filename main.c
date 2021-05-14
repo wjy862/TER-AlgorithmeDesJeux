@@ -6,13 +6,14 @@
 
 int main() {
     /*Génerer un graphe*/
-
+    //int *matrice=genererUnGraphe();//int matrice[][], int tailleSommet int tailleArret
 
     /*Trouver un nombre de coloration propre par heursitique*/
-    couleurHeuristique=heuristiqueColoration(tailleArret,matrice);
+    heuristiqueColoration();
 
     /*Initialisation de l'arbitre*/
     pArbitre=setArbitre(tailleSommet,tailleArret,matrice);
+
 
     /*Colorier le graphe selon la vecteur stochastique des sommets*/
     colorier();

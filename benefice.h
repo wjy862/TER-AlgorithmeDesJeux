@@ -5,25 +5,9 @@
 #define alpha 0.5
 #define belta 0.5
 
-double nbrCouleur;//Nombre total des couleurs dans la graphe
-double nbStrategies;
 
-void calculerNbrCouleurTotal(){
-    int *listCouleurs=malloc(couleurHeuristique*sizeof(int));//chaque index présente une couleur
-    int count=0;
-    for (int k = 0; k < couleurHeuristique; k++) {
-        listCouleurs[k]=0;//initialiser
-    }
-    for (int i = 0; i < tailleSommet; i++) {
-        listCouleurs[pArbitre->listeSommet[i]->couleur]++;//Si un sommet est coloriée par couleur 0 -> listCouleurs[0]++
-    }
-    for (int j = 0; j < couleurHeuristique; j++) {
-        if(listCouleurs[j]!=0) count++;//counter ce qui n'est pas 0 dans la list Couleurs
-    }
-    free(listCouleurs);
-    nbrCouleur=(double)count;
-    printf("Nombre total des couleurs dans la graphe: %lf\n",nbrCouleur);
-}
+
+
 
 double beneficeLocale(Sommet pSommet){
     double nbrconflits=(double)pSommet->nbrConflits;
