@@ -313,7 +313,7 @@ struct array_Ty *GenerationMatriceconnexe(array_Ty *matrix2, int nbr_vertices_an
 
         if (l->valeur != cc)
         {
-            Matrix_connexe[co]=
+            //Matrix_connexe[co]=
             printf("sommet connexe %d\n", cc);
             l=l->next;
             co++;
