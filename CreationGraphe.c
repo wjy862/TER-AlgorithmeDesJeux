@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_TOURS 9999
+
 typedef struct array_Ty array_Ty;
 struct array_Ty
 {
@@ -43,7 +45,7 @@ struct array_Ty *CreateMatrix_forcee(int size)
                 list = list->next;
             }
 
-            if (i == j || i == 1 || j == 1|| i == 2 || j == 2)
+            if (i == j || i == 1 || j == 1 || i == 3 || j == 3)
             {
                 list->sommet = j;
                 list->valeur = 0;
@@ -167,6 +169,20 @@ void PrintMatrix(array_Ty *matrix, int size)
         }
         printf("\n");
         i++;
+    }
+}
+
+void Print_Matrix_File(array_Ty *Matrix, int nbr)
+{
+    l = malloc(sizeof(struct list_Ty));
+    l = Matrix[0].list;
+    int counter = 0;
+    while (counter < nbr)
+    {
+        printf("\n%d -> %d \n", l->sommet, l->valeur);
+        //l->next = malloc(sizeof(struct list_Ty));
+        l = l->next;
+        counter++;
     }
 }
 
@@ -299,41 +315,57 @@ unsigned int Nombre_effacer_sommets(array_Ty *Matrix_sommets_non_connexes, int n
     int counter = 0;
     while (l->next != NULL && counter < nbr_Vertices)
     {
-
         l = l->next;
         counter++;
     }
     return counter;
 }
 
+unsigned int Nombre_aretes_relies_a_sommet_choisie(array_Ty *Matrix, int nbr_vertices, int sommet_choisie)
+{
+    l = malloc(sizeof(struct list_Ty));
+    int i = 0;
+    int counter = 0;
+    l = Matrix[sommet_choisie].list;
+    int a = 0;
+    while (a < nbr_vertices)
+    {
+        if (l->valeur == 1)
+        {
+            counter++;
+        }
+        l = l->next;
+        a++;
+    }
+    return counter;
+}
+
 struct array_Ty *GenerationMatriceconnexe(array_Ty *matrix2, array_Ty *matrix_non_connexe, int nbr_vertices_anciennes, int nbr_Vertices_nouvelle)
 {
-    array_Ty *Matrix_connexe = CreateMatrix_vide(nbr_Vertices_nouvelle); 
+    array_Ty *Matrix_connexe = CreateMatrix_vide(nbr_Vertices_nouvelle);
 
-   
-    l = malloc(sizeof(struct list_Ty)); 
-    l = matrix_non_connexe[0].list;     
+    l = malloc(sizeof(struct list_Ty));
+    l = matrix_non_connexe[0].list;
     l2 = malloc(sizeof(struct list_Ty));
 
-    list = malloc(sizeof(struct list_Ty)); 
+    list = malloc(sizeof(struct list_Ty));
     l1 = malloc(sizeof(struct list_Ty));
     unsigned int cc = 0, co = 0;
 
     while (cc < nbr_vertices_anciennes)
     {
-        
-       
+
         list = matrix2[cc].list;
-      
-        if (l->valeur != cc) 
+
+        if (l->valeur != cc)
         {
-        
+
             l1 = Matrix_connexe[co].list;
             l2 = matrix_non_connexe[0].list;
-            
-            unsigned int co2= 0;
+
+            unsigned int co2 = 0;
             for (int j = 0; j < nbr_vertices_anciennes; j++)
-            {   
+            {
 
                 //recorrer filas
                 if (l2->valeur == j)
@@ -349,19 +381,16 @@ struct array_Ty *GenerationMatriceconnexe(array_Ty *matrix2, array_Ty *matrix_no
                     }
                 }
                 else
-                { 
+                {
                     l1->sommet = co2;
                     l1->valeur = list->valeur;
                     l1->next = malloc(sizeof(struct list_Ty));
                     l1 = l1->next;
                     list = list->next;
                     co2++;
-                    
                 }
             }
             co++;
-            
-        
         }
         else
         {
@@ -384,46 +413,199 @@ struct array_Ty *GenerationMatriceconnexe(array_Ty *matrix2, array_Ty *matrix_no
     return Matrix_connexe;
 }
 
-int getRandom(){}
+int numero_aretes_graphe(array_Ty *matrixnouvelle, int nbr_nouvelles_vertices)
+{
+    l = malloc(sizeof(struct list_Ty));
+    int i = 0;
+    int counter = 0;
+    while (matrixnouvelle[i].sommet < nbr_nouvelles_vertices)
+    {
+        l = matrixnouvelle[i].list;
+        int a = 0;
+        while (a < nbr_nouvelles_vertices)
+        {
+            if (l->valeur == 1)
+            {
+                counter++;
+            }
+            l = l->next;
+            a++;
+        }
+        //printf("\n");
+        i++;
+    }
+    counter = counter / 2;
+    return counter;
+}
 
-/* algorithme getRandom
-	input:  probabilité d'avoir un arrêt p
-	output: un entier 0 ou 1
-	debut
-		i<-random()
-		si i<p alors
-			retourner 1
-		finsi
-		retourner 0
-	fin */
+int degree_moyen_aretes(array_Ty *matrixnouvelle, int nbr_nouvelles_vertices)
+{
+    l = malloc(sizeof(struct list_Ty));
+    unsigned int i = 0;
+    unsigned int degree = 0;
+    int degreemoyen[nbr_nouvelles_vertices];
 
+    while (matrixnouvelle[i].sommet < nbr_nouvelles_vertices)
+    {
+        l = matrixnouvelle[i].list;
+        int a = 0;
+        int counter = 0;
+        while (a < nbr_nouvelles_vertices)
+        {
+            if (l->valeur == 1)
+            {
+                counter++;
+            }
+            l = l->next;
+            a++;
+        }
+        degreemoyen[i] = counter;
+        //printf("\n");
+        i++;
+    }
+
+    for (int p = 0; p < nbr_nouvelles_vertices; p++)
+    {
+        degree = degree + degreemoyen[p];
+    }
+
+    degree = degree / nbr_nouvelles_vertices;
+
+    return degree;
+}
+
+unsigned int getsommetRandom(int nbr_vertices)
+{
+    unsigned int a = 0, random = 0;
+    while (random < MAX_TOURS)
+    {
+        a = rand() % nbr_vertices;
+        random++;
+    }
+    return a;
+}
+
+struct array_Ty *Matrix_vertices_relies(array_Ty *matrix2, int sommet_choisie, int nbr_verticesrelies, int verticestotalmatrix)
+{
+
+    struct array_Ty *Matrix;
+    printf("\nnbr_verticesrelies-> %d\n", nbr_verticesrelies);
+    Matrix = malloc(nbr_verticesrelies * sizeof(*Matrix));
+
+    Matrix[0].sommet = 0;
+    Matrix[0].list = NULL;
+    list = malloc(sizeof(struct list_Ty));
+    Matrix[0].list = list;
+    //list->sommet = 0;
+    // list->valeur = 0;
+    //list->next = NULL;
+    printf("val sommet choisie: %d\n", sommet_choisie);
+    l = malloc(sizeof(struct list_Ty));
+    l = matrix2[sommet_choisie].list;
+
+    for (int i = 0; i < verticestotalmatrix; i++)
+    {
+        if (l->valeur == 1)
+        {
+            //printf("[%d] -> [%d] ==1\t", l->sommet, l->valeur);
+            list->sommet = l->sommet;
+            list->valeur = l->valeur;
+            list->next = malloc(sizeof(struct list_Ty));
+            list = list->next;
+
+            l = l->next;
+            //printf("finmmmmmm == 1\n");
+        }
+        else
+        {
+            //printf("[%d] -> [%d] ==0,\t", l->sommet, l->valeur);
+            l = l->next;
+        }
+    }
+
+    return Matrix;
+}
+
+int get_nombre_des_aretes_du_Sousgraphe(array_Ty *matrixc, array_Ty *matrix, array_Ty *matrix2, int nbr_aretes_relies)
+{
+    unsigned int counter = 0, c1 = 0, c2 = 0;
+    l1 = malloc(sizeof(struct list_Ty));
+    l1 = matrix[0].list;
+
+    l2 = malloc(sizeof(struct list_Ty));
+    l2 = matrix2[0].list;
+    l2 = l2->next;
+
+    list = malloc(sizeof(struct list_Ty));
+
+    while (c1 < nbr_aretes_relies)
+    {
+        while (c2 < nbr_aretes_relies)
+        {
+            l2 = matrix2[0].list;
+            while (l2->sommet <= l1->sommet)
+            {
+                l2 = l2->next;
+            }
+
+            if (RechercherValeurdeMatrix(matrixc, l1->sommet, l2->sommet))
+            {
+                counter++;
+            }
+
+            l2 = l2->next;
+            c2++;
+        }
+        l1 = l1->next;
+        c1++;
+    }
+
+    return counter;
+}
+
+int calculerCliqueMaximal(int nbr_voisins_de_sommet_choisie)
+{
+    return (nbr_voisins_de_sommet_choisie * (nbr_voisins_de_sommet_choisie - 1)) / 2;
+}
 
 void main()
 {
-    nbr_Vertices = 6;
+    nbr_Vertices = rand();
     printf("nb_sommets_audebut:%d\n", nbr_Vertices);
     array_Ty *Matrix1 = CreateMatrix();
     array_Ty *Matrix2 = CreateMatrix_vide(nbr_Vertices);
     array_Ty *MatrixFinalConnexe;
     array_Ty *Matrix_forcee = CreateMatrix_forcee(nbr_Vertices);
-    FairCopiedeMatrix(Matrix_forcee, Matrix2, nbr_Vertices);
-    
+    FairCopiedeMatrix(Matrix1, Matrix2, nbr_Vertices);
+
     array_Ty *Matrixsommetsnonconnexes = Prendre_sommetsnonconnexes(Matrix2, nbr_Vertices);
     nbr_sommets_non_connexes = Nombre_effacer_sommets(Matrixsommetsnonconnexes, nbr_Vertices);
     nbr_Vertices_nouvelle = nbr_Vertices - nbr_sommets_non_connexes;
     if (nbr_Vertices_nouvelle > 0 && nbr_Vertices_nouvelle < nbr_Vertices)
-    {   printf("Matrice Connexe\n");
+    {
+        printf("Matrice Connexe\n");
         MatrixFinalConnexe = GenerationMatriceconnexe(Matrix2, Matrixsommetsnonconnexes, nbr_Vertices, nbr_Vertices_nouvelle);
         PrintMatrix(MatrixFinalConnexe, nbr_Vertices_nouvelle);
     }
     else
-    
-    {   printf("Matrice Connexe\n");
-        PrintMatrix(Matrix2, nbr_Vertices);
-        
+    {
+        MatrixFinalConnexe = Matrix2;
+        printf("Matrice Connexe\n");
+        PrintMatrix(MatrixFinalConnexe, nbr_Vertices);
     }
-
-
-
-    
+    printf("aretes du graphe: %d\n", numero_aretes_graphe(MatrixFinalConnexe, nbr_Vertices_nouvelle));
+    printf("degree moyen du graphe: %d\n", degree_moyen_aretes(MatrixFinalConnexe, nbr_Vertices_nouvelle));
+    unsigned int sommetRandom = getsommetRandom(nbr_Vertices_nouvelle);
+    unsigned int nbr_aretes_relies = Nombre_aretes_relies_a_sommet_choisie(MatrixFinalConnexe, nbr_Vertices_nouvelle, sommetRandom);
+    printf("getsommetrandom: %d\n", sommetRandom);
+    printf("numero_aretes_graphe: %d\n", nbr_aretes_relies);
+    printf("*--------------generation sous-graphe------------*");
+    array_Ty *Matrixsommets_relies = Matrix_vertices_relies(MatrixFinalConnexe, sommetRandom, nbr_aretes_relies, nbr_Vertices_nouvelle);
+    Print_Matrix_File(Matrixsommets_relies, nbr_aretes_relies);
+    unsigned int extra_aretes = get_nombre_des_aretes_du_Sousgraphe(MatrixFinalConnexe, Matrixsommets_relies, Matrixsommets_relies, nbr_aretes_relies);
+    printf("nbr_aretes_sousgraphe_extras: %d\n", extra_aretes);
+    int nbr_total_aretes_sous_graphe = extra_aretes + nbr_aretes_relies;
+    printf("nbr_aretes_sousgraphe_total: %d\n", nbr_total_aretes_sous_graphe);
+    printf("*--------------clique maximal------------*");
+    printf("\nclique maximal du sousgraphe= %d", calculerCliqueMaximal(nbr_aretes_relies));
 }
