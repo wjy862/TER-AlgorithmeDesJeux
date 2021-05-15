@@ -8,12 +8,14 @@ int main() {
     /*Génerer un graphe*/
     //int *matrice=genererUnGraphe();//int matrice[][], int tailleSommet int tailleArret
 
-    /*Trouver un nombre de coloration propre par heursitique*/
-    heuristiqueColoration();
-
     /*Initialisation de l'arbitre*/
     pArbitre=setArbitre(tailleSommet,tailleArret,matrice);
 
+    /*Trouver un nombre de coloration propre par heursitique*/
+    heuristiqueColoration();
+
+    /*Initialisation des vecteurStochastique*/
+    setVecteurStochastique();
 
     /*Colorier le graphe selon la vecteur stochastique des sommets*/
     colorier();
@@ -22,7 +24,7 @@ int main() {
     calculerArretEtConflit();
 
     /*calculer la taille de clique maximale de chaque sommet*/
-    calculerCliqueMaximale();
+    calculercliqueMax();
 
     /*calculer des bénéfice de chaque sommet*/
     calculerBenefice();
