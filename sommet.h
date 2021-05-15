@@ -33,6 +33,7 @@ double nbrCouleur;//Nombre total des couleurs dans la graphe
 double nbStrategies;//(double) couleurHeuristique pour calculer
 int tailleSommet=5;
 int tailleArret=5;
+/*
 int matrice[TSOMMET][TARRET]={
         {0,1,1,0,0},
         {1,0,1,0,1},
@@ -40,13 +41,13 @@ int matrice[TSOMMET][TARRET]={
         {0,0,1,0,1},
         {0,1,0,1,0}
 };
-/*
+
 int matrice[TSOMMET][TARRET]={
-        {0,1,1,0,0},
+        {0,1,1,1,1},
         {1,0,1,0,1},
         {1,1,0,1,1},
-        {0,0,1,0,1},
-        {0,1,1,1,0}
+        {1,0,1,0,1},
+        {1,1,1,1,0}
 };*/
 //prints
 void printMatice(int tailleSommet,int tailleArret,int *matrice){
