@@ -6,8 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/apprendissage.h
-
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/benefice.h
 stdio.h
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/stdio.h
@@ -29,8 +27,6 @@ sommet.h
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/sommet.h
 benefice.h
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/benefice.h
-apprendissage.h
-/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/apprendissage.h
 
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/sommet.h
 stdio.h

@@ -54,7 +54,7 @@ int main() {
 
 
     /*Initialisation de l'arbitre*/
-    pArbitre=setArbitre(tailleSommet,tailleArret,matrice);
+    setArbitre(tailleSommet,tailleArret,matrice);
 
     /*Trouver un nombre de coloration propre par heursitique*/
     heuristiqueColoration();
@@ -73,6 +73,9 @@ int main() {
 
     /*calculer des bénéfice de chaque sommet*/
     calculerBenefice();
+
+    /*Reinforcement learning*/
+
 
     /*Imprimer tout la stucture Arbitre*/
     printArbitre();

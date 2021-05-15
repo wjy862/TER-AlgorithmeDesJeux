@@ -20,7 +20,7 @@ struct list_Ty
 
 unsigned int nbr_Vertices, nbr_Vertices_nouvelle, nbr_sommets_non_connexes;
 struct list_Ty *list, *l, *l1, *l2;
-int *matrice;
+//int *matrice;
 
 struct array_Ty *CreateMatrix_forcee(int size)
 {

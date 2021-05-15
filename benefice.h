@@ -5,10 +5,6 @@
 #define alpha 0.5
 #define belta 0.5
 
-
-
-
-
 double beneficeLocale(Sommet pSommet){
     double nbrconflits=(double)pSommet->nbrConflits;
     double nbrArrets=(double)pSommet->nbrArrets;

@@ -33,7 +33,7 @@ double nbrCouleur;//Nombre total des couleurs dans la graphe
 double nbStrategies;//(double) couleurHeuristique pour calculer
 int tailleSommet=5;
 int tailleArret=5;
-/*
+
 int matrice[TSOMMET][TARRET]={
         {0,1,1,0,0},
         {1,0,1,0,1},
@@ -41,7 +41,7 @@ int matrice[TSOMMET][TARRET]={
         {0,0,1,0,1},
         {0,1,0,1,0}
 };
-
+/*
 int matrice[TSOMMET][TARRET]={
         {0,1,1,1,1},
         {1,0,1,0,1},
@@ -166,13 +166,13 @@ void setSommet(int index,Sommet listeSommet[]){
 }
 Arbitre setArbitre(int tailleSommet,int tailleArret,int (*matrice)[tailleArret]){
     printf("Beginning of Arbitre initialisation\n");
-    Arbitre pArbitre;
     pArbitre=malloc(2*sizeof(int)+sizeof(int*)+sizeof(Sommet*));
-    if (!pArbitre) exit(1);
+    pArbitre->matrice=malloc(tailleSommet*tailleArret*sizeof(int));
+    pArbitre->listeSommet=malloc(tailleSommet*sizeof(Sommet));
+    if (!pArbitre||!pArbitre->matrice||!pArbitre->listeSommet) exit(1);
     pArbitre->tailleSommet=tailleSommet;
     pArbitre->tailleArret=tailleArret;
     pArbitre->matrice=matrice[0];
-    pArbitre->listeSommet=malloc(tailleSommet*sizeof(Sommet));
     for (int i = 0; i < pArbitre->tailleSommet; i++) {
         setSommet(i,pArbitre->listeSommet);
     }
