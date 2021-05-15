@@ -610,9 +610,6 @@ void main()
     printf("\nclique maximal du sousgraphe= %d", calculerCliqueMaximal(nbr_aretes_relies));
 }
 
-
-
-
 /*
 void main()
 {
@@ -635,4 +632,3 @@ void main()
     }
     return sommets_nonconnexes;
 } */
-
