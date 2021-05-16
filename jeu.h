@@ -12,12 +12,14 @@ int run(){
     return updateVecteurStochastique();//return 1, si max probability > threshold (typically 0.999) -> equilibre de nash
 }
 void commenceDuJeu(){
-    FILE *F;
-    F = fopen("jeu.data","w");
+    FILE *F,*F1;
+    F = fopen("jeuConflit.data","w");
+    F1 = fopen("jeuCouleur.data","w");
     for (int tour = 0; tour < N; tour++) {
         if(run()==1) break;//run()==1, si max probability > threshold (typically 0.999) -> equilibre de nash
-        fprintf(F,"%d %lf\n",tour,(double)pArbitre->listeSommet[FPRINTSOMMET]->nbrConflits);
+        fprintf(F,"%d %d\n",tour,pArbitre->listeSommet[FPRINTSOMMET]->nbrConflits);
+        fprintf(F1,"%d %d\n",tour,(int)nbrCouleur);
     }
-
     fclose(F);
+    fclose(F1);
 }
