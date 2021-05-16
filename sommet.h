@@ -91,11 +91,18 @@ void printArbitre(){
     //printf("Size of Arbitre: %ld\n", sizeof(pArbitre));//8
     //printf("Adresse of Arbitre : %d\n",pArbitre);
     //printf("Adresse of listeSommet: %d\n",(pArbitre->listeSommet[0]));
-    printf("nombre total des Couleur: %lf",nbrCouleur);
+    //printf("nombre total des Couleur: %lf",nbrCouleur);
     printMatice(pArbitre->tailleSommet,pArbitre->tailleArret,pArbitre->matrice);
     for (int i = 0; i < pArbitre->tailleSommet; i++) {
         printSommet(pArbitre->listeSommet[i]);
     }
+    int sommeConflits=0;
+    for (int i = 0; i < tailleSommet; i++) {
+        sommeConflits+=pArbitre->listeSommet[i]->nbrConflits;
+    }
+    //fprintf(F,"%d %d\n",tour,pArbitre->listeSommet[FPRINTSOMMET]->nbrConflits);
+    printf("somme du nombre des Conflits: %d\n",sommeConflits);
+    printf("nombre total des Couleur: %d\n",(int)nbrCouleur);
     printf("End of printArbitre\n\n");
 }
 

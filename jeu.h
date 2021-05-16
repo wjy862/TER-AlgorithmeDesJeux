@@ -13,8 +13,8 @@ int run(){
 }
 void commenceDuJeu(){
     FILE *F,*F1;
-    F = fopen("jeuConflit.data","w");
-    F1 = fopen("jeuCouleur.data","w");
+    F = fopen("Conflicts.data","w");
+    F1 = fopen("Colors.data","w");
     for (int tour = 0; tour < N; tour++) {
         if(run()==1) break;//run()==1, si max probability > threshold (typically 0.999) -> equilibre de nash
         int sommeConflits=0;

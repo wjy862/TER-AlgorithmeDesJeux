@@ -1,7 +1,7 @@
 set term pdf
 set output "mm1_2.pdf"
 set xlabel "tour"
-set ylabel "Nb conflit"
-plot "jeuConflit.data" with lp
-set ylabel "Nb couleur"
-plot "jeuCouleur.data" with lp
+set ylabel "Nb conflict"
+plot "Conflicts.data" with lp
+set ylabel "Nb Strategies"
+plot "Colors.data" with lp

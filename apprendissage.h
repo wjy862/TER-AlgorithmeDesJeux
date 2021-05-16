@@ -1,5 +1,5 @@
 
-#define N 1000//itération
+#define N 10000//itération
 #define THETA 0.1//Learning rate parameter, 0<THETA<1
 #define THRESHOULD 0.999//Seuil de probabilité à atteindre
 double r;//Number of actions
@@ -62,14 +62,16 @@ int linearRewardPenalty(Sommet pSommet){
     printProbabilite(pSommet,a);
     for (int i = 0; i < r; i++) {
         if(i==a) continue;
-        p[i]=p[i]+THETA*(1-utilite)*((1.0/(r-1.0))-p[a])-THETA*utilite*p[i];
+        p[i]=p[i]+THETA*(1-utilite)*((1.0/(r-1.0))*p[a])-THETA*utilite*p[i];
         printProbabilite(pSommet,i);
     }
     printf("\n");
     return p[a]>=THRESHOULD?1:0;
 }
 int apprendissage(Sommet pSommet){
-    return linearRewardInaction(pSommet);
+    //return linearRewardInaction(pSommet);
+    return linearRewardPenalty(pSommet);
+
 }
 int updateVecteurStochastique(){
     printf("\nBeginning of updateVecteurStochastique\n");
