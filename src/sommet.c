@@ -187,7 +187,7 @@ int** getSousGraphe(Arbitre arb,int index,int size,int* taille)
                 cpt_j ++;//tmp vaut 1 donc on incrémente cpt_j
                 if(arb.matrice[i][j] ==1)
                 {
-                    printf("i:%d j:%d\n",i+1,j+1);
+                    //printf("i:%d j:%d\n",i+1,j+1);
                     ret[cpt_i][cpt_j] = 1;
                 }
             }
