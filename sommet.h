@@ -4,8 +4,10 @@
 #include <time.h>
 
 #define DEGRE 5
-int tailleSommet=10;
-int tailleArret=10;
+#define FPRINTSOMMET 5
+int tailleSommet=20;
+int tailleArret=20;
+
 
 struct Sommet{
     int index;
@@ -32,18 +34,6 @@ Arbitre pArbitre;
 int couleurHeuristique;
 double nbrCouleur;//Nombre total des couleurs dans la graphe
 double nbStrategies;//(double) couleurHeuristique pour calculer
-
-
-/*
-#define TSOMMET 5
-#define TARRET 5
-int matrice[TSOMMET][TARRET]={
-        {0,1,1,0,0},
-        {1,0,1,0,1},
-        {1,1,0,1,0},
-        {0,0,1,0,1},
-        {0,1,0,1,0}
-};*/
 
 //prints
 void printMatice(int thisTailleSommet,int thisTailleArret,int *thisMatrice){
@@ -101,6 +91,7 @@ void printArbitre(){
     //printf("Size of Arbitre: %ld\n", sizeof(pArbitre));//8
     //printf("Adresse of Arbitre : %d\n",pArbitre);
     //printf("Adresse of listeSommet: %d\n",(pArbitre->listeSommet[0]));
+    printf("nombre total des Couleur: %d",nbrCouleur);
     printMatice(pArbitre->tailleSommet,pArbitre->tailleArret,pArbitre->matrice);
     for (int i = 0; i < pArbitre->tailleSommet; i++) {
         printSommet(pArbitre->listeSommet[i]);

@@ -5,14 +5,7 @@
 #include "jeu.h"
 
 /*free les mémoires*/
-void freeAll(){
-    for (int i = 0; i < tailleArret; ++i) {
-        free(pArbitre->listeSommet[i]->vecteurStochastique);
-        free(pArbitre->listeSommet[i]);
-    }
-    free(pArbitre->listeSommet);
-    free(pArbitre);
-}
+void freeAll();
 
 int main() {
     /*Génerer un graphe*/
@@ -43,4 +36,13 @@ int main() {
     freeAll();
 
     return 0;
+}
+
+void freeAll(){
+    for (int i = 0; i < tailleArret; ++i) {
+        free(pArbitre->listeSommet[i]->vecteurStochastique);
+        free(pArbitre->listeSommet[i]);
+    }
+    free(pArbitre->listeSommet);
+    free(pArbitre);
 }
