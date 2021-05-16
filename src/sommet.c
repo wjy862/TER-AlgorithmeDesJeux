@@ -71,7 +71,7 @@ int trouverUnSousGraphe(int** matrice,int cpt,int m,int x,int* visiter,int max,i
     return max;
 }
 
-Arbitre genererUnGrapheConnexe(int** matrice,int m,int* visiter,int* final,int* cpt)
+struct Arbitre genererUnGrapheConnexe(int** matrice, int m, int* visiter, int* final, int* cpt)
 {
     int vrai_max =0;
     int nul;

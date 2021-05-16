@@ -82,6 +82,9 @@
 		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/benefice.h">
 			<Option target="theorieDesJeux"/>
 		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/jeu.h">
+			<Option target="theorieDesJeux"/>
+		</Unit>
 		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/main.c">
 			<Option target="theorieDesJeux"/>
 		</Unit>

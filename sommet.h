@@ -3,8 +3,9 @@
 #include "math.h"
 #include <time.h>
 
-#define TSOMMET 5
-#define TARRET 5
+#define DEGRE 5
+int tailleSommet=10;
+int tailleArret=10;
 
 struct Sommet{
     int index;
@@ -19,48 +20,38 @@ struct Sommet{
 };
 typedef struct Sommet *Sommet;
 
-typedef struct Arbitre{
+struct Arbitre{
     int tailleSommet;
     int tailleArret;
     int *matrice;
     Sommet *listeSommet;
 };
-typedef struct Arbitre *Arbitre;
+typedef struct Arbitre *Arbitre,A;
 
 Arbitre pArbitre;
 int couleurHeuristique;
 double nbrCouleur;//Nombre total des couleurs dans la graphe
 double nbStrategies;//(double) couleurHeuristique pour calculer
-int tailleSommet=5;
-int tailleArret=5;
 
+
+/*
+#define TSOMMET 5
+#define TARRET 5
 int matrice[TSOMMET][TARRET]={
         {0,1,1,0,0},
         {1,0,1,0,1},
         {1,1,0,1,0},
         {0,0,1,0,1},
         {0,1,0,1,0}
-};
-/*
-int matrice[TSOMMET][TARRET]={
-        {0,1,1,1,1},
-        {1,0,1,0,1},
-        {1,1,0,1,1},
-        {1,0,1,0,1},
-        {1,1,1,1,0}
 };*/
+
 //prints
-void printMatice(int tailleSommet,int tailleArret,int *matrice){
-
-    printf("tailleSommet: %d\n", tailleSommet);
-
-    printf("tailleArret: %d\n", tailleArret);
-    for (int k = 0; k < tailleSommet; k++) {
-
-        for (int m = 0; m < tailleArret; m++) {
-
-            //printf("%d ", *(*(matrice+k)+m));
-            printf("%d ", *(matrice+k*tailleArret+m));
+void printMatice(int thisTailleSommet,int thisTailleArret,int *thisMatrice){
+    printf("tailleSommet: %d\n", thisTailleSommet);
+    printf("tailleArret: %d\n", thisTailleArret);
+    for (int k = 0; k < thisTailleSommet; k++) {
+        for (int m = 0; m < thisTailleArret; m++) {
+            printf("%d ", *(thisMatrice+k*thisTailleArret+m));
         }
         printf("\n");
     }
@@ -107,9 +98,9 @@ void printSommet(Sommet pSommet){
 }
 void printArbitre(){
     printf("\nBeginning of printArbitre\n");
-    printf("Size of Arbitre: %ld\n", sizeof(pArbitre));//8
-    printf("Adresse of Arbitre : %d\n",pArbitre);
-    printf("Adresse of listeSommet: %d\n",(pArbitre->listeSommet[0]));
+    //printf("Size of Arbitre: %ld\n", sizeof(pArbitre));//8
+    //printf("Adresse of Arbitre : %d\n",pArbitre);
+    //printf("Adresse of listeSommet: %d\n",(pArbitre->listeSommet[0]));
     printMatice(pArbitre->tailleSommet,pArbitre->tailleArret,pArbitre->matrice);
     for (int i = 0; i < pArbitre->tailleSommet; i++) {
         printSommet(pArbitre->listeSommet[i]);
@@ -139,7 +130,7 @@ double calculerNbrCouleurTotal(){
 
 
 //initialisation
-void setVecteurStochastique(){
+void initVecteurStochastique(){
     for (int index = 0; index < tailleArret; ++index) {
         pArbitre->listeSommet[index]->vecteurStochastique = malloc(couleurHeuristique * sizeof(double));
         for (int k = 0; k < couleurHeuristique; k++) {
@@ -147,7 +138,7 @@ void setVecteurStochastique(){
         }
     }
 }
-void setSommet(int index,Sommet listeSommet[]){
+void initSommet(int index,Sommet listeSommet[]){
     Sommet pSommet;
     pSommet=malloc(sizeof(struct Sommet));
     if (!pSommet) exit(1);
@@ -164,17 +155,17 @@ void setSommet(int index,Sommet listeSommet[]){
     printSommet(pSommet);
     printf("Vertex initialisation succeed\n\n");
 }
-Arbitre setArbitre(int tailleSommet,int tailleArret,int (*matrice)[tailleArret]){
+Arbitre initArbitre(int (*matrice)[tailleSommet]){
     printf("Beginning of Arbitre initialisation\n");
+    Arbitre pArbitre;
     pArbitre=malloc(2*sizeof(int)+sizeof(int*)+sizeof(Sommet*));
-    pArbitre->matrice=malloc(tailleSommet*tailleArret*sizeof(int));
     pArbitre->listeSommet=malloc(tailleSommet*sizeof(Sommet));
-    if (!pArbitre||!pArbitre->matrice||!pArbitre->listeSommet) exit(1);
+    if (!pArbitre||!pArbitre->listeSommet) exit(1);
     pArbitre->tailleSommet=tailleSommet;
     pArbitre->tailleArret=tailleArret;
     pArbitre->matrice=matrice[0];
     for (int i = 0; i < pArbitre->tailleSommet; i++) {
-        setSommet(i,pArbitre->listeSommet);
+        initSommet(i,pArbitre->listeSommet);
     }
     printf("Arbitre initialisation succeed\n\n");
     return pArbitre;
@@ -195,7 +186,7 @@ int getCouleur(Sommet pSommet){
     printf("Génerer un p suite de la loi uniforme, thisP: %lf\n", thisP);
     for (int k = 0; k < couleurHeuristique; k++) {
         cumuleeP+=*(p+k);
-        //printf("P%d: %lf\n",k, cumuleeP);
+        printf("P%d: %lf\n",k, cumuleeP);
         if(thisP<cumuleeP) {
             //printf("k: %d\n", k);
             pSommet->couleur=k;
@@ -204,7 +195,8 @@ int getCouleur(Sommet pSommet){
             return k;
         }
     }
-    exit(-1);;
+    printf("cumuleeP %lf is less than this p %lf",cumuleeP,thisP);
+    exit(255);
 }
 void colorier(){
     printf("\nBeginning of colorier\n");
@@ -218,24 +210,37 @@ int isConflit(Sommet unSommet,Sommet autreSommet){
     if(unSommet->couleur==autreSommet->couleur) return 1;
     return 0;
 }
-void calculerArretEtConflit(){
-    printf("\nBeginning of calculerArretEtConflit\n");
+void calculerArret(){
+    printf("\nBeginning of calculerArret\n");
     for(int b= 0; b<pArbitre->tailleSommet; b++){
-        int countArrets=0,countConflits=0;
+        int countArrets=0;
         for(int c= 0; c< pArbitre->tailleArret; c++){
             if(*(pArbitre->matrice+b*pArbitre->tailleArret+c)==1) {
                 countArrets++;
-                countConflits+=isConflit(pArbitre->listeSommet[b],pArbitre->listeSommet[c]);
             }
         }
         pArbitre->listeSommet[b]->nbrArrets=countArrets;
-        pArbitre->listeSommet[b]->nbrConflits=countConflits;
         printIndex(pArbitre->listeSommet[b]);
         printNbrArrets(pArbitre->listeSommet[b]);
+        printf("\n");
+    }
+    printf("End of calculerArret\n\n");
+}
+void calculerConflit(){
+    printf("\nBeginning of calculerConflit\n");
+    for(int b= 0; b<pArbitre->tailleSommet; b++){
+        int countConflits=0;
+        for(int c= 0; c< pArbitre->tailleArret; c++){
+            if(*(pArbitre->matrice+b*pArbitre->tailleArret+c)==1) {
+                countConflits+=isConflit(pArbitre->listeSommet[b],pArbitre->listeSommet[c]);
+            }
+        }
+        pArbitre->listeSommet[b]->nbrConflits=countConflits;
+        printIndex(pArbitre->listeSommet[b]);
         printNbrConflits(pArbitre->listeSommet[b]);
         printf("\n");
     }
-    printf("End of calculerArretEtConflit\n\n");
+    printf("End of calculerConflit\n\n");
 }
 //calculer la taille Clique Maximale
 int calculerCliqueMaximale(){
@@ -383,7 +388,7 @@ int heuristiqueColoriser(int count,int *sommetsColorie,int tailleSommetsColorie,
     return count;
 }
 
-int heuristiqueColoration(){
+int initNbrColoration(){
     printf("\nBeginning of heuristiqueColoration\n");
     int couleurmax=0;
     int count=tailleArret;
