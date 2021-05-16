@@ -17,7 +17,12 @@ void commenceDuJeu(){
     F1 = fopen("jeuCouleur.data","w");
     for (int tour = 0; tour < N; tour++) {
         if(run()==1) break;//run()==1, si max probability > threshold (typically 0.999) -> equilibre de nash
-        fprintf(F,"%d %d\n",tour,pArbitre->listeSommet[FPRINTSOMMET]->nbrConflits);
+        int sommeConflits=0;
+        for (int i = 0; i < tailleSommet; i++) {
+            sommeConflits+=pArbitre->listeSommet[i]->nbrConflits;
+        }
+        //fprintf(F,"%d %d\n",tour,pArbitre->listeSommet[FPRINTSOMMET]->nbrConflits);
+        fprintf(F,"%d %d\n",tour,sommeConflits);
         fprintf(F1,"%d %d\n",tour,(int)nbrCouleur);
     }
     fclose(F);

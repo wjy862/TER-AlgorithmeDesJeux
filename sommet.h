@@ -4,7 +4,7 @@
 #include <time.h>
 
 #define DEGRE 5
-#define FPRINTSOMMET 5
+//#define FPRINTSOMMET 5
 int tailleSommet=20;
 int tailleArret=20;
 
