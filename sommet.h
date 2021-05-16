@@ -5,8 +5,8 @@
 
 #define DEGRE 5
 //#define FPRINTSOMMET 5
-int tailleSommet=20;
-int tailleArret=20;
+int tailleSommet=10;
+int tailleArret=10;
 
 
 struct Sommet{
@@ -117,12 +117,12 @@ double calculerNbrCouleurTotal(){
     }
 
     for (int j = 0; j < tailleSommet; j++) {
-        printf("Couleur %d est utilisé %d fois\n",j,listCouleurs[j]);
+        //printf("Couleur %d est utilisé %d fois\n",j,listCouleurs[j]);
         if(listCouleurs[j]!=0) count++;//counter ce qui n'est pas 0 dans la list Couleurs
     }
     free(listCouleurs);
     nbrCouleur=(double)count;
-    printf("Nombre total des couleurs dans la graphe: %lf\n",nbrCouleur);
+    //printf("Nombre total des couleurs dans la graphe: %lf\n",nbrCouleur);
     return nbrCouleur;
 }
 
@@ -140,7 +140,7 @@ void initSommet(int index,Sommet listeSommet[]){
     Sommet pSommet;
     pSommet=malloc(sizeof(struct Sommet));
     if (!pSommet) exit(1);
-    printf("\nBeginning of vertex%d initialisation\n",index);
+    //printf("\nBeginning of vertex%d initialisation\n",index);
     pSommet->index=index;
     pSommet->couleur=-1;
     pSommet->nbrConflits=-1;
@@ -150,11 +150,11 @@ void initSommet(int index,Sommet listeSommet[]){
     pSommet->cliqueMax=-1;
     pSommet->nbrArrets=-1;
     listeSommet[index]=pSommet;
-    printSommet(pSommet);
-    printf("Vertex initialisation succeed\n\n");
+    //printSommet(pSommet);
+    //printf("Vertex initialisation succeed\n\n");
 }
 Arbitre initArbitre(int (*matrice)[tailleSommet]){
-    printf("Beginning of Arbitre initialisation\n");
+    //printf("Beginning of Arbitre initialisation\n");
     Arbitre pArbitre;
     pArbitre=malloc(2*sizeof(int)+sizeof(int*)+sizeof(Sommet*));
     pArbitre->listeSommet=malloc(tailleSommet*sizeof(Sommet));
@@ -165,7 +165,7 @@ Arbitre initArbitre(int (*matrice)[tailleSommet]){
     for (int i = 0; i < pArbitre->tailleSommet; i++) {
         initSommet(i,pArbitre->listeSommet);
     }
-    printf("Arbitre initialisation succeed\n\n");
+    //printf("Arbitre initialisation succeed\n\n");
     return pArbitre;
 }
 //colorier
@@ -181,27 +181,27 @@ int getCouleur(Sommet pSommet){
     /*la probalilité cumulée*/
     double cumuleeP=0.0;
     double thisP=unif();
-    printf("Génerer un p suite de la loi uniforme, thisP: %lf\n", thisP);
+    //printf("Génerer un p suite de la loi uniforme, thisP: %lf\n", thisP);
     for (int k = 0; k < couleurHeuristique; k++) {
         cumuleeP+=*(p+k);
-        printf("P%d: %lf\n",k, cumuleeP);
+        //printf("P%d: %lf\n",k, cumuleeP);
         if(thisP<cumuleeP) {
             //printf("k: %d\n", k);
             pSommet->couleur=k;
-            printf("Coloriser Sommet %d par le couleur %d\n",pSommet->index,pSommet->couleur);
-            printf("\n");
+            //printf("Coloriser Sommet %d par le couleur %d\n",pSommet->index,pSommet->couleur);
+            //printf("\n");
             return k;
         }
     }
-    printf("cumuleeP %lf is less than this p %lf",cumuleeP,thisP);
+    //printf("cumuleeP %lf is less than this p %lf",cumuleeP,thisP);
     exit(255);
 }
 void colorier(){
-    printf("\nBeginning of colorier\n");
+    //printf("\nBeginning of colorier\n");
     for(int a = 0; a < pArbitre->tailleSommet; a++){
         getCouleur(pArbitre->listeSommet[a]);
     }
-    printf("End of colorier\n\n");
+    //printf("End of colorier\n\n");
 }
 //conflit
 int isConflit(Sommet unSommet,Sommet autreSommet){
@@ -209,7 +209,7 @@ int isConflit(Sommet unSommet,Sommet autreSommet){
     return 0;
 }
 void calculerArret(){
-    printf("\nBeginning of calculerArret\n");
+    //printf("\nBeginning of calculerArret\n");
     for(int b= 0; b<pArbitre->tailleSommet; b++){
         int countArrets=0;
         for(int c= 0; c< pArbitre->tailleArret; c++){
@@ -218,14 +218,14 @@ void calculerArret(){
             }
         }
         pArbitre->listeSommet[b]->nbrArrets=countArrets;
-        printIndex(pArbitre->listeSommet[b]);
-        printNbrArrets(pArbitre->listeSommet[b]);
-        printf("\n");
+        //printIndex(pArbitre->listeSommet[b]);
+        //printNbrArrets(pArbitre->listeSommet[b]);
+        //printf("\n");
     }
-    printf("End of calculerArret\n\n");
+    //printf("End of calculerArret\n\n");
 }
 void calculerConflit(){
-    printf("\nBeginning of calculerConflit\n");
+    //printf("\nBeginning of calculerConflit\n");
     for(int b= 0; b<pArbitre->tailleSommet; b++){
         int countConflits=0;
         for(int c= 0; c< pArbitre->tailleArret; c++){
@@ -234,11 +234,11 @@ void calculerConflit(){
             }
         }
         pArbitre->listeSommet[b]->nbrConflits=countConflits;
-        printIndex(pArbitre->listeSommet[b]);
-        printNbrConflits(pArbitre->listeSommet[b]);
-        printf("\n");
+        //printIndex(pArbitre->listeSommet[b]);
+        //printNbrConflits(pArbitre->listeSommet[b]);
+        //printf("\n");
     }
-    printf("End of calculerConflit\n\n");
+    //printf("End of calculerConflit\n\n");
 }
 //calculer la taille Clique Maximale
 int calculerCliqueMaximale(){
@@ -286,16 +286,16 @@ int findNbrVoisinNonColorie(int index,int *sommetsColorie,int tailleSommetsColor
             count+=isDefferentFromAnyElements(voisin,sommetsColorie,tailleSommetsColorie);
         }
     }
-    printf("Chercher un voisin moins contraint, voisin: Sommet %d dont %d voisins non colorié\n",index,count);
+    //printf("Chercher un voisin moins contraint, voisin: Sommet %d dont %d voisins non colorié\n",index,count);
     return count;
 }
 
 int getProchainVoisinLeMoinsContraint(int *sommetsColorie,int tailleSommetsColorie,int *voisinsNonColorie,int tailleVoisinNonColorie){
     //print la structure des parametre
-    printTailleSommetsColorie(tailleSommetsColorie);
-    printTailleVoisinNonColorie(tailleVoisinNonColorie);
-    printSommetsColorie(sommetsColorie,tailleSommetsColorie);
-    printVoisinsNonColorie(voisinsNonColorie,tailleVoisinNonColorie);
+    //printTailleSommetsColorie(tailleSommetsColorie);
+    //printTailleVoisinNonColorie(tailleVoisinNonColorie);
+    //printSommetsColorie(sommetsColorie,tailleSommetsColorie);
+    //printVoisinsNonColorie(voisinsNonColorie,tailleVoisinNonColorie);
 
     int index;//index de sommet
     int max=RAND_MAX;//nombre de voisin non colorie
@@ -325,7 +325,7 @@ void heuristiqueColorier(int index,int *sommetsColorie,int tailleSommetsColorie)
     for (int i = 0; i < tailleArret; i++) {
        if(listecouleur[i]==0){
            pArbitre->listeSommet[index]->couleur=i;
-           printf("Sommet %d est le voisin moins contraint, colorié par couleur: %d\n\n",pArbitre->listeSommet[index]->index,i);
+           //printf("Sommet %d est le voisin moins contraint, colorié par couleur: %d\n\n",pArbitre->listeSommet[index]->index,i);
            break;
        }
     }
@@ -374,7 +374,7 @@ int* calculerVoisinsNonColorie(int *sommetsColorie,int tailleSommetsColorie,int 
 }
 int heuristiqueColoriser(int count,int *sommetsColorie,int tailleSommetsColorie,int *voisinsNonColorie,int tailleVoisinNonColorie){
     if(count==0) return count;
-    printf("\nA tour %d,il reste %d sommets non colorié\n",tailleSommet-count,count);
+    //printf("\nA tour %d,il reste %d sommets non colorié\n",tailleSommet-count,count);
     int voisin=getProchainVoisinLeMoinsContraint(sommetsColorie,tailleSommetsColorie,voisinsNonColorie,tailleVoisinNonColorie);
     heuristiqueColorier(voisin,sommetsColorie,tailleSommetsColorie);
     tailleSommetsColorie++;
@@ -387,12 +387,12 @@ int heuristiqueColoriser(int count,int *sommetsColorie,int tailleSommetsColorie,
 }
 
 int initNbrColoration(){
-    printf("\nBeginning of heuristiqueColoration\n");
+    //printf("\nBeginning of heuristiqueColoration\n");
     int couleurmax=0;
     int count=tailleArret;
     //choisir un sommet par hasard puis colorier
     int indexPremierSommet=(int)(unif()*tailleSommet);
-    printf("Sommet %d est la premier sommet colorié par couleur: %d\n",indexPremierSommet,0);
+    //printf("Sommet %d est la premier sommet colorié par couleur: %d\n",indexPremierSommet,0);
     pArbitre->listeSommet[indexPremierSommet]->couleur=0;
     count--;
     //création des parametres
@@ -409,10 +409,10 @@ int initNbrColoration(){
     tailleVoisinNonColorie= calculerTailleVoisinNonColorie(sommetsColorie,tailleSommetsColorie);
     voisinsNonColorie=calculerVoisinsNonColorie(sommetsColorie,tailleSommetsColorie,voisinsNonColorie);
     //print la structure des parametre
-    printTailleSommetsColorie(tailleSommetsColorie);
-    printTailleVoisinNonColorie(tailleVoisinNonColorie);
-    printSommetsColorie(sommetsColorie,tailleSommetsColorie);
-    printVoisinsNonColorie(voisinsNonColorie,tailleVoisinNonColorie);
+    //printTailleSommetsColorie(tailleSommetsColorie);
+    //printTailleVoisinNonColorie(tailleVoisinNonColorie);
+    //printSommetsColorie(sommetsColorie,tailleSommetsColorie);
+    //printVoisinsNonColorie(voisinsNonColorie,tailleVoisinNonColorie);
     //colorier les voisin
     heuristiqueColoriser(count,sommetsColorie,tailleSommetsColorie,voisinsNonColorie,tailleVoisinNonColorie);
     //calculer Nbr Couleur Total
@@ -424,7 +424,7 @@ int initNbrColoration(){
     //free les memoires
     free(sommetsColorie);
     free(voisinsNonColorie);
-    printf("\nEnd of heuristiqueColoration\n");
+    //printf("\nEnd of heuristiqueColoration\n");
     return couleurHeuristique;
 }
 

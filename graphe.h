@@ -1,3 +1,4 @@
+/*
 int alea(double p);
 void genererUnGraphe(int **matrice,int m,int d);
 int trouverUnSousGraphe(int** matrice,int cpt,int m,int x,int* visiter,int max,int* final);
@@ -276,13 +277,13 @@ int* initGraphe(){
     //free(res.listeSommet);
     return res.matrice;
 }
+*/
 
 
 
 
 
-/*
- #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #define MAX_TOURS 9999
@@ -304,7 +305,7 @@ struct list_Ty
 
 unsigned int nbr_Vertices, nbr_Vertices_nouvelle, nbr_sommets_non_connexes;
 struct list_Ty *list, *l, *l1, *l2;
-//int *matrice;
+int *matrice;
 
 struct array_Ty *CreateMatrix_forcee(int size)
 {
@@ -914,4 +915,5 @@ void main()
         sommets_nonconnexes = sommets_nonconnexes->next;
     }
     return sommets_nonconnexes;
-} */
+}
+*/
