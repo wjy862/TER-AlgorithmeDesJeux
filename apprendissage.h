@@ -1,5 +1,5 @@
 
-#define N 1000//itération
+#define N 10000//itération
 #define THETA 0.1//Learning rate parameter, 0<THETA<1
 #define THRESHOULD 0.999//Seuil de probabilité à atteindre
 double r;//Number of actions
