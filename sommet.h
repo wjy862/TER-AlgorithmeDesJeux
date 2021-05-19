@@ -18,6 +18,7 @@ struct Sommet{
     int cliqueMax;
     int nbrArrets;
     int nbrConflits;
+    int coul_ss_graph;
     double *vecteurStochastique;
 };
 typedef struct Sommet *Sommet;
@@ -75,6 +76,10 @@ void printVecteurStochastique(Sommet pSommet){
         printf("the %dst value of vecteurStochastique: %lf\n", k,*(pSommet->vecteurStochastique+k));
     }
 }
+void printCouleurSousgraphe(Sommet pSommet)
+{
+    printf("this coulssgraph: %d\n", pSommet->coul_ss_graph);   
+}
 void printSommet(Sommet pSommet){
     printIndex(pSommet);
     printCouleur(pSommet);
@@ -85,6 +90,7 @@ void printSommet(Sommet pSommet){
     printNbrArrets(pSommet);
     printNbrConflits(pSommet);
     printVecteurStochastique(pSommet);
+    printCouleurSousgraphe(pSommet);
 }
 void printArbitre(){
     printf("\nBeginning of printArbitre\n");
@@ -149,6 +155,7 @@ void initSommet(int index,Sommet listeSommet[]){
     pSommet->minBenefice=0.0;
     pSommet->cliqueMax=-1;
     pSommet->nbrArrets=-1;
+    pSommet->coul_ss_graph = 0;
     listeSommet[index]=pSommet;
     //printSommet(pSommet);
     //printf("Vertex initialisation succeed\n\n");
@@ -241,13 +248,198 @@ void calculerConflit(){
     //printf("End of calculerConflit\n\n");
 }
 //calculer la taille Clique Maximale
-int calculerCliqueMaximale(){
-    return 3;
+int** getSousGrapheClique(Arbitre arb,int index,int size,int* taille)
+{
+    if(index >= size)
+    {
+        printf("l'index ne correspond à aucun sommet\n");
+        return NULL;
+    }
+    int cpt = 1;
+    int cpt_i = 0;
+    int cpt_j = 0;
+    int* tmp = malloc(size*sizeof(int));
+    int **ret;
+    for(int i=0;i<size;i++)
+    {
+        tmp[i] =0;
+    }
+    for(int i=0;i<size;i++)
+    {
+        //printf("%d ",arb.matrice[index][i]);
+       // if(arb.matrice[index][i] == 1)
+        if(*(arb->matrice+index*size+i) == 1)
+
+        {
+            tmp[i]=1;//on ajoute les voisins du sommet index
+            cpt++;
+        }
+    }
+    //printf("cpt sous graphe = %d\n",cpt);
+    ret = malloc(cpt*sizeof(int*));
+    for(int i =0;i<cpt;i++)
+    {
+        ret[i] = malloc(cpt*sizeof(int));
+        for(int j =0;j<cpt;j++)
+        {
+            ret[i][j] = 0;
+        }
+    }
+    for(int i = 1;i<cpt;i++)
+    {
+        ret[0][i]= 1;
+        ret[i][0] =1;
+    }
+    *taille = cpt;
+    cpt_i = 1;
+    cpt_j = 0;
+    for(int i =0;i<size;i++)//on cherche les voisins du sommet index
+    {
+        if(tmp[i] == 0) continue;//pas un sommet du sous graphe
+        //printf("%d\t",i+1);
+        for(int j=0;j<size;j++)
+        {
+            if(tmp[j])//pas un sommet du sous graphe|| se regarde lui même
+            {
+                cpt_j ++;//tmp vaut 1 donc on incrémente cpt_j
+                //if(arb.matrice[i][j] ==1)
+                if(*(arb->matrice+i*size+j) ==1)
+                {
+                    //printf("i:%d j:%d\n",i+1,j+1);
+                    ret[cpt_i][cpt_j] = 1;
+                }
+            }
+        }
+        cpt_i++;
+        cpt_j = 0;
+    }
+    free(tmp);
+    return ret;
+}
+
+
+int diminuer(int* binaire, int taille,int i)
+{
+    int cpt = 0;
+        if(i == taille-1 && binaire[i]==0)//?
+        {
+            return 0;
+        }
+        if(binaire[i] == 1)
+        {
+            binaire[i]=0;
+            while(i != 0)
+            {
+                binaire[i-1] = 1;
+                i--;
+            }
+            for(int i=0;i<taille;i++)
+            {
+                if(binaire[i] == 1)
+                {
+                    cpt++;
+                }
+            }
+            //printf("##cpt = %d##\n",cpt);
+            return cpt;
+        }
+        else
+        {
+            return diminuer(binaire,taille,i+1);
+        }
+}
+
+int calculerCliqueMaximale(Arbitre arb,int f){
+    //printf("What\n");
+    int** tmp;
+    int ret = 0;
+    int fin =1;
+    int faux =0;
+    int taille = 0;
+    int* binaire;
+
+    tmp = getSousGrapheClique(arb,f,arb->tailleSommet,&taille);
+    ret = 0;
+    binaire = malloc(taille*sizeof(int));
+    //printf("taille vaut %d\n",taille);
+    for(int j = 0;j<taille;j++)
+    {
+        binaire[j] = 1;
+    }
+    while(fin !=0)
+    {
+        for(int i =0;i<taille-1 && faux == 0;i++)
+        {
+            if(binaire[i] == 0) continue;
+            for(int j =i+1;j<taille && faux == 0;j++)
+            {
+                if(binaire[j]==0)continue;
+                if(tmp[i][j]==0) faux = 1;
+            }
+        }
+        if(!faux)//clique trouvée?
+        {
+            if(fin > ret) ret = fin;
+        }
+            //printf("fin vaut:%d\n",fin);
+            fin = diminuer(binaire,taille,0);
+            //printf("fin vaut:%d\n",fin);
+            /*printf("###bin vaut:");
+            for(int i =0;i<taille;i++)
+            {
+                printf("%d ",binaire[i]);
+            }
+            printf("\n");*/
+            faux =0;
+    }
+        for(int i =0;i<taille;i++)
+    {
+        free(tmp[i]);
+    }
+    free(tmp);
+    free(binaire);
+    //printf("### clique_max = %d ###\n",ret);
+    return ret;
+    //return 3;
 }
 void calculercliqueMax(){
     for (int i = 0; i < tailleArret; i++) {
-        pArbitre->listeSommet[i]->cliqueMax=calculerCliqueMaximale();
+        pArbitre->listeSommet[i]->cliqueMax=calculerCliqueMaximale(pArbitre,i);
     }
+}
+
+//nombre de couleurs d'un sous graphe
+int calculerNbrCouleurLocal(Arbitre arb,int index)
+{
+    int cpt= 1;
+
+    int * nb_coul = malloc((int)nbrCouleur*sizeof(int));
+    for(int i=0;i<(int)nbrCouleur;i++)
+    {
+        nb_coul[i] = 0;
+
+    }
+    for(int i =0;i<tailleSommet;i++)
+    {
+
+        if(isVoisin(index,i) && nb_coul[arb->listeSommet[i]->couleur] ==0)
+        {
+            //printf("%d est voisin avec %d\n",index,i);
+            nb_coul[arb->listeSommet[i]->couleur] =1;
+            cpt++;
+        }
+    }
+    free(nb_coul);
+    return cpt;
+}
+
+void calculerCouleurSsgraphe()
+{
+    {
+    for (int i = 0; i < tailleArret; i++) {
+        pArbitre->listeSommet[i]->coul_ss_graph=calculerNbrCouleurLocal(pArbitre,i);
+    }
+}
 }
 //heuristiqueColoration
 void printSommetsColorie(int *sommetsColorie,int tailleSommetsColorie){

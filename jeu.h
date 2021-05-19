@@ -5,6 +5,9 @@ int run(){
     /*calculer des conflit de chaque sommet*/
     calculerConflit();
 
+    /*calculer les couleurs des sous graphes*/
+    calculerCouleurSsgraphe();
+
     /*calculer des bénéfice de chaque sommet*/
     calculerBenefice();
 
