@@ -1,3 +1,4 @@
+#include "parametre.h"
 #include "sommet.h"
 #include "graphe.h"
 #include "benefice.h"

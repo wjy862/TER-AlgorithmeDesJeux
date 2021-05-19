@@ -9,22 +9,14 @@
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/apprendissage.h
 
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/benefice.h
-stdio.h
-/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/stdio.h
-stdlib.h
-/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/stdlib.h
-math.h
-/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/math.h
 
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/graphe.h
-stdio.h
--
-stdlib.h
--
 
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/jeu.h
 
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/main.c
+parametre.h
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/parametre.h
 sommet.h
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/sommet.h
 graphe.h
@@ -36,7 +28,7 @@ apprendissage.h
 jeu.h
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/jeu.h
 
-/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/sommet.h
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/parametre.h
 stdio.h
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/stdio.h
 stdlib.h
@@ -45,4 +37,6 @@ math.h
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/math.h
 time.h
 -
+
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/sommet.h
 

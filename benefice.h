@@ -1,9 +1,4 @@
-#include "stdio.h"
-#include "stdlib.h"
-#include "math.h"
 
-#define alpha 0.6
-#define belta 0.4
 
 double beneficeLocale(Sommet pSommet){
     int nbcoul_sous_graphe = pSommet->coul_ss_graph;

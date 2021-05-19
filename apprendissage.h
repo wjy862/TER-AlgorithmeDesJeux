@@ -1,13 +1,4 @@
-#define THETA1 0.01//Learning rate parameter, 0<THETA<1
-#define THETA2 0.005//Learning rate parameter, 0<THETA<1
-#define N 100000//itération
-#define THETA 0.1//Learning rate parameter, 0<THETA<1
 
-#define THRESHOULD 0.999//Seuil de probabilité à atteindre
-double r;//Number of actions
-int a;//this action
-double *p;//Probability vector,[p[0],p[1]...p[r]]
-double utilite;//Environmental response (P,Q,S)-> utilité
 
 printR(double r){
     printf("Number of actions: %lf\n",r);
