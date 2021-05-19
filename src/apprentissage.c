@@ -1,22 +1,21 @@
+#include "../inc/apprentissage.h"
 
-#define N 10000//itération
-#define THETA 0.1//Learning rate parameter, 0<THETA<1
-#define THRESHOULD 0.999//Seuil de probabilité à atteindre
 double r;//Number of actions
 int a;//this action
 double *p;//Probability vector,[p[0],p[1]...p[r]]
 double utilite;//Environmental response (P,Q,S)-> utilité
+extern int tailleSommet;
 
-printR(double r){
+void printR(double r){
     printf("Number of actions: %lf\n",r);
 }
-printA(double a){
+void printA(double a){
     printf("this action: %lf\n",a);
 }
-printP(double p){
+void printP(double p){
     printf("Probability vector: %lf\n",p);
 }
-printUtilite(double utilite){
+void printUtilite(double utilite){
     printf("Environmental response (P,Q,S): %lf\n",utilite);
 }
 void printProbabilite(Sommet pSommet,int index){

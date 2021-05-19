@@ -1,3 +1,4 @@
+#include "../inc/jeu.h"
 int run(){
     /*Colorier le graphe selon la vecteur stochastique des sommets*/
     colorier();
@@ -16,8 +17,8 @@ int run(){
 }
 void commenceDuJeu(){
     FILE *F,*F1;
-    F = fopen("jeuConflit.data","w");
-    F1 = fopen("jeuCouleur.data","w");
+    F = fopen("data/jeuConflit.data","w");
+    F1 = fopen("data/jeuCouleur.data","w");
     for (int tour = 0; tour < N; tour++) {
         if(run()==1) break;//run()==1, si max probability > threshold (typically 0.999) -> equilibre de nash
         int sommeConflits=0;

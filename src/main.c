@@ -1,13 +1,19 @@
-#include "sommet.h"
-#include "graphe.h"
-#include "benefice.h"
-#include "apprendissage.h"
-#include "jeu.h"
+#include "../inc/sommet.h"
+#include "../inc/graphe.h"
+#include "../inc/benefice.h"
+#include "../inc/apprentissage.h"
+#include "../inc/jeu.h"
 
 /*free les mémoires*/
 void freeAll();
+extern int tailleArret;
+
 
 int main() {
+
+
+
+
     /*Génerer un graphe*/
     int* matrice =initGraphe();
 

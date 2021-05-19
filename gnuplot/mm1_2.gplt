@@ -2,6 +2,6 @@ set term pdf
 set output "mm1_2.pdf"
 set xlabel "tour"
 set ylabel "Nb conflit"
-plot "jeuConflit.data" with lp
+plot "data/jeuConflit.data" with lp
 set ylabel "Nb couleur"
-plot "jeuCouleur.data" with lp
+plot "data/jeuCouleur.data" with lp
