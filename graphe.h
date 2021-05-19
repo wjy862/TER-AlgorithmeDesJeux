@@ -14,9 +14,18 @@ int alea(double p){
 
 void genererUnGraphe(int **matrice,int m,int d)
 {
+    //printf("degre vaut %d \n",d);
     int tmp = 0;
+    int cpt =0;
     for(int i =0; i< m ;i++)//genere graphe
     {
+        for(int j =0;j<i;j++)
+        {
+            if(j<i && matrice[i][j]==1)
+            {
+                cpt++;
+            }
+        }
         for(int j=i; j<m;j++)
         {
             if(i == j)
@@ -25,12 +34,14 @@ void genererUnGraphe(int **matrice,int m,int d)
             }
             else
             {
-                tmp= alea((double)((double)d/(double)(m-(i+1))));
+                //printf("cpt vaut %d\t i vaut%d\t j vaut%d\n",cpt,i,j);
+                tmp= alea((double)((double)(d-cpt)/(double)(m-(i+1))));
                 matrice[i][j] = tmp;//m = 50 et i = 0 alors proba = d/49 ;(50 - (0+1))
                 matrice[j][i] = matrice[i][j]; //si i+1 = m division par 0 mais si i = m-1 alors i = j donc ca "n'arrive pas"
 
             }
         }
+        cpt = 0;
     }
 }
 int trouverUnSousGraphe(int** matrice,int cpt,int m,int x,int* visiter,int max,int* final)

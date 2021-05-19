@@ -19,7 +19,7 @@ mm1_2.pdf: mm1_2.data mm1_2.gplt
 mm1_2.data: simul2
 	./simul2
 
-simul2: main.c sommet.h benefice.h apprendissage.h
+simul2: main.c sommet.h benefice.h apprendissage.h graphe.h jeu.h
 	gcc -o simul2 -Wall main.c -lm
 
 ## SIMUL 3
