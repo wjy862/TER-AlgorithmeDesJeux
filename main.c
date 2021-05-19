@@ -4,6 +4,7 @@
 #include "apprendissage.h"
 #include "jeu.h"
 
+#define TIMES 1000
 /*free les mémoires*/
 void freeAll();
 
@@ -11,6 +12,7 @@ int main() {
     /*Génerer un graphe*/
     int* matrice =initGraphe();
 
+    for (int i = 0; i < TIMES; i++) {
     /*Initialisation de l'arbitre*/
     pArbitre=initArbitre(matrice);
 
@@ -30,11 +32,15 @@ int main() {
     commenceDuJeu();
 
     /*Imprimer tout la stucture Arbitre*/
-    printArbitre();
+    //printArbitre();
+    printConflitCouleur(i);
 
     /*free les mémoires*/
     freeAll();
+    }
 
+    /*nbr des fois obtenu une coloration propre après TIMES fois du jeu*/
+    printNbrColorationPropre();
     return 0;
 }
 

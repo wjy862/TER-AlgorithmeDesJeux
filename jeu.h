@@ -25,7 +25,7 @@ void commenceDuJeu(){
             sommeConflits+=pArbitre->listeSommet[i]->nbrConflits;
         }
         //fprintf(F,"%d %d\n",tour,pArbitre->listeSommet[FPRINTSOMMET]->nbrConflits);
-        fprintf(F,"%d %d\n",tour,sommeConflits);
+        fprintf(F,"%d %d\n",tour,sommeConflits/2);
         fprintf(F1,"%d %d\n",tour,(int)nbrCouleur);
     }
     fclose(F);
