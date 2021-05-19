@@ -4,43 +4,59 @@
 #include "apprendissage.h"
 #include "jeu.h"
 
-#define TIMES 1000
+#define TIMES 1
 /*free les mémoires*/
 void freeAll();
 
 int main() {
-    /*Génerer un graphe*/
-    int* matrice =initGraphe();
+    int maxTailleSommet=tailleSommet;
 
-    for (int i = 0; i < TIMES; i++) {
-    /*Initialisation de l'arbitre*/
-    pArbitre=initArbitre(matrice);
+    /*générer des graphes de 2 sommets à 20 sommets, puis calculer le nombre des fois qu'on obetient une coloration propre*/
+    for (int nbrSommet = 2; nbrSommet <= maxTailleSommet; nbrSommet++) {
 
-    /*initialisation du membre des Couleur, trouver un nombre de coloration propre par heursitique*/
-    initNbrColoration();
+        /*remettre nbrColorationPropre à 0 pour chaque graphe*/
+        nbrColorationPropre=0;
 
-    /*Initialisation des vecteurStochastique*/
-    initVecteurStochastique();
+        /*redéfinir la taille du sommet et arret*/
+        tailleSommet=tailleArret=nbrSommet;
+        printf("tailleSommet: %d, tailleSommet: %d\n",tailleSommet,tailleArret);
+        /*Génerer un graphe*/
+        int* matrice =initGraphe();
 
-    /*calculer la taille de clique maximale de chaque sommet*/
-    calculercliqueMax();
+        /*répéter TIMES fois le jeu à trouver equilibre de nash*/
+        for (int i = 0; i < TIMES; i++) {
+            /*Initialisation de l'arbitre*/
+            pArbitre=initArbitre(matrice);
 
-    /*calculer la nombre de Arret de chaque sommet*/
-    calculerArret();
+            /*initialisation du membre des Couleur, trouver un nombre de coloration propre par heursitique*/
+            initNbrColoration();
 
-    /*commence du jeu*/
-    commenceDuJeu();
+            /*Initialisation des vecteurStochastique*/
+            initVecteurStochastique();
 
-    /*Imprimer tout la stucture Arbitre*/
-    //printArbitre();
-    printConflitCouleur(i);
+            /*calculer la taille de clique maximale de chaque sommet*/
+            calculercliqueMax();
 
-    /*free les mémoires*/
-    freeAll();
+            /*calculer la nombre de Arret de chaque sommet*/
+            calculerArret();
+
+            /*commence du coloration*/
+            commenceDuJeu();
+
+            /*calculer Nbr Coloration Propre*/
+            calculerNbrColorationPropre(i);
+
+            /*Imprimer tout la stucture Arbitre*/
+            //printArbitre();
+
+            /*free les mémoires*/
+            freeAll();
+        }
+
+        /*nbr des fois obtenu une coloration propre après TIMES fois du jeu*/
+        printNbrColorationPropre(nbrSommet,(double)nbrColorationPropre/(double)TIMES);
     }
 
-    /*nbr des fois obtenu une coloration propre après TIMES fois du jeu*/
-    printNbrColorationPropre();
     return 0;
 }
 

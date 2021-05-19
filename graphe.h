@@ -268,8 +268,8 @@ int* initGraphe(){
     }
     printf("\n");
 
-    tailleSommet=sommet;// int tailleSommet
-    tailleArret=sommet;// int tailleArret
+    tailleSommet=size;// int tailleSommet
+    tailleArret=size;// int tailleArret
 
     for(int i = 0;i<sommet;i++)
     {

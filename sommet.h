@@ -4,8 +4,8 @@
 #include <time.h>
 
 #define DEGRE 2
-int tailleSommet=4;
-int tailleArret=4;
+int tailleSommet=20;
+int tailleArret=20;
 
 
 struct Sommet{
@@ -34,7 +34,7 @@ Arbitre pArbitre;
 int couleurHeuristique;
 double nbrCouleur;//Nombre total des couleurs dans la graphe
 double nbStrategies;//(double) couleurHeuristique pour calculer
-int nbrColorationPropre=0;
+int nbrColorationPropre;
 
 int isVoisin(int ligne,int colonne);
 //prints
@@ -112,7 +112,7 @@ void printArbitre(){
     printf("nombre total des Couleur: %d\n",(int)nbrCouleur);
     printf("End of printArbitre\n\n");
 }
-void printConflitCouleur(int times){
+void calculerNbrColorationPropre(int times){
     int sommeConflits=0;
     for (int i = 0; i < tailleSommet; i++) {
         sommeConflits+=pArbitre->listeSommet[i]->nbrConflits;
@@ -123,8 +123,8 @@ void printConflitCouleur(int times){
     printf("nombre total des Couleur: %d\n\n",(int)nbrCouleur);
     printf("%dst game ends\n",times);
 }
-void printNbrColorationPropre(){
-    printf("nombre total du coloration propre: %d\n",nbrColorationPropre);
+void printNbrColorationPropre(int nbrSommet,double pourcentage){
+    printf("pour un graphe de %d sommets, le nombre total du coloration propre est de %d, la poucentage de réussite est de %lf\n",nbrSommet,nbrColorationPropre,pourcentage);
 }
 
 double calculerNbrCouleurTotal(){
