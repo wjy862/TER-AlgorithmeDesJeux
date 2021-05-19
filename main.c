@@ -20,6 +20,7 @@ int main() {
         /*redéfinir la taille du sommet et arret*/
         tailleSommet=tailleArret=nbrSommet;
         printf("tailleSommet: %d, tailleSommet: %d\n",tailleSommet,tailleArret);
+
         /*Génerer un graphe*/
         int* matrice =initGraphe();
 
@@ -54,7 +55,7 @@ int main() {
         }
 
         /*nbr des fois obtenu une coloration propre après TIMES fois du jeu*/
-        printNbrColorationPropre(nbrSommet,(double)nbrColorationPropre/(double)TIMES);
+        printNbrColorationPropre(tailleSommet,(double)nbrColorationPropre/(double)TIMES);
     }
 
     return 0;
