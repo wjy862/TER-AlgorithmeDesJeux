@@ -4,6 +4,7 @@
 #include <time.h>
 
 #define DEGRE 2
+#define TIMES 10
 int tailleSommet=20;
 int tailleArret=20;
 
@@ -35,8 +36,13 @@ int couleurHeuristique;
 double nbrCouleur;//Nombre total des couleurs dans la graphe
 double nbStrategies;//(double) couleurHeuristique pour calculer
 int nbrColorationPropre;
+int sommeConflits;
+int *matriceCouleurConflit;
+
 
 int isVoisin(int ligne,int colonne);
+int calculerSommeConflits();
+int calculerMinColorationPropre();
 //prints
 void printMatice(int thisTailleSommet,int thisTailleArret,int *thisMatrice){
     printf("tailleSommet: %d\n", thisTailleSommet);
@@ -103,28 +109,29 @@ void printArbitre(){
     for (int i = 0; i < pArbitre->tailleSommet; i++) {
         printSommet(pArbitre->listeSommet[i]);
     }
-    int sommeConflits=0;
-    for (int i = 0; i < tailleSommet; i++) {
-        sommeConflits+=pArbitre->listeSommet[i]->nbrConflits;
-    }
-    //fprintf(F,"%d %d\n",tour,pArbitre->listeSommet[FPRINTSOMMET]->nbrConflits);
+    int sommeConflits=calculerSommeConflits();
     printf("somme du nombre des Conflits: %d\n",sommeConflits);
     printf("nombre total des Couleur: %d\n",(int)nbrCouleur);
     printf("End of printArbitre\n\n");
 }
-void calculerNbrColorationPropre(int times){
-    int sommeConflits=0;
+/*nbr conflits totals dans l'ensembre du graphe*/
+int calculerSommeConflits(){
+    int count=0;
     for (int i = 0; i < tailleSommet; i++) {
-        sommeConflits+=pArbitre->listeSommet[i]->nbrConflits;
+        count+=pArbitre->listeSommet[i]->nbrConflits;
     }
-    if(sommeConflits==0) nbrColorationPropre++;
-    printf("%dst game starts\n",times);
+    sommeConflits=count;
+    return sommeConflits;
+}
+void calculerNbrColorationPropre(int times){
+    if(calculerSommeConflits()==0) nbrColorationPropre++;
+    /*printf("%dst game starts\n",times);
     printf("somme du nombre des Conflits: %d\n",sommeConflits/2);
     printf("nombre total des Couleur: %d\n\n",(int)nbrCouleur);
-    printf("%dst game ends\n",times);
+    printf("%dst game ends\n",times);*/
 }
 void printNbrColorationPropre(int nbrSommet,double pourcentage){
-    printf("pour un graphe de %d sommets, le nombre total du coloration propre est de %d, la poucentage de réussite est de %lf\n",nbrSommet,nbrColorationPropre,pourcentage);
+    printf("Graphe de %d sommets, nbColorationPropre obtenue est de %d avec minCouleurs de %d, tauxColorationPropre est de %lf\n\n",nbrSommet,nbrColorationPropre,calculerMinColorationPropre(),pourcentage);
 }
 
 double calculerNbrCouleurTotal(){
@@ -635,89 +642,67 @@ int initNbrColoration(){
     return couleurHeuristique;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-void printMatrice(int (*matrice)[TARRET]){
-    printf("%d\n", matrice[0][0]);
-}
-
-void testPointer(int (*matrice)[TARRET]){
-    int (*p)[5];
-    p=matrice;
-    printf("%ld\n", sizeof(*(p+1)));
-    printf("%d\n", **(p));//5
-    printf("%d\n", **(p+1));//0
-    printf("%d\n", **((p+1)+1));//0
-    printf("%d\n", **(p+3));//1
-}
-void myputs(int p[6][5]){
-    printf("%ld\n", sizeof(*p));//20
-    printf("%ld\n", sizeof(**p));//4
-    printf("%d\n", **(p));//5
-    printf("%d\n", **(p+1));//0
-    printf("%d\n", **((p+1)+1));//0
-    printf("%d\n", **(p+3));//1
-}
-
-void testPointerArray(){
-    double a[4] = {1.0, 2.0, 3.0, 4.0};
-    double *p = a;
-    for (int i = 0; i < 4; i++) {
-        printf("a[%d] = %lf \n", i, *(p+i));
+int calculerMinColorationPropre(){
+    int min=couleurHeuristique;
+    for (int k = 0; k < tailleSommet; k++) {
+        for (int m = 0; m < tailleArret; m++) {
+            if((*(matriceCouleurConflit+k*tailleArret+m))!=0 && m==0 && k<couleurHeuristique) min=k;//l'index le plus petit à la prémière ligne
         }
+    }
+    return min;
 }
-void testPointerArray1(){
-    int a[4] = {1, 2, 3, 4};
-    int i;
-    for (i = 0; i < 4; i++) {
-      printf("a[%d] = %d \n", i, a[i]);
+void printNbrCouleursEtNbrConflits(){
+    printf("Lors d'attaindre l'équilibre de nash %d fois\n",TIMES);
+    for (int k = 0; k < tailleSommet; k++) {
+        for (int m = 0; m < tailleArret; m++) {
+            if((*(matriceCouleurConflit+k*tailleArret+m))==0) continue;
+            printf("nb couleurs: %d  nb conflits: %d apparait %d fois\n\n", k,m,(*(matriceCouleurConflit+k*tailleArret+m)));
+        }
     }
 }
-
-void testPointer1(int (*matrice)[TARRET]){
-    int (**p);
-    p=matrice;
-    myputs(p);
+void calculerNbrCouleursEtNbrConflits(){
+    //printf("somme du nombre des Conflits: %d\n",sommeConflits);
+    //printf("nombre total des Couleur: %d\n",(int)nbrCouleur);
+    (*(matriceCouleurConflit+(int)nbrCouleur*tailleArret+sommeConflits))++;
 }
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

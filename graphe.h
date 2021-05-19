@@ -257,16 +257,17 @@ int* initGraphe(){
         }
         printf("\n");
     }
-    printf("sous graphe:\n");
-    for(int i=0;i<taille;i++)
+    //printf("sous graphe:\n");
+    /*for(int i=0;i<taille;i++)
     {
         for(int j=0;j<taille;j++)
         {
             printf("%d ",sousgraphe[i][j]);
         }
         printf("\n");
-    }
+    }*/
     printf("\n");
+
 
     tailleSommet=size;// int tailleSommet
     tailleArret=size;// int tailleArret
@@ -293,7 +294,7 @@ int* initGraphe(){
 
 
 
-
+/*
 #include <stdio.h>
 #include <stdlib.h>
 

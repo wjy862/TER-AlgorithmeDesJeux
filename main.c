@@ -4,22 +4,31 @@
 #include "apprendissage.h"
 #include "jeu.h"
 
-#define TIMES 1
+
+
+
 /*free les mémoires*/
 void freeAll();
 
 int main() {
-    int maxTailleSommet=tailleSommet;
 
     /*générer des graphes de 2 sommets à 20 sommets, puis calculer le nombre des fois qu'on obetient une coloration propre*/
-    for (int nbrSommet = 2; nbrSommet <= maxTailleSommet; nbrSommet++) {
+    int maxTailleSommet=tailleSommet;
+    matriceCouleurConflit= malloc(tailleSommet*tailleArret*sizeof(int));
+    for (int nbrSommet = 3; nbrSommet <= maxTailleSommet; nbrSommet++) {
+        /*initialisation du matrice [ccouleur][conflit]*/
+        for (int k = 0; k < tailleSommet; k++) {
+            for (int m = 0; m < tailleArret; m++) {
+                *(matriceCouleurConflit+k*tailleArret+m)=0;
+            }
 
+        }
         /*remettre nbrColorationPropre à 0 pour chaque graphe*/
         nbrColorationPropre=0;
 
         /*redéfinir la taille du sommet et arret*/
         tailleSommet=tailleArret=nbrSommet;
-        printf("tailleSommet: %d, tailleSommet: %d\n",tailleSommet,tailleArret);
+        //printf("tailleSommet: %d, tailleSommet: %d\n",tailleSommet,tailleArret);
 
         /*Génerer un graphe*/
         int* matrice =initGraphe();
@@ -44,8 +53,11 @@ int main() {
             /*commence du coloration*/
             commenceDuJeu();
 
-            /*calculer Nbr Coloration Propre*/
+            /*calculer Nbr fois qu'on a atteind Coloration Propre*/
             calculerNbrColorationPropre(i);
+
+            /*calculer Nbr fois qu'on a des meme couleurs et des meme conflits lors de*/
+            calculerNbrCouleursEtNbrConflits();
 
             /*Imprimer tout la stucture Arbitre*/
             //printArbitre();
@@ -53,11 +65,11 @@ int main() {
             /*free les mémoires*/
             freeAll();
         }
-
+        printNbrCouleursEtNbrConflits();
         /*nbr des fois obtenu une coloration propre après TIMES fois du jeu*/
         printNbrColorationPropre(tailleSommet,(double)nbrColorationPropre/(double)TIMES);
     }
-
+    free(matriceCouleurConflit);
     return 0;
 }
 
@@ -68,4 +80,5 @@ void freeAll(){
     }
     free(pArbitre->listeSommet);
     free(pArbitre);
+
 }

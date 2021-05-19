@@ -88,6 +88,9 @@
 		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/main.c">
 			<Option target="theorieDesJeux"/>
 		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/parametre.h">
+			<Option target="theorieDesJeux"/>
+		</Unit>
 		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
