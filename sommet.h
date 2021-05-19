@@ -3,10 +3,10 @@
 #include "math.h"
 #include <time.h>
 
-#define DEGRE 5
+#define DEGRE 2
 //#define FPRINTSOMMET 5
-int tailleSommet=10;
-int tailleArret=10;
+int tailleSommet=5;
+int tailleArret=5;
 
 
 struct Sommet{
@@ -36,6 +36,7 @@ int couleurHeuristique;
 double nbrCouleur;//Nombre total des couleurs dans la graphe
 double nbStrategies;//(double) couleurHeuristique pour calculer
 
+int isVoisin(int ligne,int colonne);
 //prints
 void printMatice(int thisTailleSommet,int thisTailleArret,int *thisMatrice){
     printf("tailleSommet: %d\n", thisTailleSommet);

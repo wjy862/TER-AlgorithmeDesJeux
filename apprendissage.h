@@ -1,6 +1,6 @@
-#define THETA1 0.1//Learning rate parameter, 0<THETA<1
-#define THETA2 0.01//Learning rate parameter, 0<THETA<1
-#define N 10000//itération
+#define THETA1 0.01//Learning rate parameter, 0<THETA<1
+#define THETA2 0.005//Learning rate parameter, 0<THETA<1
+#define N 100000//itération
 #define THETA 0.1//Learning rate parameter, 0<THETA<1
 
 #define THRESHOULD 0.999//Seuil de probabilité à atteindre
@@ -84,9 +84,9 @@ int linearRewardPenalty2(Sommet pSommet){
     return p[a]>=THRESHOULD?1:0;
 }
 int apprendissage(Sommet pSommet){
-    //return linearRewardInaction(pSommet);
+    return linearRewardInaction(pSommet);
     //return linearRewardPenalty(pSommet);
-    return linearRewardPenalty2(pSommet);
+    //return linearRewardPenalty2(pSommet);
 
 }
 int updateVecteurStochastique(){

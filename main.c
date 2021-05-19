@@ -14,7 +14,7 @@ int main() {
     /*Initialisation de l'arbitre*/
     pArbitre=initArbitre(matrice);
 
-    /*initialisation du nembre des Couleur, trouver un nombre de coloration propre par heursitique*/
+    /*initialisation du membre des Couleur, trouver un nombre de coloration propre par heursitique*/
     initNbrColoration();
 
     /*Initialisation des vecteurStochastique*/
@@ -23,7 +23,7 @@ int main() {
     /*calculer la taille de clique maximale de chaque sommet*/
     calculercliqueMax();
 
-    /*calculer la taille de clique maximale de chaque sommet*/
+    /*calculer la nombre de Arret de chaque sommet*/
     calculerArret();
 
     /*commence du jeu*/

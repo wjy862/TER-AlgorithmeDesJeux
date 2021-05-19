@@ -127,7 +127,7 @@ struct Arbitre genererUnGrapheConnexe(int** matrice, int m, int* visiter, int* f
                 if(tmp[j])
                 {
                     //ret.matrice[compteur_i][compteur_j] = matrice[i][j];
-                    *(ret.matrice+compteur_i*m+compteur_j)= matrice[i][j];
+                    *(ret.matrice+compteur_i*(*cpt)+compteur_j)= matrice[i][j];
                     compteur_j++;
                 }
             }
