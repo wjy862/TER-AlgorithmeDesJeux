@@ -5,7 +5,7 @@
 
 /*parametre variable*/
 #define DEGRE 2
-#define TIMES 1
+#define TIMES 10
 #define alpha 0.6
 #define belta 0.4
 #define THETA1 0.01//Learning rate parameter, 0<THETA<1
