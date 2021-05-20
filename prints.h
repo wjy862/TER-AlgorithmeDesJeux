@@ -69,15 +69,6 @@ void printArbitre(){
     printf("nombre total des Couleur: %d\n",(int)nbrCouleur);
     printf("End of printArbitre\n\n");
 }
-void printNbrCouleursEtNbrConflits(){
-    printf("Lors d'attaindre l'équilibre de nash %d fois\n",TIMES);
-    for (int k = 0; k < tailleSommet; k++) {
-        for (int m = 0; m < tailleArret; m++) {
-            if((*(matriceCouleurConflit+k*tailleArret+m))==0) continue;
-            printf("nb couleurs: %d  nb conflits: %d apparait %d fois\n\n", k,m,(*(matriceCouleurConflit+k*tailleArret+m)));
-        }
-    }
-}
 void printSommetsColorie(int *sommetsColorie,int tailleSommetsColorie){
     for (int i = 0; i < tailleSommetsColorie; i++) {
         printf("sommetsColorie[%d]: %d\n",i,sommetsColorie[i]);
@@ -94,21 +85,30 @@ void printVoisinsNonColorie(int *voisinsNonColorie,int tailleVoisinNonColorie){
 void printTailleVoisinNonColorie(int tailleVoisinNonColorie){
     printf("tailleVoisinNonColorie: %d\n",tailleVoisinNonColorie);
 }
+void printNbrCouleursEtNbrConflits(){
+    printf("Lors d'attaindre l'équilibre de nash %d fois\n",TIMES);
+    for (int k = 0; k < tailleSommet; k++) {
+        for (int m = 0; m < tailleArret; m++) {
+            if((*(matriceRepartitionCouleurConflit+k*tailleArret+m))==0) continue;
+            printf("nb couleurs: %d  nb conflits: %d apparait %d fois\n", k,m,(*(matriceRepartitionCouleurConflit+k*tailleArret+m)));
+        }
+    }
+}
 void printNbrColorationPropre(int nbrSommet,double pourcentage){
-    printf("Graphe de %d sommets, nbColorationPropre obtenue est de %d avec minCouleurs de %d, tauxColorationPropre est de %lf\n\n",nbrSommet,nbrColorationPropre,calculerMinColorationPropre(),pourcentage);
+    printf("Graphe de %d sommets, nbColorationPropre obtenue est de %d avec minCouleurs de %d, tauxColorationPropre est de %lf\n\n\n",nbrSommet,nbrColorationPropre,calculerMinColorationPropre(),pourcentage);
 }
 
 /*apprendissage.h*/
-printR(double r){
+void printR(double r){
     printf("Number of actions: %lf\n",r);
 }
-printA(double a){
+void printA(double a){
     printf("this action: %lf\n",a);
 }
-printP(double p){
+void printP(double p){
     printf("Probability vector: %lf\n",p);
 }
-printUtilite(double utilite){
+void printUtilite(double utilite){
     printf("Environmental response (P,Q,S): %lf\n",utilite);
 }
 void printProbabilite(Sommet pSommet,int index){

@@ -5,12 +5,12 @@
 
 /*parametre variable*/
 #define DEGRE 2
-#define TIMES 10
+#define TIMES 1
 #define alpha 0.6
 #define belta 0.4
 #define THETA1 0.01//Learning rate parameter, 0<THETA<1
 #define THETA2 0.005//Learning rate parameter, 0<THETA<1
-#define N 100000//itération
+#define N 1e6//itération
 #define THETA 0.1//Learning rate parameter, 0<THETA<1
 #define THRESHOULD 0.999//Seuil de probabilité à atteindre
 
@@ -47,7 +47,7 @@ double nbrCouleur;//Nombre total des couleurs dans la graphe
 double nbStrategies;//(double) couleurHeuristique pour calculer
 int nbrColorationPropre;
 int sommeConflits;
-int *matriceCouleurConflit;
+int *matriceRepartitionCouleurConflit;
 
 /*apprandissage.h*/
 double r;//Number of actions
@@ -58,3 +58,5 @@ double utilite;//Environmental response (P,Q,S)-> utilité
 int isVoisin(int ligne,int colonne);
 int calculerSommeConflits();
 int calculerMinColorationPropre();
+/*free les mémoires*/
+void freeAll();
