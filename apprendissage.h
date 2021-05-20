@@ -1,20 +1,3 @@
-
-
-printR(double r){
-    printf("Number of actions: %lf\n",r);
-}
-printA(double a){
-    printf("this action: %lf\n",a);
-}
-printP(double p){
-    printf("Probability vector: %lf\n",p);
-}
-printUtilite(double utilite){
-    printf("Environmental response (P,Q,S): %lf\n",utilite);
-}
-void printProbabilite(Sommet pSommet,int index){
-    printf("pour sommet %d, la couleur %d a une proba de: %lf\n",pSommet->index,index,pSommet->vecteurStochastique[index]);
-}
 double calculerUtilite(Sommet pSommet){
     double benefice=pSommet->benefice;
     double maxBenefice=pSommet->maxBenefice;

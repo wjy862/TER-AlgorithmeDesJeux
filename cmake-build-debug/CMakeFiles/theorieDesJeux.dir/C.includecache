@@ -17,6 +17,8 @@
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/main.c
 parametre.h
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/parametre.h
+prints.h
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/prints.h
 sommet.h
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/sommet.h
 graphe.h
@@ -37,6 +39,8 @@ math.h
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/math.h
 time.h
 -
+
+/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/prints.h
 
 /home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/sommet.h
 

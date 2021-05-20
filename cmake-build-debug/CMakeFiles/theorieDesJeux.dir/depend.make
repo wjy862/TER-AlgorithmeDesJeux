@@ -7,5 +7,6 @@ CMakeFiles/theorieDesJeux.dir/main.c.o: ../graphe.h
 CMakeFiles/theorieDesJeux.dir/main.c.o: ../jeu.h
 CMakeFiles/theorieDesJeux.dir/main.c.o: ../main.c
 CMakeFiles/theorieDesJeux.dir/main.c.o: ../parametre.h
+CMakeFiles/theorieDesJeux.dir/main.c.o: ../prints.h
 CMakeFiles/theorieDesJeux.dir/main.c.o: ../sommet.h
 
