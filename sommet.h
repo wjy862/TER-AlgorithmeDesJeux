@@ -508,10 +508,11 @@ int initNbrColoration(){
 }
 /*calculer Minimal Coloration Propre parmi les 1000 fois*/
 int calculerMinColorationPropre(){
-    int min=couleurHeuristique;
-    for (int k = 0; k < tailleSommet; k++) {
+    int min=RAND_MAX;
+    printf("couleurHeuristique: %d\n",couleurHeuristique);
+    for (int k = 1; k < couleurHeuristique+1; k++) {
         for (int m = 0; m < tailleArret; m++) {
-            if((*(matriceRepartitionCouleurConflit+k*tailleArret+m))!=0 && m==0 && k<couleurHeuristique) min=k;//l'index le plus petit à la prémière ligne
+            if((*(matriceRepartitionCouleurConflit+k*maxTailleSommet+m))!=0 && m==0 && k<min) min=k;//l'index le plus petit à la prémière ligne
         }
     }
     return min;
@@ -520,7 +521,8 @@ int calculerMinColorationPropre(){
 void calculerNbrCouleursEtNbrConflits(){
     //printf("somme du nombre des Conflits: %d\n",sommeConflits);
     //printf("nombre total des Couleur: %d\n",(int)nbrCouleur);
-    (*(matriceRepartitionCouleurConflit+(int)nbrCouleur*tailleArret+sommeConflits))++;
+    (*(matriceRepartitionCouleurConflit+(int)nbrCouleur*maxTailleSommet+sommeConflits))++;
+    //printf("nombre total des Couleur: %d\n",(int)nbrCouleur,sommeConflits);
 }
 
 

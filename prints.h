@@ -87,10 +87,10 @@ void printTailleVoisinNonColorie(int tailleVoisinNonColorie){
 }
 void printNbrCouleursEtNbrConflits(){
     printf("Lors d'attaindre l'équilibre de nash %d fois\n",TIMES);
-    for (int k = 0; k < tailleSommet; k++) {
+    for (int k = 1; k < couleurHeuristique+1; k++) {
         for (int m = 0; m < tailleArret; m++) {
-            if((*(matriceRepartitionCouleurConflit+k*tailleArret+m))==0) continue;
-            printf("nb couleurs: %d  nb conflits: %d apparait %d fois\n", k,m,(*(matriceRepartitionCouleurConflit+k*tailleArret+m)));
+            if((*(matriceRepartitionCouleurConflit+k*maxTailleSommet+m))==0) continue;
+            printf("(nb couleurs: %d, nb conflits: %d) apparait %d fois\n", k,m,(*(matriceRepartitionCouleurConflit+k*maxTailleSommet+m)));
         }
     }
 }

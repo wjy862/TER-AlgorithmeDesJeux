@@ -1,7 +1,7 @@
 void initMatriceRepartitionCouleurConflit(){
-    for (int k = 0; k < tailleSommet; k++) {
-        for (int m = 0; m < tailleArret; m++) {
-            *(matriceRepartitionCouleurConflit+k*tailleArret+m)=0;
+    for (int k = 0; k < maxTailleSommet; k++) {
+        for (int m = 0; m < maxTailleSommet; m++) {
+            *(matriceRepartitionCouleurConflit+k*maxTailleSommet+m)=0;
         }
     }
 }
@@ -47,9 +47,9 @@ void commenceColoration(){
     fclose(F);
     fclose(F1);
 }
-void commenceDuJeu(int nbrSommet, int count){
+void commenceDuJeu(int *matrice,int nbrSommet, int count){
     /*Initialisation de l'arbitre*/
-    pArbitre=initArbitre(initParametres(nbrSommet));
+    pArbitre=initArbitre(matrice);
 
     /*initialisation du membre des Couleur, trouver un nombre de coloration propre par heursitique*/
     initNbrColoration();

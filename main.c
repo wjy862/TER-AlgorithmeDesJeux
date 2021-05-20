@@ -12,11 +12,11 @@
 
 
 int main() {
-    matriceRepartitionCouleurConflit= malloc(tailleSommet*tailleArret*sizeof(int));
-    int maxTailleSommet=tailleSommet;
-    for (int nbrSommet = 3; nbrSommet <= maxTailleSommet; nbrSommet++) {/*générer des graphes de 3 sommets à 20 sommets*/
+    matriceRepartitionCouleurConflit= malloc((maxTailleSommet+1)*maxTailleSommet*sizeof(int));
+    for (; minTailleSommet <= maxTailleSommet; minTailleSommet++) {/*générer des graphes de minTailleSommet sommets à maxTailleSommet sommets*/
+        int *matrice =initParametres(minTailleSommet);
         for (int count = 0; count < TIMES; count++) { /*répéter TIMES fois le jeu à trouver equilibre de nash*/
-            commenceDuJeu(nbrSommet,count);
+            commenceDuJeu(matrice,minTailleSommet,count);
         }
         /*nbr des fois obtenus de la coloration propre pour TIMES fois du jeu et sa répartition*/
         printNbrCouleursEtNbrConflits();
