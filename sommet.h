@@ -41,11 +41,12 @@ double calculerNbrCouleurTotal(){
 
 //initialisation
 void initVecteurStochastique(){
-    for (int index = 0; index < tailleArret; ++index) {
+    for (int index = 0; index < tailleArret; index++) {
         pArbitre->listeSommet[index]->vecteurStochastique = malloc(couleurHeuristique * sizeof(double));
         for (int k = 0; k < couleurHeuristique; k++) {
             pArbitre->listeSommet[index]->vecteurStochastique[k] = (1.0 / couleurHeuristique);
         }
+        //printVecteurStochastique(pArbitre->listeSommet[index]);
     }
 }
 void initSommet(int index,Sommet listeSommet[]){
@@ -107,7 +108,7 @@ int getCouleur(Sommet pSommet){
         }
     }
     //printf("cumuleeP %lf is less than this p %lf",cumuleeP,thisP);
-    exit(255);
+    exit(245);
 }
 void colorier(){
     //printf("\nBeginning of colorier\n");
@@ -509,20 +510,19 @@ int initNbrColoration(){
 /*calculer Minimal Coloration Propre parmi les 1000 fois*/
 int calculerMinColorationPropre(){
     int min=RAND_MAX;
-    printf("couleurHeuristique: %d\n",couleurHeuristique);
+    printf("Nombre de couleur total: %d\n",couleurHeuristique);
     for (int k = 1; k < couleurHeuristique+1; k++) {
-        for (int m = 0; m < tailleArret; m++) {
-            if((*(matriceRepartitionCouleurConflit+k*maxTailleSommet+m))!=0 && m==0 && k<min) min=k;//l'index le plus petit à la prémière ligne
+        for (int m = 0; m < (((maxTailleSommet-1)*(maxTailleSommet))/2); m++) {
+            if((*(matriceRepartitionCouleurConflit+k*(((maxTailleSommet-1)*(maxTailleSommet))/2)+m))!=0 && m==0 && k<min) min=k;//l'index le plus petit à la prémière ligne
         }
     }
     return min;
 }
 /*calculer la distribution des couleurs/conflits parmi les 1000 fois*/
-void calculerNbrCouleursEtNbrConflits(){
-    //printf("somme du nombre des Conflits: %d\n",sommeConflits);
-    //printf("nombre total des Couleur: %d\n",(int)nbrCouleur);
-    (*(matriceRepartitionCouleurConflit+(int)nbrCouleur*maxTailleSommet+sommeConflits))++;
-    //printf("nombre total des Couleur: %d\n",(int)nbrCouleur,sommeConflits);
+void calculerNbrCouleursEtNbrConflits() {
+    (*(matriceRepartitionCouleurConflit + (int) nbrCouleur * (((maxTailleSommet-1)*(maxTailleSommet))/2) + sommeConflits))++;
+    //printf("(nb couleurs: %d, nb conflits: %d) \n", (int) nbrCouleur, sommeConflits);
+
 }
 
 

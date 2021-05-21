@@ -1,7 +1,7 @@
 //prints
 void printMatice(int thisTailleSommet,int thisTailleArret,int *thisMatrice){
-    printf("tailleSommet: %d\n", thisTailleSommet);
-    printf("tailleArret: %d\n", thisTailleArret);
+    //printf("tailleSommet: %d\n", thisTailleSommet);
+    //printf("tailleArret: %d\n", thisTailleArret);
     for (int k = 0; k < thisTailleSommet; k++) {
         for (int m = 0; m < thisTailleArret; m++) {
             printf("%d ", *(thisMatrice+k*thisTailleArret+m));
@@ -86,17 +86,26 @@ void printTailleVoisinNonColorie(int tailleVoisinNonColorie){
     printf("tailleVoisinNonColorie: %d\n",tailleVoisinNonColorie);
 }
 void printNbrCouleursEtNbrConflits(){
-    printf("Lors d'attaindre l'équilibre de nash %d fois\n",TIMES);
-    for (int k = 1; k < couleurHeuristique+1; k++) {
-        for (int m = 0; m < tailleArret; m++) {
-            if((*(matriceRepartitionCouleurConflit+k*maxTailleSommet+m))==0) continue;
-            printf("(nb couleurs: %d, nb conflits: %d) apparait %d fois\n", k,m,(*(matriceRepartitionCouleurConflit+k*maxTailleSommet+m)));
-        }
-    }
+    //mettre en base pour fprint
 }
 void printNbrColorationPropre(int nbrSommet,double pourcentage){
-    printf("Graphe de %d sommets, nbColorationPropre obtenue est de %d avec minCouleurs de %d, tauxColorationPropre est de %lf\n\n\n",nbrSommet,nbrColorationPropre,calculerMinColorationPropre(),pourcentage);
-}
+    //FILE *F2;
+    //F2 = fopen("logs1.data","a+");
+    printf("Lors d'attaindre l'équilibre de nash %d fois\n",TIMES);
+    //fprintf(F2,"Lors d'attaindre l'équilibre de nash %d fois\n",TIMES);
+    for (int k = 1; k < couleurHeuristique+1; k++) {
+        for (int m = 0; m < (((maxTailleSommet-1)*(maxTailleSommet))/2); m++) {
+            if((*(matriceRepartitionCouleurConflit+k*(((maxTailleSommet-1)*(maxTailleSommet))/2)+m))==0) continue;
+            printf("(nb couleurs: %d, nb conflits: %d) apparait %d fois\n", k,m,(*(matriceRepartitionCouleurConflit+k*(((maxTailleSommet-1)*(maxTailleSommet))/2)+m)));
+            //fprintf(F2,"(nb couleurs: %d, nb conflits: %d) apparait %d fois\n", k,m,(*(matriceRepartitionCouleurConflit+k*(((maxTailleSommet-1)*(maxTailleSommet))/2)+m)));
+        }
+    }
+
+    int minColorationPropre=calculerMinColorationPropre();
+    printf("Graphe de %d sommets, nbColorationPropre obtenue est de %d avec minCouleurs de %d, tauxColorationPropre est de %lf\n\n\n",nbrSommet,nbrColorationPropre,minColorationPropre,pourcentage);
+    //fprintf(F2,"Graphe de %d sommets, nbColorationPropre obtenue est de %d avec minCouleurs de %d, tauxColorationPropre est de %lf\n\n\n",nbrSommet,nbrColorationPropre,1,pourcentage);
+    //fclose(F2);
+   }
 
 /*apprendissage.h*/
 void printR(double r){

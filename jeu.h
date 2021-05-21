@@ -1,7 +1,7 @@
 void initMatriceRepartitionCouleurConflit(){
-    for (int k = 0; k < maxTailleSommet; k++) {
-        for (int m = 0; m < maxTailleSommet; m++) {
-            *(matriceRepartitionCouleurConflit+k*maxTailleSommet+m)=0;
+    for (int k = 0; k < maxTailleSommet+1; k++) {
+        for (int m = 0; m < (((maxTailleSommet-1)*(maxTailleSommet))/2); m++) {
+            *(matriceRepartitionCouleurConflit+k*(((maxTailleSommet-1)*(maxTailleSommet))/2)+m)=0;
         }
     }
 }
@@ -13,7 +13,18 @@ int* initParametres(int nbrSommet){
     /*initialisation du matriceRepartitionCouleurConflit [couleur][conflit]*/
     initMatriceRepartitionCouleurConflit();
     /*Génerer un graphe*/
-    return initGraphe();
+    int *matrice=initGraphe();
+    int count=0;
+    while(tailleSommet!=nbrSommet){
+        count++;
+        if(count>=10) {
+            printf("Echec à generer un graphe de sommet %d avec un degre de %d après 10 fois essais\n");
+            break;
+        }else{
+            matrice=initGraphe();
+        }
+    }
+    return matrice;
 }
 
 int run(){
@@ -22,6 +33,9 @@ int run(){
 
     /*calculer des conflit de chaque sommet*/
     calculerConflit();
+
+    /*calculer nb couleur de l'emsemble du graphe*/
+    calculerNbrCouleurTotal();
 
     /*calculer les couleurs des sous graphes*/
     calculerCouleurSsgraphe();
@@ -38,18 +52,18 @@ void commenceColoration(){
     F1 = fopen("Colors.data","w");
     for (int tour = 0; tour < N; tour++) {
         if(run()==1) break;//run()==1, si max probability > threshold (typically 0.999) -> equilibre de nash
-        //fprintf(F,"%d %d\n",tour,pArbitre->listeSommet[FPRINTSOMMET]->nbrConflits);
-        if(tour%100 == 0)
+        //if(tour%100 == 0)
         {
             fprintf(F,"%d %d\n",tour,calculerSommeConflits());
             fprintf(F1,"%d %d\n",tour,(int)nbrCouleur);
-        }    }
+        }
+    }
     fclose(F);
     fclose(F1);
 }
-void commenceDuJeu(int *matrice,int nbrSommet, int count){
+void commenceDuJeu(int *matrice, int count){
     /*Initialisation de l'arbitre*/
-    pArbitre=initArbitre(matrice);
+    pArbitre=initArbitre(GRAPHE);//#define GRAPHE matrice
 
     /*initialisation du membre des Couleur, trouver un nombre de coloration propre par heursitique*/
     initNbrColoration();
@@ -85,5 +99,23 @@ void freeAll(){
     }
     free(pArbitre->listeSommet);
     free(pArbitre);
+
+}
+
+void  resetSommet(Sommet pSommet){
+    pSommet->couleur=-1;
+    pSommet->nbrConflits=-1;
+    pSommet->benefice=0.0;
+    pSommet->maxBenefice=0.0;
+    pSommet->minBenefice=0.0;
+    pSommet->cliqueMax=-1;
+    pSommet->nbrArrets=-1;
+    pSommet->coul_ss_graph = 0;
+}
+void resetArbitre(){
+    for (int i = 0; i < pArbitre->tailleSommet; i++) {
+        free(pArbitre->listeSommet[i]->vecteurStochastique);
+        resetSommet(pArbitre->listeSommet[i]);
+    }
 
 }

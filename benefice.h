@@ -5,7 +5,7 @@ double beneficeLocale(Sommet pSommet){
     double nbrconflits=(double)pSommet->nbrConflits;
     double nbrArrets=(double)pSommet->nbrArrets;
     double cliqueMaximale=(double)pSommet->cliqueMax;
-
+    if(nbrArrets==0||cliqueMaximale==0) exit(246);//denominateur ne peut etre 0
     //double benefice=(1.0-(nbrconflits/nbrArrets));
 
     //double benefice=(1.0-(nbrconflits/nbrArrets))*(1-(abs(nbrCouleur-cliqueMaximale)/cliqueMaximale)* pow(0,(int)nbrCouleur/(int)(2*cliqueMaximale)));
@@ -28,6 +28,7 @@ double beneficeLocale(Sommet pSommet){
 }
 
 double beneficeGlobale(){
+    if(nbStrategies==0) exit(247);//denominateur ne peut etre 0
     double benefice=1.0-(nbrCouleur/nbStrategies);
     //printf("###nbStrategies: %lf\n",nbStrategies);
     //printf("####nbrCouleur: %lf\n",nbrCouleur);
@@ -43,12 +44,14 @@ void updateBenefice(Sommet pSommet){
     pSommet->benefice=fonctionBenefice(pSommet);
     if(pSommet->benefice<pSommet->minBenefice) pSommet->minBenefice=pSommet->benefice;
     if(pSommet->benefice>pSommet->maxBenefice) pSommet->maxBenefice=pSommet->benefice;
+    //printf("pSommet->benefice %lf, pSommet->minBenefice %lf, pSommet->maxBenefice %lf\n", pSommet->benefice,pSommet->minBenefice,pSommet->maxBenefice);
     //printf("\n");
+
 }
 void calculerBenefice(){
     //printf("\nBeginning of calculerBenefice\n");
     nbStrategies=(double)couleurHeuristique;
-    calculerNbrCouleurTotal();
+
     for (int i = 0; i < pArbitre->tailleSommet; ++i) {
         updateBenefice(pArbitre->listeSommet[i]);
     }

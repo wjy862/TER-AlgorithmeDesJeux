@@ -12,17 +12,25 @@
 
 
 int main() {
-    matriceRepartitionCouleurConflit= malloc((maxTailleSommet+1)*maxTailleSommet*sizeof(int));
-    for (; minTailleSommet <= maxTailleSommet; minTailleSommet++) {/*générer des graphes de minTailleSommet sommets à maxTailleSommet sommets*/
-        int *matrice =initParametres(minTailleSommet);
-        for (int count = 0; count < TIMES; count++) { /*répéter TIMES fois le jeu à trouver equilibre de nash*/
-            commenceDuJeu(matrice,minTailleSommet,count);
+    //FILE *F3;
+    //F3 = fopen("logs.data","a+");
+    for (; minDegre <= maxDegre; minDegre++) {/*générer des graphes de minDegre sommets à maxDegre sommets*/
+        matriceRepartitionCouleurConflit= malloc((maxTailleSommet+1)*(((maxTailleSommet-1)*(maxTailleSommet))/2)*sizeof(int));//maxNbrCouleur*maxConflitTotal
+        if(minTailleSommet<minDegre) minTailleSommet=minDegre;
+        for (; minTailleSommet <= maxTailleSommet; minTailleSommet++) {/*générer des graphes de minTailleSommet sommets à maxTailleSommet sommets*/
+            int *matrice =initParametres(minTailleSommet);
+            for (int count = 1; count <=TIMES; count++) { /*répéter TIMES fois le jeu à trouver equilibre de nash*/
+                commenceDuJeu(matrice,count);
+            }
+            /*nbr des fois obtenus de la coloration propre pour TIMES fois du jeu et sa répartition*/
+            printMatice(tailleSommet,tailleArret,pArbitre->matrice);
+            printNbrCouleursEtNbrConflits();
+            printNbrColorationPropre(tailleSommet,(double)nbrColorationPropre/(double)TIMES);
+            free(matrice);
         }
-        /*nbr des fois obtenus de la coloration propre pour TIMES fois du jeu et sa répartition*/
-        printNbrCouleursEtNbrConflits();
-        printNbrColorationPropre(tailleSommet,(double)nbrColorationPropre/(double)TIMES);
-    }
     free(matriceRepartitionCouleurConflit);
+    }
+    //fclose(F3);
     return 0;
 }
 

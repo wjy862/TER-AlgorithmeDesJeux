@@ -209,7 +209,7 @@ int** getSousGraphe(A arb,int index,int size,int* taille)
                 //if(arb.matrice[i][j] ==1)
                 if(*(arb.matrice+i*size+j) ==1)
                 {
-                    printf("i:%d j:%d\n",i+1,j+1);
+                    //printf("i:%d j:%d\n",i+1,j+1);
                     ret[cpt_i][cpt_j] = 1;
                 }
             }
@@ -222,7 +222,7 @@ int** getSousGraphe(A arb,int index,int size,int* taille)
 }
 int* initGraphe(){
     int sommet = tailleSommet;
-    int degre = DEGRE;
+    int degre = minDegre;
     int size = 0;
     int ** adjacence = malloc(sommet* sizeof(int*));
     for(int i = 0;i<sommet;i++)
@@ -247,16 +247,17 @@ int* initGraphe(){
     int** sousgraphe = NULL;
     int taille = 0;
     sousgraphe = getSousGraphe(res,2,size,&taille);
-    for(int i=0;i<size;i++)
+    /*for(int i=0;i<size;i++)
     {
         for(int j=0;j<size;j++)
         {
             //printf("%d ",res.matrice[i][j]);
             printf("%d ",*(res.matrice+i*size+j));
-
+            //fprintf(F3,"%d ",*(res.matrice+i*size+j));
         }
         printf("\n");
-    }
+        //fprintf(F3,"\n");
+    }*/
     //printf("sous graphe:\n");
     /*for(int i=0;i<taille;i++)
     {
@@ -266,7 +267,7 @@ int* initGraphe(){
         }
         printf("\n");
     }*/
-    printf("\n");
+    //printf("\n");
 
 
     tailleSommet=size;// int tailleSommet
