@@ -1,45 +1,30 @@
-run: run2
+CC= gcc
+CFLAGS = -Wall -Werror -Wextra -g
+MATH = -lm
 
-
-## SIMUL 1
-run1: simul1
-	./simul1
-
-simul1: simul1.c
-	gcc -o simul1 -Wall simul1.c -lm
-
-## SIMUL 2
-run2: mm1_2.pdf
+run: pdf/results.pdf
       ##qpdfview mm1_2.pdf
-	xdg-open mm1_2.pdf
+	xdg-open pdf/results.pdf
 
-mm1_2.pdf: mm1_2.data mm1_2.gplt
-	gnuplot mm1_2.gplt
+pdf/results.pdf: ter gnuplot/plot.gplt
+	gnuplot gnuplot/plot.gplt
 
-mm1_2.data: simul2
-	./simul2
+ter: bin/ter
+	./bin/ter
 
-simul2: main.c sommet.h benefice.h apprendissage.h graphe.h jeu.h
-	gcc -o simul2 -Wall main.c -lm
+bin/ter: main.c .obj/sommet.o .obj/benefice.o .obj/apprentissage.o .obj/graphe.o .obj/jeu.o .obj/prints.o
+	$(CC) -o $@ $(CFLAGS) $^ -lm
 
-## SIMUL 3
-run3: mm1_3.pdf
-	qpdfview mm1_3.pdf
+.obj/benefice.o: src/benefice.c inc/benefice.h inc/sommet.h inc/parametre.h
+	$(CC) -c $(CFLAGS) $< -o $@
+.obj/%.o: src/%.c inc/%.h inc/parametre.h
+	$(CC) -c $(CFLAGS) $< -o $@
 
-mm1_3.pdf: mm1_3.data mm1_3.gplt
-	gnuplot mm1_3.gplt
-
-mm1_3.data: simul3
-	./simul3
-
-simul3: simul3.c
-	gcc -o simul3 -Wall simul3.c -lm
 
 ## clean
 clean:
-	rm -f simul1
-	rm -f simul2
-	rm -f mm1_2.data mm1_2.pdf
-	rm -f simul3
-	rm -f mm1_3.data mm1_3.pdf
+	rm -rf .obj/*
+	rm -rf bin/*
+	rm -rf pdf/*
+	rm -rf data/*
 

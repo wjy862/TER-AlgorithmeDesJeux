@@ -1,0 +1,7 @@
+set term pdf
+set output "pdf/results.pdf"
+set xlabel "tour"
+set ylabel "Nb conflict"
+plot "data/Conflicts.data" with lp
+set ylabel "Nb Strategies"
+plot "data/Colors.data" with lp

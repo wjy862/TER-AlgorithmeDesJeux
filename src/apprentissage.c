@@ -1,4 +1,5 @@
-#define THETA 0.1//Learning rate parameter, 0<THETA<1
+#include "../inc/apprentissage.h"
+#include "../inc/struct.h"
 double calculerUtilite(Sommet pSommet){
     double benefice=pSommet->benefice;
     double maxBenefice=pSommet->maxBenefice;

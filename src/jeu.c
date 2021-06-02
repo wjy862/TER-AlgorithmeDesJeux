@@ -1,3 +1,10 @@
+#include "../inc/jeu.h"
+#include "../inc/sommet.h"
+#include "../inc/benefice.h"
+#include "../inc/graphe.h"
+#include "../inc/apprentissage.h"
+#include "../inc/struct.h"
+
 void initMatriceRepartitionCouleurConflit(){
     for (int k = 0; k < maxTailleSommet+1; k++) {
         for (int m = 0; m < (((maxTailleSommet-1)*(maxTailleSommet))/2); m++) {
@@ -5,7 +12,7 @@ void initMatriceRepartitionCouleurConflit(){
         }
     }
 }
-int* initParametres(int nbrSommet){
+int* initParametres(int nbrSommet,int minDegre){
     /*redéfinir la taille du sommet et arret*/
     tailleSommet=tailleArret=nbrSommet;
     /*remettre nbrColorationPropre à 0 pour chaque graphe*/
@@ -18,7 +25,7 @@ int* initParametres(int nbrSommet){
     while(tailleSommet!=nbrSommet){
         count++;
         if(count>=10) {
-            printf("Echec à generer un graphe de sommet %d avec un degre de %d après 10 fois essais\n");
+            printf("Echec à generer un graphe de sommet %d avec un degre de %d après 10 fois essais\n",nbrSommet,minDegre);
             break;
         }else{
             matrice=initGraphe();
@@ -48,8 +55,8 @@ int run(){
 }
 void commenceColoration(){
     FILE *F,*F1;
-    F = fopen("Conflicts.data","w");
-    F1 = fopen("Colors.data","w");
+    F = fopen("data/Conflicts.data","w");
+    F1 = fopen("data/Colors.data","w");
     for (int tour = 0; tour < N; tour++) {
         if(run()==1) break;//run()==1, si max probability > threshold (typically 0.999) -> equilibre de nash
         //if(tour%100 == 0)
@@ -63,7 +70,7 @@ void commenceColoration(){
 }
 void commenceDuJeu(int *matrice, int count){
     /*Initialisation de l'arbitre*/
-    pArbitre=initArbitre(GRAPHE);//#define GRAPHE matrice
+    pArbitre=initArbitre(matrice);//#define GRAPHE matrice
 
     /*initialisation du membre des Couleur, trouver un nombre de coloration propre par heursitique*/
     initNbrColoration();
@@ -90,7 +97,7 @@ void commenceDuJeu(int *matrice, int count){
     //printArbitre();
 
     /*free les mémoires*/
-    freeAll();
+    //freeAll();
 }
 void freeAll(){
     for (int i = 0; i < tailleArret; ++i) {
