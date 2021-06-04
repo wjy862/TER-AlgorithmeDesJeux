@@ -1,6 +1,6 @@
 #include "../inc/sommet.h"
 #include "../inc/struct.h"
-
+#include "../inc/prints.h"
 /*nbr conflits totals dans l'ensembre du graphe*/
 int calculerSommeConflits(){
     int count=0;
@@ -327,6 +327,7 @@ int calculerNbrCouleurLocal(Arbitre arb,int index)
         nb_coul[i] = 0;
 
     }
+    nb_coul[arb->listeSommet[index]->couleur] =1;
     for(int i =0;i<tailleSommet;i++)
     {
 
@@ -522,6 +523,15 @@ int calculerMinColorationPropre(){
 /*calculer la distribution des couleurs/conflits parmi les 1000 fois*/
 void calculerNbrCouleursEtNbrConflits() {
     (*(matriceRepartitionCouleurConflit + (int) nbrCouleur * (((maxTailleSommet-1)*(maxTailleSommet))/2) + sommeConflits))++;
-    //printf("(nb couleurs: %d, nb conflits: %d) \n", (int) nbrCouleur, sommeConflits);
+    printf("(nb couleurs: %d, nb conflits: %d). ", (int) nbrCouleur, sommeConflits);
+    printf("L'etat ici ");
+       if(nash()){
+           printf("est un equilibre de Nash\n");
+           nbNash++;
+       }
+       else {
+           printf("n'est pas un equilibre de Nash\n");
+           //if(sommeConflits==0) printArbitre();
+       }
 
 }
