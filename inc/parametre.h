@@ -1,10 +1,15 @@
+#ifndef PARAMETRE_H
+#define PARAMETRE_H
+
+#include "struct.h"
+
 #include "stdio.h"
 #include "stdlib.h"
 #include "math.h"
 #include <time.h>
 /**********************************************************************parametre variable****************************************************************/
 //#define DEGRE 5//moyenne degré
-#define TIMES 1//nb répéter le jeu
+#define TIMES 10//nb répéter le jeu
 #define N 1e6//itération
 #define alpha 0.6 //alpha*beneficeGlobale()
 #define belta 0.4//belta*beneficeLocale
@@ -16,60 +21,60 @@
 //#define METHODE linearRewardPenalty;
 //#define METHODE linearRewardPenalty2
 
-//#define GRAPHE matrice
+#define GRAPHE matrice
 //#define GRAPHE graphe1
 //#define GRAPHE graphe2
-//#define GRAPHE graphe30
-#define GRAPHE graphe4
+//#define GRAPHE graphe3
+//#define GRAPHE graphe4
 //#define GRAPHE graphe5
 //#define GRAPHE graphe6
 
 #define maxTailleSommet 20//maxTailleSommet est la maximum nb sommet qu'on peut avoir dans le graphe
-int minTailleSommet=20;//minTailleSommet est la minimum nb sommet qu'on peut avoir dans le graphe
-int minDegre=20;
-int maxDegre=20;
+extern int minTailleSommet;//=6;//minTailleSommet est la minimum nb sommet qu'on peut avoir dans le graphe
+extern int minDegre;//=6;
+extern int maxDegre;//=6;
 
 
 /*********************************************************structure des données******************************************************************************/
-struct Sommet{
-    int index;
-    int couleur;
-    double benefice;
-    double maxBenefice;
-    double minBenefice;
-    int cliqueMax;
-    int nbrArrets;
-    int nbrConflits;
-    int coul_ss_graph;
-    double *vecteurStochastique;
-};
-typedef struct Sommet *Sommet;
+// struct Sommet{
+//     int index;
+//     int couleur;
+//     double benefice;
+//     double maxBenefice;
+//     double minBenefice;
+//     int cliqueMax;
+//     int nbrArrets;
+//     int nbrConflits;
+//     int coul_ss_graph;
+//     double *vecteurStochastique;
+// };
+// typedef struct Sommet *Sommet;
 
-struct Arbitre{
-    int tailleSommet;
-    int tailleArret;
-    int *matrice;
-    Sommet *listeSommet;
-};
-typedef struct Arbitre *Arbitre,A;
+// struct Arbitre{
+//     int tailleSommet;
+//     int tailleArret;
+//     int *matrice;
+//     Sommet *listeSommet;
+// };
+// typedef struct Arbitre *Arbitre,A;
 
 /*******************************************************************parametres fixés******************************************************************/
-Arbitre pArbitre;
-int couleurHeuristique;
-double nbrCouleur;//Nombre total des couleurs dans la graphe
-double nbStrategies;//(double) couleurHeuristique pour calculer
-int nbrColorationPropre;
-int sommeConflits;
-int *matriceRepartitionCouleurConflit;
-int tailleSommet;//ne change pas svp, utilise minTailleSommet et maxTailleSommet pour changer nb sommet du graphe
-int tailleArret;//ne change pas svp, utilise minTailleSommet et maxTailleSommet pour changer nb sommet du graphe
+extern Arbitre pArbitre;
+extern int couleurHeuristique;
+extern double nbrCouleur;//Nombre total des couleurs dans la graphe
+extern double nbStrategies;//(double) couleurHeuristique pour calculer
+extern int nbrColorationPropre;
+extern int sommeConflits;
+extern int *matriceRepartitionCouleurConflit;
+extern int tailleSommet;//ne change pas svp, utilise minTailleSommet et maxTailleSommet pour changer nb sommet du graphe
+extern int tailleArret;//ne change pas svp, utilise minTailleSommet et maxTailleSommet pour changer nb sommet du graphe
 
 /*apprandissage.h*/
-double r;//Number of actions
-int a;//this action
-double *p;//Probability vector,[p[0],p[1]...p[r]]
-double utilite;//Environmental response (P,Q,S)-> utilité
-FILE *F3;
+extern double r;//Number of actions
+extern int a;//this action
+extern double *p;//Probability vector,[p[0],p[1]...p[r]]
+extern double utilite;//Environmental response (P,Q,S)-> utilité
+
 
 /*graphe1 est graphe biparti de taille 6
 Lors d'attaindre l'équilibre de nash 1000 fois
@@ -78,13 +83,20 @@ Lors d'attaindre l'équilibre de nash 1000 fois
 Nombre de couleur total: 2
 Graphe de 6 sommets, nbColorationPropre obtenue est de 997 avec minCouleurs de 2, tauxColorationPropre est de 0.997000
  * */
-int graphe1[maxTailleSommet][maxTailleSommet]=
-        {0,1,0,1,0,1,
-         1,0,1,0,1,0,
-         0,1,0,1,0,1,
-         1,0,1,0,1,0,
-         0,1,0,1,0,1,
-         1,0,1,0,1,0};
+extern int graphe1[maxTailleSommet][maxTailleSommet];
+extern int graphe2[maxTailleSommet][maxTailleSommet];
+extern int graphe3[maxTailleSommet][maxTailleSommet];
+extern int graphe4[maxTailleSommet][maxTailleSommet];
+extern int graphe5[maxTailleSommet][maxTailleSommet];
+extern int graphe6[maxTailleSommet][maxTailleSommet];
+
+// extern int graphe1[maxTailleSommet][maxTailleSommet]=
+//         {0,1,0,1,0,1,
+//          1,0,1,0,1,0,
+//          0,1,0,1,0,1,
+//          1,0,1,0,1,0,
+//          0,1,0,1,0,1,
+//          1,0,1,0,1,0};
 /*graphe2 n'est pas un graphe biparti, Coloration minimum=3
 Lors d'attaindre l'équilibre de nash 1000 fois
 (nb couleurs: 2, nb conflits: 1) apparait 143 fois
@@ -93,14 +105,14 @@ Lors d'attaindre l'équilibre de nash 1000 fois
 Nombre de couleur total: 3
 Graphe de 7 sommets, nbColorationPropre obtenue est de 852 avec minCouleurs de 3, tauxColorationPropre est de 0.852000
  * */
-int graphe2[maxTailleSommet][maxTailleSommet]=
-        {0,1,0,1,0,1,0,
-         1,0,1,0,1,0,0,
-         0,1,0,1,0,1,0,
-         1,0,1,0,1,0,0,
-         0,1,0,1,0,1,1,
-         1,0,1,0,1,0,1,
-         0,0,0,0,1,1,0};
+// extern int graphe2[maxTailleSommet][maxTailleSommet]=
+//         {0,1,0,1,0,1,0,
+//          1,0,1,0,1,0,0,
+//          0,1,0,1,0,1,0,
+//          1,0,1,0,1,0,0,
+//          0,1,0,1,0,1,1,
+//          1,0,1,0,1,0,1,
+//          0,0,0,0,1,1,0};
 /*graphe3 est graphe biparti de taille 10
 Lors d'attaindre l'équilibre de nash 1000 fois
 (nb couleurs: 2, nb conflits: 0) apparait 941 fois
@@ -110,17 +122,17 @@ Lors d'attaindre l'équilibre de nash 1000 fois
 Nombre de couleur total: 2
 Graphe de 10 sommets, nbColorationPropre obtenue est de 941 avec minCouleurs de 2, tauxColorationPropre est de 0.941000
  * */
-int graphe3[maxTailleSommet][maxTailleSommet]=
-        {0,0,0,1,0,1,0,0,0,0,
-         0,0,1,0,1,0,0,0,0,0,
-         0,1,0,0,0,1,0,1,0,0,
-         1,0,0,0,1,0,0,0,0,0,
-         0,1,0,1,0,0,0,1,0,1,
-         1,0,1,0,0,0,1,0,1,0,
-         0,0,0,0,0,1,0,0,0,1,
-         0,0,1,0,1,0,0,0,1,0,
-         0,0,0,0,0,1,0,1,0,1,
-         0,0,0,0,1,0,1,0,1,0};
+// extern int graphe3[maxTailleSommet][maxTailleSommet]=
+//         {0,0,0,1,0,1,0,0,0,0,
+//          0,0,1,0,1,0,0,0,0,0,
+//          0,1,0,0,0,1,0,1,0,0,
+//          1,0,0,0,1,0,0,0,0,0,
+//          0,1,0,1,0,0,0,1,0,1,
+//          1,0,1,0,0,0,1,0,1,0,
+//          0,0,0,0,0,1,0,0,0,1,
+//          0,0,1,0,1,0,0,0,1,0,
+//          0,0,0,0,0,1,0,1,0,1,
+//          0,0,0,0,1,0,1,0,1,0};
 /*graphe4 est un graphe biparti, son taille 20
 
 fonction Benefice sousgraphe couleur
@@ -197,54 +209,54 @@ Process finished with exit code 0
 Nombre de couleur total: 2
 Graphe de 20 sommets, nbColorationPropre obtenue est de 5 avec minCouleurs de 2, tauxColorationPropre est de 0.500000
  * */
-int graphe4[maxTailleSommet][maxTailleSommet]=
-        {0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-         0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,
-         0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
-         1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-         0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,
-         1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
-         0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,
-         0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
-         0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,
-         0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
-         0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,
-         0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,
-         0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,
-         0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,
-         0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,
-         0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,
-         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,
-         0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,
-         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,
-         0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0};
+// extern int graphe4[maxTailleSommet][maxTailleSommet]=
+//         {0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+//          0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,
+//          0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+//          1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+//          0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,
+//          1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
+//          0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,
+//          0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
+//          0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,
+//          0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
+//          0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,
+//          0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,
+//          0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,
+//          0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,
+//          0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,
+//          0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,
+//          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,
+//          0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,
+//          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,
+//          0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0};
 /*graphe5 n'est pas un graphe biparti, son taille 20
 Lors d'attaindre l'équilibre de nash 10 fois
 (nb couleurs: 3, nb conflits: 0) apparait 9 fois
 (nb couleurs: 3, nb conflits: 1) apparait 1 fois
 Nombre de couleur total: 3
  * */
-int graphe5[maxTailleSommet][maxTailleSommet]=
-        {0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,
-         0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,
-         0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
-         1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-         0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,
-         1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
-         0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,
-         0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
-         0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,
-         0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
-         1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,
-         0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,
-         0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,
-         0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,
-         0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,
-         0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,
-         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,
-         0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,
-         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,
-         0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0};
+// extern int graphe5[maxTailleSommet][maxTailleSommet]=
+//         {0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,
+//          0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,
+//          0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+//          1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+//          0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,
+//          1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
+//          0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,
+//          0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
+//          0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,
+//          0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
+//          1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,
+//          0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,
+//          0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,
+//          0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,
+//          0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,
+//          0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,
+//          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,
+//          0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,
+//          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,
+//          0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0};
 /*graphe6 est graphe planaire de taille 6
 Lors d'attaindre l'équilibre de nash 1000 fois
 (nb couleurs: 2, nb conflits: 2) apparait 37 fois
@@ -255,13 +267,13 @@ Lors d'attaindre l'équilibre de nash 1000 fois
 Nombre de couleur total: 4
 Graphe de 6 sommets, nbColorationPropre obtenue est de 890 avec minCouleurs de 3, tauxColorationPropre est de 0.890000
  * */
-int graphe6[maxTailleSommet][maxTailleSommet]=
-        {0,1,1,1,0,1,
-         1,0,0,1,0,1,
-         1,0,0,1,1,0,
-         1,1,1,0,1,0,
-         0,0,1,1,0,1,
-         1,1,0,0,1,0};
+// extern int graphe6[maxTailleSommet][maxTailleSommet]=
+//         {0,1,1,1,0,1,
+//          1,0,0,1,0,1,
+//          1,0,0,1,1,0,
+//          1,1,1,0,1,0,
+//          0,0,1,1,0,1,
+//          1,1,0,0,1,0};
 
 int isVoisin(int ligne,int colonne);
 int calculerSommeConflits();
@@ -269,3 +281,5 @@ int calculerMinColorationPropre();
 /*free les mémoires*/
 void freeAll();
 void resetArbitre();
+
+#endif

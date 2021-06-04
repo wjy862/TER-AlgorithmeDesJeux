@@ -1,10 +1,11 @@
-
+#include "../inc/benefice.h"
+#include "../inc/struct.h"
 
 double beneficeLocale(Sommet pSommet){
     int nbcoul_sous_graphe = pSommet->coul_ss_graph;
     double nbrconflits=(double)pSommet->nbrConflits;
     double nbrArrets=(double)pSommet->nbrArrets;
-    double cliqueMaximale=(double)pSommet->cliqueMax;
+    int cliqueMaximale=pSommet->cliqueMax;
     if(nbrArrets==0||cliqueMaximale==0) exit(246);//denominateur ne peut etre 0
     //double benefice=(1.0-(nbrconflits/nbrArrets));
 

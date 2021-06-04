@@ -1,7 +1,0 @@
-set term pdf
-set output "mm1_2.pdf"
-set xlabel "tour"
-set ylabel "Nb conflict"
-plot "Conflicts.data" with lp
-set ylabel "Nb Strategies"
-plot "Colors.data" with lp

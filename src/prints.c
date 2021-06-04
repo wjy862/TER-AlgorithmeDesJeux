@@ -1,3 +1,6 @@
+#include "../inc/prints.h"
+#include "../inc/struct.h"
+
 //prints
 int printMatice(int *thisMatrice){
     //printf("tailleSommet: %d\n", thisTailleSommet);
