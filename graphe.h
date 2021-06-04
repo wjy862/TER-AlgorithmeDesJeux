@@ -247,7 +247,7 @@ int* initGraphe(){
     int** sousgraphe = NULL;
     int taille = 0;
     sousgraphe = getSousGraphe(res,2,size,&taille);
-    /*for(int i=0;i<size;i++)
+    for(int i=0;i<size;i++)
     {
         for(int j=0;j<size;j++)
         {
@@ -257,7 +257,7 @@ int* initGraphe(){
         }
         printf("\n");
         //fprintf(F3,"\n");
-    }*/
+    }
     //printf("sous graphe:\n");
     /*for(int i=0;i<taille;i++)
     {

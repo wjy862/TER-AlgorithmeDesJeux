@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 void initMatriceRepartitionCouleurConflit(){
     for (int k = 0; k < maxTailleSommet+1; k++) {
         for (int m = 0; m < (((maxTailleSommet-1)*(maxTailleSommet))/2); m++) {
@@ -88,6 +90,9 @@ void commenceDuJeu(int *matrice, int count){
 
     /*Imprimer tout la stucture Arbitre*/
     //printArbitre();
+    //printMatice(matrice);
+    //printMatice(pArbitre->matrice);
+    //sleep(2);
 
     /*free les mémoires*/
     freeAll();
@@ -99,7 +104,6 @@ void freeAll(){
     }
     free(pArbitre->listeSommet);
     free(pArbitre);
-
 }
 
 void  resetSommet(Sommet pSommet){

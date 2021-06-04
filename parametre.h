@@ -4,7 +4,7 @@
 #include <time.h>
 /**********************************************************************parametre variable****************************************************************/
 //#define DEGRE 5//moyenne degré
-#define TIMES 10//nb répéter le jeu
+#define TIMES 1//nb répéter le jeu
 #define N 1e6//itération
 #define alpha 0.6 //alpha*beneficeGlobale()
 #define belta 0.4//belta*beneficeLocale
@@ -16,18 +16,18 @@
 //#define METHODE linearRewardPenalty;
 //#define METHODE linearRewardPenalty2
 
-#define GRAPHE matrice
+//#define GRAPHE matrice
 //#define GRAPHE graphe1
 //#define GRAPHE graphe2
-//#define GRAPHE graphe3
-//#define GRAPHE graphe4
+//#define GRAPHE graphe30
+#define GRAPHE graphe4
 //#define GRAPHE graphe5
 //#define GRAPHE graphe6
 
 #define maxTailleSommet 20//maxTailleSommet est la maximum nb sommet qu'on peut avoir dans le graphe
-int minTailleSommet=6;//minTailleSommet est la minimum nb sommet qu'on peut avoir dans le graphe
-int minDegre=6;
-int maxDegre=6;
+int minTailleSommet=20;//minTailleSommet est la minimum nb sommet qu'on peut avoir dans le graphe
+int minDegre=20;
+int maxDegre=20;
 
 
 /*********************************************************structure des données******************************************************************************/
@@ -69,7 +69,7 @@ double r;//Number of actions
 int a;//this action
 double *p;//Probability vector,[p[0],p[1]...p[r]]
 double utilite;//Environmental response (P,Q,S)-> utilité
-
+FILE *F3;
 
 /*graphe1 est graphe biparti de taille 6
 Lors d'attaindre l'équilibre de nash 1000 fois
