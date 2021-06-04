@@ -4,6 +4,7 @@
 
 void initMatriceRepartitionCouleurConflit();
 int* initParametres(int nbrSommet,int minDegre);
+int nash();
 int run();
 void commenceColoration();
 void commenceDuJeu(int *matrice, int count);

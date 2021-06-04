@@ -134,9 +134,11 @@ int main() {
                 commenceDuJeu(matrice,count);
             
             }
-
             /*nbr des fois obtenus de la coloration propre pour TIMES fois du jeu et sa répartition*/
             printMatice(tailleSommet,tailleArret,pArbitre->matrice);
+            printf("L'etat ici ");
+            if(nash()) printf("est un equilibre de Nash\n");
+            else printf("n'est pas un equilibre de Nash\n");
             freeAll();            
             //exit(3);            
             printNbrCouleursEtNbrConflits();

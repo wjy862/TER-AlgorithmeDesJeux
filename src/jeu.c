@@ -53,13 +53,44 @@ int run(){
     /*Reinforcement learning*/
     return updateVecteurStochastique();//return 1, si max probability > threshold (typically 0.999) -> equilibre de nash
 }
+
+int nash()
+{
+    int couleur = 0; 
+    double tmp = 0.0;
+    //double benefice = 0.0;
+    double utilite = 0.0;
+    for(int i =0;i<pArbitre->tailleSommet;i++)
+    {
+        couleur = pArbitre->listeSommet[i]->couleur;
+        utilite = calculerUtilite(pArbitre->listeSommet[i]);
+            for(int j =0;j<(int)nbrCouleur;j++)
+            {
+                if(j == couleur) continue;
+                pArbitre->listeSommet[j]->couleur = j;
+                pArbitre->listeSommet[j]->benefice = fonctionBenefice(pArbitre->listeSommet[j]);
+                tmp = calculerUtilite(pArbitre->listeSommet[j]);
+                 
+                if((utilite - tmp) < 0.0)
+                {
+                    //printf("%lf\n",utilite-tmp);
+                    pArbitre->listeSommet[j]->couleur = couleur;
+                    return 0;
+                }
+            }
+        pArbitre->listeSommet[i]->couleur = couleur;
+
+    }
+    return 1;
+}
+
 void commenceColoration(){
     FILE *F,*F1;
     F = fopen("data/Conflicts.data","w");
     F1 = fopen("data/Colors.data","w");
     for (int tour = 0; tour < N; tour++) {
         if(run()==1) break;//run()==1, si max probability > threshold (typically 0.999) -> equilibre de nash
-        //if(tour%100 == 0)
+        if(tour%100 == 0)
         {
             fprintf(F,"%d %d\n",tour,calculerSommeConflits());
             fprintf(F1,"%d %d\n",tour,(int)nbrCouleur);
