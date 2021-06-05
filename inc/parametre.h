@@ -18,8 +18,8 @@
 #define THRESHOULD 0.999//Seuil de probabilité à atteindre
 
 #define METHODE linearRewardInaction
-//#define METHODE linearRewardPenalty;
-//#define METHODE linearRewardPenalty2
+//#define METHODE linearRewardPenalty
+//#define METHODE linearRewardPenalty2make
 
 #define GRAPHE matrice
 //#define GRAPHE graphe1
@@ -68,6 +68,7 @@ extern int sommeConflits;
 extern int *matriceRepartitionCouleurConflit;
 extern int tailleSommet;//ne change pas svp, utilise minTailleSommet et maxTailleSommet pour changer nb sommet du graphe
 extern int tailleArret;//ne change pas svp, utilise minTailleSommet et maxTailleSommet pour changer nb sommet du graphe
+extern int nbNash;
 
 /*apprandissage.h*/
 extern double r;//Number of actions
@@ -281,5 +282,5 @@ int calculerMinColorationPropre();
 /*free les mémoires*/
 void freeAll();
 void resetArbitre();
-
+int nash();
 #endif

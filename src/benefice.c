@@ -52,7 +52,6 @@ void updateBenefice(Sommet pSommet){
 void calculerBenefice(){
     //printf("\nBeginning of calculerBenefice\n");
     nbStrategies=(double)couleurHeuristique;
-
     for (int i = 0; i < pArbitre->tailleSommet; ++i) {
         updateBenefice(pArbitre->listeSommet[i]);
     }

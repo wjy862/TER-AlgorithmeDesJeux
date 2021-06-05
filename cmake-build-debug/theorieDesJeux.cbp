@@ -76,22 +76,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/apprendissage.h">
-			<Option target="theorieDesJeux"/>
-		</Unit>
-		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/benefice.h">
-			<Option target="theorieDesJeux"/>
-		</Unit>
-		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/jeu.h">
-			<Option target="theorieDesJeux"/>
-		</Unit>
 		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/main.c">
-			<Option target="theorieDesJeux"/>
-		</Unit>
-		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/parametre.h">
-			<Option target="theorieDesJeux"/>
-		</Unit>
-		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/prints.h">
 			<Option target="theorieDesJeux"/>
 		</Unit>
 		<Unit filename="/home/ubuntu/CLionProjects/TER-AlgorithmeDesJeux/CMakeLists.txt">

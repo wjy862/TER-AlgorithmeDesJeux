@@ -95,8 +95,9 @@ void printNbrCouleursEtNbrConflits(){
 void printNbrColorationPropre(int nbrSommet,double pourcentage){
     //FILE *F3;
     //F3 = fopen("logs1.data","a+");
-    printf("Lors d'attaindre l'équilibre de nash %d fois\n",TIMES);
+    printf("\nDuant %d fois de la simuation,pour un graphe de %d sommets (moyen degre: %d)\n",TIMES,nbrSommet,minDegre);
     //fprintf(F3,"Lors d'attaindre l'équilibre de nash %d fois\n",TIMES);
+
     for (int k = 1; k < couleurHeuristique+1; k++) {
         for (int m = 0; m < (((maxTailleSommet-1)*(maxTailleSommet))/2); m++) {
             if((*(matriceRepartitionCouleurConflit+k*(((maxTailleSommet-1)*(maxTailleSommet))/2)+m))==0) continue;
@@ -104,26 +105,30 @@ void printNbrColorationPropre(int nbrSommet,double pourcentage){
             //fprintf(F3,"(nb couleurs: %d, nb conflits: %d) apparait %d fois\n", k,m,(*(matriceRepartitionCouleurConflit+k*(((maxTailleSommet-1)*(maxTailleSommet))/2)+m)));
         }
     }
-
     int minColorationPropre=calculerMinColorationPropre();
-    printf("Graphe de %d sommets (moyen degre: %d), nbColorationPropre obtenue est de %d avec minCouleurs de %d, tauxColorationPropre est de %lf\n\n\n",nbrSommet,minDegre,nbrColorationPropre,minColorationPropre,pourcentage);
+    printf("nbColorationPropre obtenue est de %d fois avec minCouleurs de %d, tauxColorationPropre est de %lf\n",nbrColorationPropre,minColorationPropre,pourcentage);
+    printNash();
+    printf("\n\n");
     //fprintf(F3,"Graphe de %d sommets (moyen degre: %d), nbColorationPropre obtenue est de %d avec minCouleurs de %d, tauxColorationPropre est de %lf\n\n\n",nbrSommet,minDegre,nbrColorationPropre,1,pourcentage);
     //fclose(F3);
    }
+    void  printNash(){
+        printf("l'équilibre de nash obtenue est de %d fois, tauxNash est de %lf\n",nbNash,((double)nbNash)/((double)TIMES));
+    }
 
-/*apprendissage.h*/
-void printR(double r){
-    printf("Number of actions: %lf\n",r);
-}
-void printA(double a){
-    printf("this action: %lf\n",a);
-}
-void printP(double p){
-    printf("Probability vector: %lf\n",p);
-}
-void printUtilite(double utilite){
-    printf("Environmental response (P,Q,S): %lf\n",utilite);
-}
-void printProbabilite(Sommet pSommet,int index){
-    printf("pour sommet %d, la couleur %d a une proba de: %lf\n",pSommet->index,index,pSommet->vecteurStochastique[index]);
-}
+    /*apprendissage.h*/
+    void printR(double r){
+        printf("Number of actions: %lf\n",r);
+    }
+    void printA(double a){
+        printf("this action: %lf\n",a);
+    }
+    void printP(double p){
+        printf("Probability vector: %lf\n",p);
+    }
+    void printUtilite(double utilite){
+        printf("Environmental response (P,Q,S): %lf\n",utilite);
+    }
+    void printProbabilite(Sommet pSommet,int index){
+        printf("pour sommet %d, la couleur %d a une proba de: %lf\n",pSommet->index,index,pSommet->vecteurStochastique[index]);
+    }

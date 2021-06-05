@@ -509,7 +509,7 @@ int initNbrColoration(){
     //printf("\nEnd of heuristiqueColoration\n");
     return couleurHeuristique;
 }
-/*calculer Minimal Coloration Propre parmi les 1000 fois*/
+/*calculer Minimal Coloration Propre parmi les TIME fois*/
 int calculerMinColorationPropre(){
     int min=RAND_MAX;
     printf("Nombre de couleur total: %d\n",couleurHeuristique);
@@ -521,16 +521,17 @@ int calculerMinColorationPropre(){
     return min;
 }
 /*calculer la distribution des couleurs/conflits parmi les 1000 fois*/
-void calculerNbrCouleursEtNbrConflits() {
+void calculerNbrCouleursNbrConflitsNbNash() {
     (*(matriceRepartitionCouleurConflit + (int) nbrCouleur * (((maxTailleSommet-1)*(maxTailleSommet))/2) + sommeConflits))++;
-    printf("(nb couleurs: %d, nb conflits: %d). ", (int) nbrCouleur, sommeConflits);
-    printf("L'etat ici ");
+    //printf("(nb couleurs: %d, nb conflits: %d). ", (int) nbrCouleur, sommeConflits);
+    //printf("L'etat ici ");
        if(nash()){
-           printf("est un equilibre de Nash\n");
+           //printf("est un equilibre de Nash\n");
+           /*imcrément 1, si c'est un équilibre de nash pour cette matrice*/
            nbNash++;
        }
        else {
-           printf("n'est pas un equilibre de Nash\n");
+           //printf("n'est pas un equilibre de Nash\n");
            //if(sommeConflits==0) printArbitre();
        }
 

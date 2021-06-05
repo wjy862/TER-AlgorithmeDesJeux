@@ -105,7 +105,7 @@ int sommeConflits;
 int *matriceRepartitionCouleurConflit;
 int tailleSommet;//ne change pas svp, utilise minTailleSommet et maxTailleSommet pour changer nb sommet du graphe
 int tailleArret;//ne change pas svp, utilise minTailleSommet et maxTailleSommet pour changer nb sommet du graphe
-
+int nbNash;
 
 /*apprandissage.h*/
 double r;//Number of actions
@@ -130,15 +130,13 @@ int main() {
         for (; minTailleSommet <= maxTailleSommet; minTailleSommet++) {/*générer des graphes de minTailleSommet sommets à maxTailleSommet sommets*/
             int *matrice =initParametres(minTailleSommet,minDegre);
             for (int count = 1; count <=TIMES; count++) { /*répéter TIMES fois le jeu à trouver equilibre de nash*/
-                
                 commenceDuJeu(matrice,count);
-            
             }
             /*nbr des fois obtenus de la coloration propre pour TIMES fois du jeu et sa répartition*/
-            printMatice(tailleSommet,tailleArret,pArbitre->matrice);
-            printf("L'etat ici ");
+            //printMatice(tailleSommet,tailleArret,pArbitre->matrice);
+            /*printf("L'etat ici ");
             if(nash()) printf("est un equilibre de Nash\n");
-            else printf("n'est pas un equilibre de Nash\n");
+            else printf("n'est pas un equilibre de Nash\n");*/
             freeAll();            
             //exit(3);            
             printNbrCouleursEtNbrConflits();

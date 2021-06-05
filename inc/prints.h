@@ -21,7 +21,7 @@ void printVoisinsNonColorie(int *voisinsNonColorie,int tailleVoisinNonColorie);
 void printTailleVoisinNonColorie(int tailleVoisinNonColorie);
 void printNbrCouleursEtNbrConflits();
 void printNbrColorationPropre(int nbrSommet,double pourcentage);
-
+void printNash();
 /*apprendissage.h*/
 void printR(double r);
 void printA(double a);

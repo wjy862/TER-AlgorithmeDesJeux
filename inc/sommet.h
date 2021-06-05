@@ -32,7 +32,7 @@ int* calculerVoisinsNonColorie(int *sommetsColorie,int tailleSommetsColorie,int 
 int heuristiqueColoriser(int count,int *sommetsColorie,int tailleSommetsColorie,int *voisinsNonColorie,int tailleVoisinNonColorie);
 int initNbrColoration();
 int calculerMinColorationPropre();
-void calculerNbrCouleursEtNbrConflits();
+void calculerNbrCouleursNbrConflitsNbNash();
 #endif
 
 
